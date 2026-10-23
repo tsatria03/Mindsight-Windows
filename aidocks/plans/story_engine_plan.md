@@ -29,6 +29,7 @@ Plan 4 ([[reading_original_plan]] lists the order). It stands on [[foundation_pl
   - A swipe key does nothing until the recording playing has finished, wherever the original locked input: after every swipe it acted on, and for the whole of scenes 39 and 43, the tones and the safe. It turns on as a recording ends and stays on into the next scene; scene 35, the piranha loop, turns it on at once.
   - Before a timed scene's cue time, a swipe key does nothing.
   - An ignored key is never a failure and makes no sound, so nothing can be mistaken for the buzz.
+- **The ending's quirk is fixed: the credits always follow the ending** (the dev, 2026-10-22: "I want this fixed."). A departure from the original, where `whichFailure` is never cleared, so after a run with any failure, scene 55 ending sent the player to that failure's retry point instead of the credits (0x100006d24, [[project_original_behaviour]]). In the port, the failure is cleared when scene 55 begins, so its end always leads to scene 5, the credits. Every other use of the failure, the Rewind's retry points, is unchanged.
 - **The buzz** plays at each timed scene's cue and when a waiting scene's recording ends, where the original vibrated, once per recording ([[audio_plan]]).
 - **The keys** are the four swipes and the double tap, as [[foundation_plan]] fixes them.
 - **The story's timers run on the timer loop**, held while paused.
@@ -38,6 +39,6 @@ Plan 4 ([[reading_original_plan]] lists the order). It stands on [[foundation_pl
 
 Asked one at a time; each answer moves into Decided.
 1. Answered: the input lock, kept, with ignored keys silent.
-2. **The ending's quirk:** after a run with any failure, the original resumes that failure's retry point instead of the credits. Keep it, or fix it so the credits always follow the ending.
+2. Answered: the ending's quirk, fixed.
 3. **Swipes while paused:** the original still acts on a swipe while paused. Keep it, or ignore swipes while paused.
 4. **The window's text during the story:** what the sighted helper sees for each scene, such as its number and recording name.

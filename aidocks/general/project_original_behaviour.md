@@ -121,7 +121,7 @@ A fail scene, or a timed round that runs out, leads to scene 0, `Rewind`. When i
 
 ## The ending's quirk
 
-`whichFailure` is set on every failure and **never cleared**; it is not saved, so a relaunch starts it at 0. When scene 55 ends, `playNextScene` sets scene 5, the credits, and then falls into the Rewind's code above, which reads `whichFailure` (0x100006d24). So if the player failed any puzzle during this run, the ending resumes that puzzle's retry point instead of playing the credits; only a run with no failures reaches the credits. This looks like a bug in the original. Whether the port keeps it is the dev's call ([[project_later_topics]]).
+`whichFailure` is set on every failure and **never cleared**; it is not saved, so a relaunch starts it at 0. When scene 55 ends, `playNextScene` sets scene 5, the credits, and then falls into the Rewind's code above, which reads `whichFailure` (0x100006d24). So if the player failed any puzzle during this run, the ending resumes that puzzle's retry point instead of playing the credits; only a run with no failures reaches the credits. This looks like a bug in the original, and the port fixes it, at the dev's word: the credits always follow the ending ([[story_engine_plan]]).
 
 ## Saving
 
