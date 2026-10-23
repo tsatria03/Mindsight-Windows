@@ -6,7 +6,10 @@ what it says: each call returns a list of effects, such as ``Play(15, 0.0)`` and
 with the port's changes:
 
 * the failure is cleared as scene 55 begins, so the credits always follow the ending;
-* the screen sends no swipes while paused, so a swipe while paused does nothing.
+* the screen sends no swipes while paused, so a swipe while paused does nothing;
+* the buzz resets whenever a scene starts, so street rounds 2 and 3 buzz at their cue.
+  In the original, ``justVibrated`` was cleared only as a recording ended of itself, so
+  those two rounds, reached by answering, never vibrated.
 
 The input lock, ``userInputAvailable``, starts closed, so the main menu must be heard to
 the end. It opens as a recording ends of itself, and stays open into the next scene;
@@ -15,9 +18,7 @@ it again. A timed scene ignores a swipe until it is past its gate.
 
 The buzz, ``justVibrated`` in the original, comes once per recording: at a timed scene's
 cue, or after a recording ends of itself when the scene then current is one of
-CUE_AT_END. Like the original, it is reset only as a recording ends of itself, so a scene
-reached by an answer, before the last one ended, carries the last one's buzz over: street
-rounds 2 and 3 never buzz at their cue.
+CUE_AT_END.
 """
 from __future__ import annotations
 
@@ -49,6 +50,7 @@ class Story:
         """The effects of starting ``scene`` at ``at`` seconds: it plays, and the input
         lock opens or closes as the original's playScene:fromInterval: does."""
         self.scene = scene
+        self.buzzed = False             # the port's fix: every scene can buzz at its cue
         if scene in S.LOCKED_WHILE_PLAYING:
             self.input_open = False
         elif scene in S.OPEN_AT_START:

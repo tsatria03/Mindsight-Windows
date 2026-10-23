@@ -78,8 +78,9 @@ def test_the_street_rounds():
     assert story.tick(13.0) == [BUZZ]
     assert story.swipe('right', 13.1) == [SOLVED, Play(15, 0.0)]
     assert story.input_open                          # rounds 1 and 2 leave the lock open
-    assert story.tick(11.0) == []                    # the original's carried-over vibration
+    assert story.tick(10.9) == [] and story.tick(11.0) == [BUZZ]     # the port's fix: round 2 buzzes
     assert story.swipe('up', 10.1) == [SOLVED, Play(16, 0.0)]
+    assert story.tick(11.0) == [BUZZ]                                 # and round 3
     assert story.swipe('left', 10.1) == [SOLVED, Play(17, 0.0)]
     assert story.ended() == [Save(19), Play(19, 0.0)]
 
