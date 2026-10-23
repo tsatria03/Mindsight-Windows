@@ -30,7 +30,7 @@ The `[[name]]` links in `CLAUDE.md` and across these notes resolve to `aidocks/g
 - [Next section on a pass](feedback_next_section_on_pass.md): a plan with by-ear tests is built a section at a time, one with none built whole; on a pass, mark and commit it, then build the next; not across plans.
 - [Say ear tests ahead](feedback_say_ear_tests_ahead.md): before each section, list the by-ear tests, sound and speech, each optional or mandatory; remind the dev of a mandatory one not reported on.
 - [Grow check tools](feedback_grow_check_tools.md): a plan's by-ear tool starts in its first audible section and grows with each section.
-- [Test tools in interact](feedback_test_tools_in_interact.md): by-ear tools go in tests/interact/, never in the game's menus.
+- [Test tools in interact](feedback_test_tools_in_interact.md): by-ear tools go in tests/interact/, never in the game's menus; each quits with Escape or Alt+F4, and W and S work as Up and Down.
 - [Don't run or build](feedback_dont_run_or_build.md): never build unless told; ask before running anything that plays sound or speaks.
 - [Git commits](feedback_git_commits.md): one commit per change, commit without asking, push only when a plan is finished and its docs updated; git commit -F from Git Bash.
 - [GitHub usernames](feedback_use_github_usernames.md): tsatria03 and the noreply address, never real names.

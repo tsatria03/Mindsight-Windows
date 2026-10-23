@@ -9,8 +9,9 @@ untouched.
 
 The game's keys, each spoken with its meaning:
     Arrow keys, or W, A, S and D    the four swipes
-    Escape, Enter or P              the double tap, which pauses and resumes
+    Enter or P                      the double tap, which pauses and resumes
     Any of them with Shift, Control, Alt or the Windows key held: ignored, as in the game
+Escape is the game's pause too, but here it quits, as it does in every tool.
 
 The tool's own keys:
     1        show the message box for missing recordings, as the game would
@@ -18,7 +19,7 @@ The tool's own keys:
     T        start a 10-second countdown on the timer loop, spoken each second
     Space    hold the timer loop, or resume it
     H        say the keys again
-    F10      quit
+    Escape   quit, as does Alt+F4
 
 Switching away from the window, and back, is spoken too. The message boxes are the
 game's own, with the game's own text: only their cause is pretend. Key 2 writes a
@@ -46,10 +47,10 @@ from mindsight.platform import keys, msgbox, runloop  # noqa: E402
 from mindsight.ui.screens import Screen  # noqa: E402
 import _nvda  # noqa: E402
 
-KEYS = ('Foundation check. The arrow keys or W, A, S and D are the swipes, and Escape, Enter or P '
+KEYS = ('Foundation check. The arrow keys or W, A, S and D are the swipes, and Enter or P '
         'is the pause. Press 1 for the missing recordings message, 2 for the crash message, '
         'T for a countdown, Space to hold or resume the timers, H to hear the keys again, '
-        'or F10 to quit.')
+        'or Escape to quit.')
 COUNTDOWN = 10
 #: Seconds after a message box closes in which focus changes are not spoken: the box
 #: itself takes the keyboard and gives it back, and NVDA has just read it.
@@ -77,6 +78,10 @@ class CheckScreen(Screen):
     def gesture(self, gesture):
         self.say(keys.LABELS[gesture] + '.')
 
+    def quit(self):
+        _nvda.say('Quitting the foundation check.')
+        self.app.quit()
+
     def ignored_key(self, key, mods):
         self.say('%s, ignored.' % keys.key_label(key, mods))
 
@@ -96,9 +101,6 @@ class CheckScreen(Screen):
             self.hold_or_resume()
         elif key == 'h':
             self.say(KEYS)
-        elif key == 'f10':
-            _nvda.say('Quitting the foundation check.')
-            self.app.quit()
 
     def show(self, message, what):
         self.say('Showing %s.' % what)
@@ -144,6 +146,16 @@ class CheckScreen(Screen):
                 'Timers held.' if self.app.loop.held else 'Timers running.']
 
 
+class CheckApp(App):
+    """The game's App, but Escape quits, as it does in every tool, before the game's keys see it."""
+
+    def key_down(self, key, mods):
+        if key == 'escape' and not mods and self.stack.top is not None:
+            self.stack.top.quit()
+            return
+        super().key_down(key, mods)
+
+
 def main(argv=None):
     argv = sys.argv[1:] if argv is None else argv
     exit_after = float(argv[argv.index('--exit-after') + 1]) if '--exit-after' in argv else None
@@ -151,7 +163,7 @@ def main(argv=None):
     Mindsight.log.info('foundation check starting; save folder %s', paths.user_dir())
     try:
         import pygame
-        app = App(Mindsight.parse_args(['--exit-after', str(exit_after)] if exit_after else []),
+        app = CheckApp(Mindsight.parse_args(['--exit-after', str(exit_after)] if exit_after else []),
                   title='Mindsight foundation check')
         app.run(CheckScreen(app), pygame)
         Mindsight.log.info('foundation check closed')

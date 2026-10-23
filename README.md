@@ -65,7 +65,9 @@ The tools in `tests/interact/` are for trying things by ear. Each speaks through
 
     python tests/interact/foundation_check.py
 
-- `foundation_check.py`: the game's own keys and timers, each key spoken with its meaning and a key with a modifier spoken as ignored. 1 and 2 show the game's two message boxes for real, T starts a countdown, Space holds or resumes it, switching windows is spoken, H says the keys again, and F10 quits.
+Every tool quits with Escape or Alt+F4, and wherever a tool uses Up or Down, W or S does the same.
+
+- `foundation_check.py`: the game's own keys and timers, each key spoken with its meaning and a key with a modifier spoken as ignored; the pause is Enter or P here, since Escape quits. 1 and 2 show the game's two message boxes for real, T starts a countdown, Space holds or resumes it, switching windows is spoken, and H says the keys again.
 
 ## The tools
 
