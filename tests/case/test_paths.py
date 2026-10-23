@@ -2,6 +2,7 @@
 and that every test file imports _quiet first."""
 import _quiet  # noqa: F401  (first, before any of the game)
 
+import ast
 import os
 import tempfile
 
@@ -57,8 +58,11 @@ def test_every_test_file_imports_quiet_first():
         if not name.endswith('.py') or name.startswith('_'):
             continue
         with open(os.path.join(HERE, name), encoding='utf-8') as f:
-            imports = [line for line in f if line.startswith(('import ', 'from '))]
-        assert imports and imports[0].startswith('import _quiet'), '%s does not import _quiet first' % name
+            tree = ast.parse(f.read())
+        # The first import statement in the code, never a line of a docstring.
+        first = next(node for node in tree.body if isinstance(node, (ast.Import, ast.ImportFrom)))
+        ok = isinstance(first, ast.Import) and first.names[0].name == '_quiet'
+        assert ok, '%s does not import _quiet first' % name
 
 
 _quiet.run_tests(globals())

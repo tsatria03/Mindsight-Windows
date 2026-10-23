@@ -6,6 +6,12 @@
 * The Solved player plays ``Solved`` on a channel of its own, at 0.2, the original's
   volume, over the start of the next scene (playSolvedSound, 0x1000073a0).
 * The pause player plays the pause clips, ``pause_menu`` and ``WelcomeBack``, on another.
+* The buzz, made in memory (platform/buzz.py), plays on a third, where the original vibrated.
+
+Losing focus works like the original's interruption (interruptedPlayer:, 0x100007b64):
+the scene pauses at once; coming back steps it back 3 seconds, plays ``WelcomeBack``, and
+leaves it paused until it is resumed. If nothing was playing, coming back plays
+``WelcomeBack`` only.
 
 The mixer opens at 44,100 Hz, 16-bit stereo, so the binaural recordings play untouched;
 the 22,050 Hz sounds in system/misc are resampled by the mixer. There are no volumes of
@@ -28,7 +34,9 @@ log = logging.getLogger('audio')
 FREQUENCY, SIZE, CHANNELS, BUFFER = 44100, -16, 2, 1024
 #: Solved's volume, from the binary: setVolume: 0.2 at 0x1000074dc.
 SOLVED_VOLUME = 0.2
-SOLVED_CHANNEL, CLIP_CHANNEL = 0, 1
+SOLVED_CHANNEL, CLIP_CHANNEL, BUZZ_CHANNEL = 0, 1, 2
+#: How far an interruption steps the scene back: currentTime - 3 at 0x100007bb4.
+STEP_BACK = 3.0
 #: A scene playing less than this is never taken to have ended.
 END_GRACE = 0.25
 
@@ -56,6 +64,7 @@ class ScenePlayer:
         self.paused_for = 0.0
         self.ended = False
         self.on_end = None
+        self.resume_from = None     # where resume() plays from, after a step back
 
     def play(self, recording, start=0.0, loop=False, on_end=None):
         """Play ``recording`` from ``start`` seconds, looping forever if ``loop``. A
@@ -67,7 +76,7 @@ class ScenePlayer:
         music.play(loops=-1 if loop else 0, start=start)
         self.recording, self.loop, self.start = recording, loop, start
         self.started_at, self.paused_at, self.paused_for = runloop.clock(), None, 0.0
-        self.ended, self.on_end = False, on_end
+        self.ended, self.on_end, self.resume_from = False, on_end, None
         log.info('scene: %s from %.1f s%s', recording.name, start, ', looping' if loop else '')
 
     def stop(self):
@@ -89,10 +98,20 @@ class ScenePlayer:
             self.paused_at = runloop.clock()
 
     def resume(self):
+        if not self.paused:
+            return
+        if self.resume_from is not None:
+            # Stepped back while paused: play on from there, as the same scene.
+            self.play(self.recording, self.resume_from, self.loop, self.on_end)
+            return
+        self.paused_for += runloop.clock() - self.paused_at
+        self.paused_at = None
+        self.pygame.mixer.music.unpause()
+
+    def step_back(self, seconds=STEP_BACK):
+        """While paused, move the point it resumes from back by ``seconds``."""
         if self.paused:
-            self.paused_for += runloop.clock() - self.paused_at
-            self.paused_at = None
-            self.pygame.mixer.music.unpause()
+            self.resume_from = max(0.0, self.position() - seconds)
 
     def played_for(self, now=None):
         """Seconds the scene has played since it started, not counting pauses."""
@@ -106,6 +125,8 @@ class ScenePlayer:
         """Where in the recording it is, in seconds; within the recording when it loops."""
         if self.recording is None:
             return 0.0
+        if self.resume_from is not None:
+            return self.resume_from
         length = self.recording.length
         at = self.start + self.played_for(now)
         if self.loop and length > 0:
@@ -126,7 +147,7 @@ class ScenePlayer:
 
 
 class Audio:
-    """The mixer and the three players."""
+    """The mixer, the three players and the buzz."""
 
     _shared = None
 
@@ -139,6 +160,7 @@ class Audio:
     def __init__(self):
         self.pygame = None
         self.scene = None
+        self.buzz = None
         self._sounds = {}
 
     @property
@@ -155,9 +177,11 @@ class Audio:
         except Exception as error:
             log.error('no sound device could be opened: %s', error)
             raise NoSound(NO_SOUND_MESSAGE) from error
-        pygame.mixer.set_reserved(2)
+        pygame.mixer.set_reserved(3)
         self.pygame = pygame
         self.scene = ScenePlayer(pygame)
+        from . import buzz
+        self.buzz = buzz.sound(pygame)
         log.info('sound opened: %s', pygame.mixer.get_init())
 
     def close(self):
@@ -165,7 +189,7 @@ class Audio:
             return
         self.pygame.mixer.music.stop()
         self.pygame.mixer.quit()
-        self.scene, self._sounds = None, {}
+        self.scene, self._sounds, self.buzz = None, {}, None
 
     def _sound(self, recording):
         sound = self._sounds.get(recording.name)
@@ -186,6 +210,24 @@ class Audio:
 
     def stop_clip(self):
         self.pygame.mixer.Channel(CLIP_CHANNEL).stop()
+
+    def play_buzz(self):
+        """The buzz, over whatever is playing, where the original vibrated."""
+        self.pygame.mixer.Channel(BUZZ_CHANNEL).play(self.buzz)
+
+    def focus_lost(self):
+        """The window lost the keyboard: the scene pauses at once."""
+        if self.ok:
+            self.scene.pause()
+
+    def focus_gained(self, welcome_back):
+        """The window has the keyboard again: the scene steps back 3 seconds and stays
+        paused, and ``welcome_back``, the WelcomeBack recording, plays; with nothing
+        playing, WelcomeBack only."""
+        if not self.ok:
+            return
+        self.scene.step_back()
+        self.play_clip(welcome_back)
 
     def update(self, now=None):
         """Called once a frame."""

@@ -190,6 +190,48 @@ def test_no_sound_device():
     assert not audio.ok
 
 
+def test_losing_focus_pauses_and_coming_back_steps_back():
+    p, music, clock = player()
+    p.play(rec('36_roof_entry_scene'), 112)
+    clock.now += 10
+    p.pause()                                   # focus lost
+    clock.now += 30
+    p.step_back()                               # focus gained
+    assert p.paused and abs(p.position() - 119) < 1e-9
+    p.resume()
+    assert music.calls[-1] == ('play', 0, 119.0) and not p.paused
+    clock.now += 2
+    assert abs(p.position() - 121) < 1e-9
+
+
+def test_stepping_back_never_goes_before_the_start():
+    p, music, clock = player()
+    p.play(rec('16_street_puzzle_fail'))
+    clock.now += 1
+    p.pause()
+    p.step_back()
+    assert p.position() == 0.0
+
+
+def test_focus_through_the_audio():
+    runloop.clock = Clock()
+    audio = Audio()
+    audio.open(pygame)
+    try:
+        audio.scene.play(rec('36_roof_entry_scene'), 112)
+        runloop.clock.now += 5
+        audio.focus_lost()
+        assert audio.scene.paused
+        audio.focus_gained(rec(scenes.WELCOME_BACK))
+        assert audio.scene.paused and abs(audio.scene.position() - 114) < 1e-9
+        assert pygame.mixer.Channel(audio_module.CLIP_CHANNEL).get_sound() is audio._sounds['WelcomeBack']
+        audio.scene.stop()
+        audio.focus_gained(rec(scenes.WELCOME_BACK))       # nothing playing: WelcomeBack only
+        assert not audio.scene.playing
+    finally:
+        audio.close()
+
+
 def test_the_scene_table_so_far():
     assert scenes.COUNT == 56 and scenes.LOOPING == {10, 26, 35}
     for k in range(scenes.COUNT):
