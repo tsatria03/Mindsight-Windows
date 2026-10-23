@@ -15,12 +15,14 @@ Keys:
     Space                pause or resume the scene
     I                    say where the scene is, in seconds
     O                    Solved, at a fifth of full volume, over whatever is playing
-    2                    the buzz, once section 3 builds it
+    2                    the buzz, over whatever is playing, where the original vibrated
     3                    WelcomeBack, as after an interruption
     H                    say the keys again
     Escape               quit, as does Alt+F4
 
 A scene ending of itself is spoken, so the end can be heard to come at the right time.
+Switching away from the window pauses the scene, as the game will; coming back steps it
+back 3 seconds and plays WelcomeBack, and Space resumes it from there.
 """
 from __future__ import annotations
 
@@ -39,7 +41,7 @@ import _nvda  # noqa: E402
 
 KEYS = ('Audio check. Up and Down choose a scene, Enter plays it, Left and Right move 5 seconds, '
         'T types a point to play from, Space pauses, I says where it is, O plays Solved, '
-        '3 plays WelcomeBack, H says the keys again, and Escape quits.')
+        '2 plays the buzz, 3 plays WelcomeBack, H says the keys again, and Escape quits.')
 NUDGE = 5.0
 
 
@@ -141,7 +143,7 @@ class AudioCheckScreen(Screen):
             self.audio.play_solved(self.recordings.get(scenes.SOLVED))
             self.say('Solved.')
         elif key in ('2', '[2]'):
-            self.say('The buzz comes with section 3.')
+            self.audio.play_buzz()
         elif key in ('3', '[3]'):
             self.audio.play_clip(self.recordings.get(scenes.WELCOME_BACK))
         elif key == 'h':
@@ -168,6 +170,17 @@ class AudioCheckScreen(Screen):
 
     def update(self):
         self.audio.update()
+
+    def focus_lost(self):
+        self.audio.focus_lost()
+
+    def focus_gained(self):
+        player = self.audio.scene
+        was = player.position() if player.playing else None
+        self.audio.focus_gained(self.recordings.get(scenes.WELCOME_BACK))
+        if was is not None:
+            self.last = 'Back: paused, stepped back from %.1f to %.1f seconds. Space resumes.' % (
+                was, player.position())
 
     def lines(self):
         player = self.audio.scene
