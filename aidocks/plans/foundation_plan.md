@@ -10,7 +10,7 @@ metadata:
 
 ## Progress
 
-- **Section 1, built 2026-10-23, waiting for the dev's by-ear tests** (the dev: "build section 1 first."):
+- **Section 1, FINISHED 2026-10-23,** all four by-ear tests passed (the dev: "Perfect. All of the section 1 tests past."). Built the same day (the dev: "build section 1 first."):
   - `Mindsight.py`: the four options, `logs/log.txt` with `log.old.txt`, `logs/crash.txt`, and a plain window titled "Mindsight", or "Mindsight (debug)" with `--debug`, which closing the window or Alt+F4 shuts. `--scene N` is checked for debug mode and the range 0 to 55, and logged; the story engine will use it. A missing recordings folder or any error that stops the game writes `crash.txt` and shows its message box.
   - `mindsight/paths.py`: the recordings in `game/data/audio`, beside the executable or in the repository; `VERSION`; and the save folder, `%APPDATA%\Mindsight` or `MINDSIGHT_USER_DIR`. `paths.MissingData` carries the player's message, naming where the game looked.
   - `mindsight/platform/msgbox.py`: `MessageBoxW` with an error icon, on top; `MINDSIGHT_NO_MESSAGEBOX` keeps it shut for the tests, keeping the text in `msgbox.shown`.
