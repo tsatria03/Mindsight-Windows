@@ -31,12 +31,18 @@ Read from the binary ([[project_original_behaviour]]):
 - **The menus are the original's recordings**, answered by the swipe keys; the port adds no list menus of its own ([[foundation_plan]]).
 - **The save is the original's:** one scene number, at the original's checkpoints, nothing on quitting, and New game clearing nothing.
 - **The save file is `saves/progress.json`** under `%APPDATA%\Mindsight`, as `{"scene": N}`. A number outside 0 to 55 counts as no save.
+- **The dissertation PDF keeps the credits' left swipe** (the dev, 2026-10-22: "I agree.", to the proposal):
+  - Left on the credits, scene 5, opens `MiNDSIGHT.pdf` in Windows' default PDF viewer (`os.startfile`), as the original's "Open in" did (`sendPDFtoiBooks`, 0x100008018).
+  - The build ships the PDF beside the game ([[build_release_plan]], when written); a run from source opens `game/data/text/MiNDSIGHT.pdf`.
+  - The game pauses as the viewer takes focus, as losing focus does ([[audio_plan]]).
+  - Coming back plays the main menu, scene 1, as the original did (`returnedFromBackground`, 0x100008278), in place of the usual step back and `WelcomeBack`.
+  - If Windows has no PDF viewer, nothing opens, the log says why, and the credits carry on waiting for a swipe.
 - **Quitting** is closing the window or Alt+F4 ([[foundation_plan]]); the original had no Quit.
 
 ## Open questions
 
 Asked one at a time; each answer moves into Decided.
-1. **The dissertation PDF:** whether the credits' left swipe opens it with Windows' default PDF viewer, whether the build ships it, and what coming back to the game does.
+1. Answered: the dissertation PDF.
 2. **The headphones notice:** whether the port says anywhere that headphones are needed, since the recordings are binaural.
 3. **Debug runs and the save:** whether a run started with `--scene` ever writes the save.
 4. **Achievements:** whether the port keeps any, with Game Center gone and no speech to announce them.
