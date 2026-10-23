@@ -30,6 +30,7 @@ import dis64 as D  # noqa: E402
 import macho64 as M  # noqa: E402
 from mindsight.game.recordings import RENAMED, disk_name  # noqa: E402,F401  (the game's own lookup)
 from mindsight.platform.mp3 import length as mp3_length  # noqa: E402  (the game's own reader)
+from mindsight.game import scenes as game_scenes  # noqa: E402  (the game's own table, checked here)
 
 ROOT = M.ROOT
 AUDIO = os.path.join(ROOT, "game", "data", "audio")
@@ -480,6 +481,10 @@ def main():
             problem("%s is not on disk" % n)
     unnamed = sorted(found[k] for k in found if k not in named)
 
+    if tuple(names.get(k) for k in range(SCENES)) != game_scenes.NAMES:
+        problem("mindsight/game/scenes.py's NAMES differ from the binary's")
+    if set(game_scenes.LOOPING) != loops:
+        problem("mindsight/game/scenes.py's LOOPING differs from the binary's %s" % sorted(loops))
     for k in range(SCENES):
         if flow[k]["kind"] == "unread":
             problem("scene %d: what follows could not be read" % k)
