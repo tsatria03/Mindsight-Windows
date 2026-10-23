@@ -37,12 +37,13 @@ Read from the binary ([[project_original_behaviour]]):
   - The game pauses as the viewer takes focus, as losing focus does ([[audio_plan]]).
   - Coming back plays the main menu, scene 1, as the original did (`returnedFromBackground`, 0x100008278), in place of the usual step back and `WelcomeBack`.
   - If Windows has no PDF viewer, nothing opens, the log says why, and the credits carry on waiting for a swipe.
+- **Headphones are named in the player docs only** (the dev, 2026-10-22: "Keep that in the player facing docks."). `docks/readme.txt` says near its top that the recordings are binaural and need headphones; the game itself shows no notice, so the original's opening is unchanged. It is written when the readme is brought up to date ([[feedback_docs_after_each_plan]]).
 - **Quitting** is closing the window or Alt+F4 ([[foundation_plan]]); the original had no Quit.
 
 ## Open questions
 
 Asked one at a time; each answer moves into Decided.
 1. Answered: the dissertation PDF.
-2. **The headphones notice:** whether the port says anywhere that headphones are needed, since the recordings are binaural.
+2. Answered: headphones, in the player docs only.
 3. **Debug runs and the save:** whether a run started with `--scene` ever writes the save.
 4. **Achievements:** whether the port keeps any, with Game Center gone and no speech to announce them.
