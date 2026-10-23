@@ -6,7 +6,16 @@ metadata:
   type: project
 ---
 
-**Status: reviewed** in one message on 2026-10-23, its two questions answered; built one section at a time, since it has by-ear tests ([[feedback_next_section_on_pass]]). Not started yet.
+**Status: being built,** one section at a time, since it has by-ear tests ([[feedback_next_section_on_pass]]); reviewed in one message on 2026-10-23, its two questions answered.
+
+## Progress
+
+- **Section 1, built 2026-10-23,** with nothing to test by ear (the dev: "yes go ahead."):
+  - `mindsight/game/scenes.py`, the whole table: each scene's recording; `THEN`, what follows as it ends (waits, plays the next, loads the save, or the Rewind's retry), whether that next scene is saved, and the failure a timed round sets as it runs out; `RETRIES`; the input lock's scenes; `GATES`, after which a swipe counts, and `CUES`, at which the buzz plays; `CUE_AT_END`; `ANSWERS`, each scene's swipes, with Solved, the save, the failure and whether the lock closes; the piranha windows; and `MENUS`, scenes 1 to 7, where Escape quits.
+  - `mindsight/game/story.py`, `Story`, the rules with no sound: `start`, `jump` (as if the scene before had ended, for `--scene` and the tools), `counts` (the window's "Your turn"), `swipe`, `tick` (the cue's buzz) and `ended`, each returning effects: `Play`, `Save`, `SOLVED`, `BUZZ`, `PDF`, `LOAD`. Continue asks `has_save`, false until plan 5. The credits follow the ending: the failure is cleared as scene 55 starts.
+  - `tools/scenes.py` checks the whole table against the binary, every scene's `THEN`, the retries, the gates and cues, the right and wrong answers and the menus; fed five wrong values, it reported all five.
+  - `tests/case/test_story.py`, 17 tests walking the menus, Continue, every puzzle, failing and running out, the Rewind's retries, the piranha windows' edges, the tones and safe, the roof and the ending. 88 silent tests in all, each passing.
+  - **Two corrections to the behaviour note, found building it** ([[project_original_behaviour]]): the buzz after a recording ends is tested on the scene current once the next has started, so it also buzzes as 26, 35, 39 and 43 begin after the scene before ends, and as the main menu begins after the manual and the credits after the ending; and `justVibrated` is cleared only as a recording ends of itself, so **street rounds 2 and 3, reached by answering, never buzz at their cue**. Both are built as the original has them; the second is a question for the dev.
 
 Plan 4 ([[reading_original_plan]] lists the order). It stands on [[foundation_plan]] and [[audio_plan]]. Every rule it plays is in [[project_original_behaviour]], with the binary's addresses.
 
