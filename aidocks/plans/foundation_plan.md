@@ -45,6 +45,7 @@ Plan 2 ([[reading_original_plan]] lists the order). Everything else stands on it
 - **Errors are shown in a Windows message box** (agreed 2026-10-22), through ctypes' `MessageBoxW`, which NVDA and every other screen reader read aloud by themselves, with no library:
   - when `game/data/audio/` is missing, saying where the game looked
   - when an error stops the game, saying it closed and that `crash.txt` says why
+  - when no sound device can be opened, saying the game needs one ([[audio_plan]])
   - nowhere else; the game itself never shows one
 - **The window shows plain text for a sighted helper** (the dev, 2026-10-22: "yes, show a window for sited users."): during the story, the scene playing and which keys work there; while paused, that it is paused. It is secondary: the recordings are the real interface, and nothing is only in the window.
 - **Adapted from the reference material in the gitignored `user/` folder,** renamed and cut down, never naming where it came from ([[feedback_no_other_games]]). These standing choices carry over:

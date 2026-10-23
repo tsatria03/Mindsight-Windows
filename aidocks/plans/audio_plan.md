@@ -6,7 +6,7 @@ metadata:
   type: project
 ---
 
-**Status: being written.** Its open questions are being asked one at a time; no review or building until every plan is written ([[feedback_all_plans_first]]).
+**Status: written,** every question answered on 2026-10-22. Its section review waits until every plan is written ([[feedback_all_plans_first]]).
 
 Plan 3 ([[reading_original_plan]] lists the order). It stands on [[foundation_plan]] and serves the story engine.
 
@@ -49,6 +49,7 @@ Read from the binary ([[project_original_behaviour]], [[project_original_finding
   - When the window loses focus, the scene and every timer pause at once, so no cue time or timed puzzle runs on unheard.
   - When it gets focus back, the scene steps back 3 s and `WelcomeBack` plays, and the game stays paused until Escape, Enter or P resumes it.
   - If no recording was playing, such as a menu waiting for its swipe, coming back plays `WelcomeBack` only, with nothing to step back; to be confirmed at the section review.
+- **No sound device closes the game with a message box** (the dev, 2026-10-22: "I agree with that.", to the proposal). If the mixer cannot open, the game shows a Windows message box, read by the screen reader, saying that no sound device could be opened and the game needs one; it writes the reason to the log and closes. Every part of the game is a recording, so carrying on silently would leave a blind player with nothing.
 - **Every by-ear tool speaks through the NVDA client** (the dev, 2026-10-22: "Yes, keep the nvda client for all interactive tests."): `vendor/nvda/nvdaControllerClient64.dll` through ctypes, from a small helper in `tests/interact/`, used by the tools only and never by the game, which stays without speech ([[foundation_plan]]). Each line is printed in the console as well, and when NVDA is not running the tool only prints. So `vendor/nvda/` stays in the repo.
 - **Tests stay silent:** they run on SDL's dummy audio driver, so nothing is heard ([[feedback_dont_run_or_build]]).
 
@@ -58,4 +59,4 @@ Asked one at a time; each answer moves into Decided.
 1. Answered: the cue sound, a buzz the game makes, with `buzz_check.py`.
 4. Answered: `buzz_check.py`'s keys, and the NVDA client for every by-ear tool.
 2. Answered: losing focus, as the original's interruption.
-3. **No sound device:** what the game does if the mixer cannot open.
+3. Answered: no sound device, a message box and close.
