@@ -55,7 +55,7 @@ Plan 2 ([[reading_original_plan]] lists the order). Everything else stands on it
   - **Screen loop:** a stack of screens at 60 frames a second. A screen can open another on top, close itself, or replace the stack. Switching away from the window is passed to the top screen.
 - **Debug mode is command-line only** (the dev, 2026-10-22: "The debugger should be commandline only. How ever you activate it."), for runs from source only, never in a built game, and never remembered between runs:
   - `--debug` turns it on for that run; the window title says "Mindsight (debug)".
-  - `--scene N`, in debug mode only, starts the game at scene N, from 0 to 55, by the original's numbering ([[project_original_behaviour]]), with nothing saved from the jump. A number outside that range is logged and ignored.
+  - `--scene N`, in debug mode only, starts the game at scene N, from 0 to 55, by the original's numbering ([[project_original_behaviour]]), and that run never writes the save ([[menus_saves_plan]]). A number outside that range is logged and ignored.
   - Its use in the story, such as what a jump sets up, is settled in the story engine plan.
 - **Two more options,** for any run:
   - `-v` writes a more detailed log.

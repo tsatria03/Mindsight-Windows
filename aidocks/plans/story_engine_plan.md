@@ -39,7 +39,7 @@ Plan 4 ([[reading_original_plan]] lists the order). It stands on [[foundation_pl
 - **The buzz** plays at each timed scene's cue and when a waiting scene's recording ends, where the original vibrated, once per recording ([[audio_plan]]).
 - **The keys** are the four swipes and the double tap, as [[foundation_plan]] fixes them.
 - **The story's timers run on the timer loop**, held while paused.
-- **`--scene N`** starts at scene N with no failure set, and saves nothing from the jump.
+- **`--scene N`** starts at scene N with no failure set, and that run never writes the save ([[menus_saves_plan]]).
 
 ## Open questions
 

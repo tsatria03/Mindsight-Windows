@@ -38,6 +38,7 @@ Read from the binary ([[project_original_behaviour]]):
   - Coming back plays the main menu, scene 1, as the original did (`returnedFromBackground`, 0x100008278), in place of the usual step back and `WelcomeBack`.
   - If Windows has no PDF viewer, nothing opens, the log says why, and the credits carry on waiting for a swipe.
 - **Headphones are named in the player docs only** (the dev, 2026-10-22: "Keep that in the player facing docks."). `docks/readme.txt` says near its top that the recordings are binaural and need headphones; the game itself shows no notice, so the original's opening is unchanged. It is written when the readme is brought up to date ([[feedback_docs_after_each_plan]]).
+- **A run started with `--scene` never writes the save** (the dev, 2026-10-22: "Agreed", to the proposal), at any checkpoint it reaches, so a test jump can never overwrite real progress. A plain `--debug` run, without `--scene`, saves as normal, since it plays from the start like any other run ([[foundation_plan]]).
 - **Quitting** is closing the window or Alt+F4 ([[foundation_plan]]); the original had no Quit.
 
 ## Open questions
@@ -45,5 +46,5 @@ Read from the binary ([[project_original_behaviour]]):
 Asked one at a time; each answer moves into Decided.
 1. Answered: the dissertation PDF.
 2. Answered: headphones, in the player docs only.
-3. **Debug runs and the save:** whether a run started with `--scene` ever writes the save.
+3. Answered: a `--scene` run never saves.
 4. **Achievements:** whether the port keeps any, with Game Center gone and no speech to announce them.
