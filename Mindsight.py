@@ -110,32 +110,6 @@ def scene_from_options(options, debug):
     return options.scene
 
 
-def run_window(debug, exit_after):
-    """A plain window titled Mindsight, until the screen loop of plan 2's section 2.
-
-    Closing the window or Alt+F4 shuts it; ``--exit-after`` shuts it by itself.
-    """
-    import pygame
-    pygame.display.init()
-    try:
-        pygame.display.set_caption('Mindsight (debug)' if debug else 'Mindsight')
-        screen = pygame.display.set_mode((640, 360))
-        clock = pygame.time.Clock()
-        started = pygame.time.get_ticks()
-        while True:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    return
-            if exit_after is not None and pygame.time.get_ticks() - started >= exit_after * 1000:
-                log.info('--exit-after %g seconds reached', exit_after)
-                return
-            screen.fill((0, 0, 0))
-            pygame.display.flip()
-            clock.tick(60)
-    finally:
-        pygame.display.quit()
-
-
 def main(argv=None):
     options = parse_args(argv)
     start_log(options.verbose)
@@ -149,7 +123,11 @@ def main(argv=None):
         scene = scene_from_options(options, debug)
         if scene is not None:
             log.info('the game will start at scene %d, and this run will never save', scene)
-        run_window(debug, options.exit_after)
+        import pygame
+        from mindsight.app import App
+        from mindsight.game.standin import StandInScreen
+        app = App(options, debug=debug, start_scene=scene)
+        app.run(StandInScreen(app), pygame)
         log.info('Mindsight closed')
         return 0
     except paths.MissingData as missing:

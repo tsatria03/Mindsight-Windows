@@ -10,6 +10,14 @@ metadata:
 
 ## Progress
 
+- **Section 2, built 2026-10-23, waiting for the dev's by-ear tests:**
+  - `mindsight/platform/runloop.py`, the timer loop, with `hold()` and `resume()`.
+  - `mindsight/platform/keys.py`, the fixed keys: each pygame key name to its gesture, `up`, `down`, `left`, `right` or `pause`, with the keypad's Enter as the double tap too; a game key with Shift, Control, Alt or the Windows key held stands for nothing.
+  - `mindsight/ui/screens.py`, the screen stack. A screen hears a game key as `gesture()`, a game key with a modifier as `ignored_key()`, and any other key as `other_key()`, which only the by-ear tools use.
+  - `mindsight/app.py`, the main loop at 60 frames a second: events, focus changes, the timers, `--exit-after` on the timer loop, and the top screen's lines in the window.
+  - `mindsight/game/standin.py`, the stand-in screen `Mindsight.py` now opens on: the keys, the last key's meaning and whether the window has the keyboard, in the window and the log, saying nothing.
+  - `foundation_check.py` grew onto the game's own App and keys: each gesture spoken, a key with a modifier spoken as ignored, T a 10-second countdown on the timer loop, Space holding or resuming it, and focus changes spoken, quiet for a second after a message box, which takes the keyboard and gives it back. **F10 now quits, since Escape is the game's pause.**
+  - Checked silently: pygame's names for every key match the map; the tool started through its real entry point and closed cleanly; driven by hand, it spoke every gesture, three keys with modifiers as ignored, the countdown, nothing while held, and the focus changes.
 - **Section 1, FINISHED 2026-10-23,** all four by-ear tests passed (the dev: "Perfect. All of the section 1 tests past."). Built the same day (the dev: "build section 1 first."):
   - `Mindsight.py`: the four options, `logs/log.txt` with `log.old.txt`, `logs/crash.txt`, and a plain window titled "Mindsight", or "Mindsight (debug)" with `--debug`, which closing the window or Alt+F4 shuts. `--scene N` is checked for debug mode and the range 0 to 55, and logged; the story engine will use it. A missing recordings folder or any error that stops the game writes `crash.txt` and shows its message box.
   - `mindsight/paths.py`: the recordings in `game/data/audio`, beside the executable or in the repository; `VERSION`; and the save folder, `%APPDATA%\Mindsight` or `MINDSIGHT_USER_DIR`. `paths.MissingData` carries the player's message, naming where the game looked.
@@ -28,7 +36,7 @@ Plan 2 ([[reading_original_plan]] lists the order). Everything else stands on it
    3. Optional: `python Mindsight.py` opens a window NVDA announces as Mindsight, and Alt+F4 closes it.
    4. Optional: with `--debug`, NVDA announces "Mindsight (debug)".
 2. **The timer loop, the screens and the keys.** `mindsight/platform/runloop.py`, `mindsight/ui/screens.py` and `mindsight/platform/keys.py`, the window's text, and the stand-in screen. `foundation_check.py` grows here: the game's own keys and timer loop, each key's meaning spoken, a countdown, and focus changes. To test by ear:
-   1. Mandatory: each swipe key and each pause key is reported correctly, and Shift+Up or Control+W reports nothing.
+   1. Mandatory: each swipe key and each pause key is spoken with its meaning in `foundation_check.py`, and Shift+Up or Control+W is spoken as ignored.
    2. Optional: a timer counts down and stops while held.
    3. Optional: Alt+Tab is reported as losing and regaining focus.
 3. **The silent tests.** `tests/case/_quiet.py`, `tests/suite.py` and the first test files: the paths, the options, the logs and crash file, the message boxes, the timer loop, the screens and the keys. Nothing to test by ear; running `python tests/suite.py` is optional.
