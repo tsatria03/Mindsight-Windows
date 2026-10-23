@@ -6,7 +6,14 @@ metadata:
   type: project
 ---
 
-**Status: reviewed** in one message on 2026-10-23; built one section at a time, since it has by-ear tests ([[feedback_next_section_on_pass]]). Not started yet.
+**Status: being built,** one section at a time, since it has by-ear tests ([[feedback_next_section_on_pass]]); reviewed in one message on 2026-10-23.
+
+## Progress
+
+- **Section 1, built 2026-10-23,** with nothing to test by ear (the dev: "Now you can build section 1."):
+  - `mindsight/platform/mp3.py`: an MP3's length from its frames, from a path or bytes, past any ID3 tag. Moved here from `tools/scenes.py`, which now imports it, so the game and the tool never disagree about a length.
+  - `mindsight/game/recordings.py`: `disk_name()` and the six renamed names, `Recordings`, every MP3 under `game/data/audio/` by its lower-case name, and `Recording`, with `source()` (a path now; bytes once plan 6 packs the story) and its `length`. `tools/scenes.py` imports the same lookup; its listing came out unchanged.
+  - `tests/case/test_mp3.py` (5: built MPEG-1 and MPEG-2 frames, an ID3 tag skipped, a path or bytes, and four real recordings' lengths) and `tests/case/test_recordings.py` (5: the names on disk, all 59 found with their lengths, only FanRadio unnamed, any folder and letter case, and a missing one). 48 silent tests in all, each passing.
 
 Plan 3 ([[reading_original_plan]] lists the order). It stands on [[foundation_plan]] and serves the story engine.
 
