@@ -6,7 +6,7 @@ metadata:
   type: project
 ---
 
-**Status: written,** with no open questions. Its section review waits until every plan is written ([[feedback_all_plans_first]], [[feedback_review_plan_sections]]).
+**Status: being built,** all four sections at once (the dev, 2026-10-23, after the review: "Since plan 1 has no hering tests, you can build it. I mean all 4 sections without pausing at each section for review."). Reviewed in one message on 2026-10-23 ([[feedback_review_plan_sections]]).
 
 **Done before the plan, 2026-10-22:** the binary was read with capstone through a throwaway helper outside the repo, and what it showed is already written down in [[project_original_findings]] and [[project_original_behaviour]], with the dev's corrections. This plan makes the reading repeatable inside the repo, so every number in those notes can be checked again, and later plans can cite tools rather than memory.
 
@@ -32,12 +32,14 @@ The original has no story data: its 56 scenes, what follows each, the puzzles' a
 
 - `tools/scenes.py`: reads from the binary the recording of each of the 56 scenes (`urlForScene:`'s jump table at 0x100009014), what follows each one and whether it saves (`playNextScene`'s jump table at 0x100006e04), and the looping scenes. It finds each recording on disk by the port's own lookup: the name without its number prefix, the five letter-suffixed names mapped, found anywhere under `game/data/audio/` ([[project_original_findings]]).
 - It checks that every recording the binary names is on disk, and lists the files it never names (today, only `FanRadio.mp3`).
+- **The puzzle values are a table in the tool, each checked against the binary** (agreed at the review, 2026-10-23). What follows each scene, the saves and the loops come from the two jump tables. The answers, cue times, piranha windows and retry points sit in separate handlers, in less regular code, so `tools/scenes.py` holds them in a table, each with the address of the constant or branch it comes from, and checks every one against the binary; any that differs is a problem.
 - `--check` prints only problems.
 - Nothing to test by ear.
 
 ### 3. A readable listing
 
 - `analysis/scenes.txt`, written by `tools/scenes.py`: every scene in story order, each beginning "Scene <number>: <recording>", so a screen reader's find can jump to it, with its length, what follows, whether it saves, whether it loops, and, for a puzzle, the answer, the cue time and the retry point. Plain text, short lines.
+- It marks where the port departs from the original (agreed at the review): the credits always following the ending, swipes ignored while paused, and the buzz in place of vibration.
 - Nothing to test by ear. The dev may read it to check it against what they remember of the original (optional).
 
 ### 4. Checking the behaviour note
