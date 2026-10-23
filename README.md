@@ -8,12 +8,12 @@ The original was played by swiping, and every word it says is a recording, with 
 
 ## Status
 
-**Plans 1 and 2 of 6 are finished.** The game starts, but nothing can be played yet: it opens on a stand-in screen until the story engine is built. The work is split into six plans, in `aidocks/plans/`, each written in full, with every question answered, before any was built:
+**Plans 1 to 3 of 6 are finished.** The game starts and opens its sound, but nothing can be played yet: it opens on a stand-in screen until the story engine is built. The recordings can be heard in `audio_check.py`, below. The work is split into six plans, in `aidocks/plans/`, each written in full, with every question answered, before any was built:
 
 1. **Reading the original: finished.** Tools that read the original's binary, a check of every puzzle value against it and of every recording on disk, and a plain-text listing of all 56 scenes in `analysis/script/scenes.txt`.
-2. **The foundation: finished.** `Mindsight.py`, its logs, its crash file and its error message boxes, the timer loop, the screens, the fixed keys, the window's text, debug mode on the command line, a by-ear tool, and 38 silent tests.
-3. **The audio: next.** The recordings through pygame's mixer, the Solved sound, the pause clips, a buzz the game makes itself in place of the original's vibration, and pausing when the window loses focus.
-4. **The story engine.** The 56 scenes and the original's rules: the input lock, the puzzles, failing and the Rewind's retry points.
+2. **The foundation: finished.** `Mindsight.py`, its logs, its crash file and its error message boxes, the timer loop, the screens, the fixed keys, the window's text, debug mode on the command line, a by-ear tool, and its silent tests.
+3. **The audio: finished.** The recordings through pygame's mixer, the Solved sound, the pause clips, a buzz the game makes itself in place of the original's vibration (160 Hz, sine, at 20 percent, chosen by ear), and pausing when the window loses focus.
+4. **The story engine: next.** The 56 scenes and the original's rules: the input lock, the puzzles, failing and the Rewind's retry points.
 5. **The menus and saves.** The original's recorded menus, the dissertation PDF from the credits, and the one saved scene.
 6. **Building and releasing.** `compiler.py` and `releaser.py`, with the story's recordings packed into an encrypted `data\story.dat`.
 
@@ -26,7 +26,7 @@ The original was played by swiping, and every word it says is a recording, with 
 - **No speech, no settings, no volume controls.** The original had none of them; set the level with Windows' own volume. An error that stops the game shows a Windows message box, which your screen reader reads.
 - **Three changes from the original,** to come with the plans that build them: a buzz where it vibrated, swipes ignored while paused, and the credits always following the ending.
 
-The keys work now, on the stand-in screen; the recordings and the story come with plans 3 to 5.
+The keys work now, on the stand-in screen; the story, and with it the recordings in play, come with plans 4 and 5. If Windows can open no sound device, the game says so in a message box and closes, since every part of it is a recording.
 
 ## Requirements
 
@@ -58,17 +58,21 @@ Every run writes `logs\log.txt` in the save folder, `%APPDATA%\Mindsight`, keepi
     python tests/suite.py
     python tests/suite.py keys runloop
 
-The silent tests are in `tests/case/`, 38 of them in five files: `test_paths`, `test_entry`, `test_runloop`, `test_keys` and `test_screens`. Each file imports `_quiet.py` first, which gives it a throwaway save, keeps every message box shut, and uses SDL's dummy video and sound, so nothing is heard, nothing opens and your own save is never touched. `tests/suite.py` runs them eight at once, runs a failed file again alone, and writes the results to `tests/results/`, which git ignores.
+The silent tests are in `tests/case/`, 71 of them in nine files: `test_paths`, `test_entry`, `test_runloop`, `test_keys`, `test_screens`, `test_mp3`, `test_recordings`, `test_audio` and `test_buzz`. Each file imports `_quiet.py` first, which gives it a throwaway save, keeps every message box shut, and uses SDL's dummy video and sound, so nothing is heard, nothing opens and your own save is never touched. `tests/suite.py` runs them eight at once, runs a failed file again alone, and writes the results to `tests/results/`, which git ignores.
 
 ## Trying it by ear
 
 The tools in `tests/interact/` are for trying things by ear. Each speaks through NVDA, using the NVDA client in `vendor/nvda/`, prints every line too, and keeps its own save under `%APPDATA%\Mindsight\interact\`. The game itself never speaks.
 
     python tests/interact/foundation_check.py
+    python tests/interact/audio_check.py
+    python tests/interact/buzz_check.py
 
 Every tool quits with Escape or Alt+F4, and wherever a tool uses Up or Down, W or S does the same.
 
 - `foundation_check.py`: the game's own keys and timers, each key spoken with its meaning and a key with a modifier spoken as ignored; the pause is Enter or P here, since Escape quits. 1 and 2 show the game's two message boxes for real, T starts a countdown, Space holds or resumes it, switching windows is spoken, and H says the keys again.
+- `audio_check.py`: any of the 56 scenes through the game's own players. Up or W and Down or S choose a scene, Enter plays it, Left and Right move 5 seconds, T types a point to play from, Space pauses, I says the position, O plays Solved, 2 the buzz, E and Q or Page Up and Page Down try the buzz's level, and 3 plays WelcomeBack. Switching windows pauses the scene; coming back steps it back 3 seconds with WelcomeBack.
+- `buzz_check.py`: tunes the buzz. Up or W and Down or S move its frequency 5 Hz, Left and Right change its shape, Space plays it, and I says its values. It never changes the game.
 
 ## The tools
 
@@ -92,7 +96,7 @@ Scripts for reading the original, described in full in `tools/README.md`. None p
   - `game/data/audio/`: the 60 recordings, MP3, converted from the original's m4a: `story/sceen/` (45), `story/speech/` (10) and `system/misc/` (5).
   - `game/data/text/MiNDSIGHT.pdf`: the creator's 2009 dissertation on the game.
 - `Mindsight.py`: the entry script.
-- `mindsight/`: the port's Python package: `paths.py`, `app.py` (the main loop), `platform/` (the message box, the timer loop and the keys), `ui/` (the screen stack) and `game/` (for now, the stand-in screen).
+- `mindsight/`: the port's Python package: `paths.py`, `app.py` (the main loop), `platform/` (the message box, the timer loop, the keys, the sound, the buzz and the MP3 reader), `ui/` (the screen stack) and `game/` (the recordings, the scene table so far, and the stand-in screen).
 - `tools/`: the scripts for reading the original.
 - `analysis/script/scenes.txt`: every scene as plain text; find "Scene <number>:" to jump to one.
 - `tests/case/`: the silent tests, with `tests/suite.py` to run them, and `tests/interact/`: the tools to try things by ear.
