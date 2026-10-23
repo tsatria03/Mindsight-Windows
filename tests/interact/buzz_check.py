@@ -9,7 +9,7 @@ you like, and they go into buzz.py. It keeps its own save under
 %APPDATA%\\Mindsight\\interact\\buzz_check.
 
 Keys:
-    Up or W, Down or S   the frequency, 10 Hz up or down
+    Up or W, Down or S   the frequency, 5 Hz up or down
     Left and Right       the wave shape: sine, square, triangle or sawtooth
     Space                play the buzz
     I                    say the frequency and shape
@@ -30,9 +30,9 @@ from mindsight.platform.audio import BUZZ_CHANNEL, Audio  # noqa: E402
 from mindsight.ui.screens import Screen  # noqa: E402
 import _nvda  # noqa: E402
 
-KEYS = ('Buzz check. Up and Down change the frequency by 10 hertz, Left and Right the wave shape, '
+KEYS = ('Buzz check. Up and Down change the frequency by 5 hertz, Left and Right the wave shape, '
         'Space plays the buzz, I says its values, H says the keys again, and Escape quits.')
-STEP = 10
+STEP = 5
 LOWEST, HIGHEST = 20, 2000
 
 
