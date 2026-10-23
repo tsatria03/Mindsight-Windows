@@ -32,7 +32,7 @@ Plan 2 ([[reading_original_plan]] lists the order). Everything else stands on it
 - **No speech, no Settings screen, no key binder and no volume controls** (the dev, 2026-10-22, asked whether they were needed: "I feel like this game doesn't need it because there's no tts what so ever, and it's not nearly as complex"; "it does not need any volume controls what so ever. It wouldn't need the prism library if that's the case."; then, to the summary: "Yes please."). Why it holds:
   - The original is entirely self-voiced: every word is a recording, and it never uses text to speech or the screen reader ([[project_original_behaviour]]). The port has nothing of its own to say.
   - The original has no settings and no volume controls; the player used the phone's own volume. On Windows, the system volume and the volume mixer do that.
-  - So there is no speech module, no Prism, no NVDA client, no settings file, no keys file, no F1 screen and no spoken menu.
+  - So the game has no speech module, no Prism, no NVDA client, no settings file, no keys file, no F1 screen and no spoken menu.
 - **The keys, fixed, never rebound** (the dev, 2026-10-22: the arrows and Escape, "Enter can be for the double tap if it asks for it", then "it can use the 4 arrow keys plus w/a/s/d keys for swipes", then "add p to that list for pausing/resuming. So escape/enter/p."). This replaces the dev's earlier "All should be rebindable", since there is no key binder:
   - **Up arrow or W:** swipe up.
   - **Down arrow or S:** swipe down.
@@ -63,7 +63,7 @@ Plan 2 ([[reading_original_plan]] lists the order). Everything else stands on it
 - **Until the story engine,** the game opens on a stand-in screen that names the key pressed in the window, so the window, the keys and the logs can be tried. Escape, Enter and P there say nothing, since there is no speech; the window shows them.
 - **Tests stay silent and off the real save** ([[feedback_dont_run_or_build]]): every test imports `_quiet.py` first, which points the save at a throwaway folder, gives SDL dummy video and audio drivers, and stops the message boxes from opening.
 - `tests/suite.py` runs each test file as its own process, several at once, runs a failed file again alone, writes `tests/results/results-<date>-<n>.txt`, exits 1 on a failure, and takes names with or without `test_`.
-- **`requirements.txt` loses `prismatoid`** when this plan is built. Whether `vendor/nvda/` is removed is asked separately before anything is deleted ([[project_later_topics]]).
+- **`requirements.txt` loses `prismatoid`** when this plan is built. `vendor/nvda/` stays: the by-ear tools in `tests/interact/` speak through it, never the game ([[audio_plan]]).
 
 ## Open questions
 

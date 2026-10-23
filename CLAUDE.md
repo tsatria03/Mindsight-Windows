@@ -22,7 +22,7 @@ A Windows port of **MiNDSiGHT** (`com.lukecharman.mindsight` 1.0.2, by Luke Char
 - **`mindsight/`**: the port's Python package, empty until plan 2.
 - **`tests/case/`**: silent test scripts, to come. **`tests/interact/`**: tools played by ear, run by the dev, each with its own save under `%APPDATA%\Mindsight\interact\` ([[feedback_test_tools_in_interact]]). Run only the tests covering what changed, in the background, and the full suite only when the dev asks ([[feedback_dont_run_or_build]]).
 - **`tools/`**: scripts for reading the original, to come in plan 1. **`analysis/`**: what they write, for reference.
-- **`vendor/nvda/`**: `nvdaControllerClient64.dll` (x64) and its license, unused since the port has no speech; whether to remove it is asked before anything is deleted ([[project_later_topics]]).
+- **`vendor/nvda/`**: `nvdaControllerClient64.dll` (x64) and its license. The game never speaks; the by-ear tools in `tests/interact/` speak through it ([[audio_plan]]).
 - **`docks/`**: the documents a player reads: `readme.txt`, `changelog.txt` and `todo list.txt` ([[feedback_changelog]], [[feedback_todo_list_format]]). The readme describes only what works in the game now.
 - **`README.md`**: the developer's guide. **`requirements.txt`**: `pygame`, `prismatoid` and `cryptography`; `prismatoid` goes when the foundation is built. **`VERSION`**: the version, such as `26.10.22-1`.
 - **`build/`** and **`dist/`**: build output, gitignored.
