@@ -11,7 +11,7 @@ The original was played by swiping, and every word it says is a recording, with 
 **Plans 1 and 2 of 6 are finished.** The game starts, but nothing can be played yet: it opens on a stand-in screen until the story engine is built. The work is split into six plans, in `aidocks/plans/`, each written in full, with every question answered, before any was built:
 
 1. **Reading the original: finished.** Tools that read the original's binary, a check of every puzzle value against it and of every recording on disk, and a plain-text listing of all 56 scenes in `analysis/script/scenes.txt`.
-2. **The foundation: finished.** `Mindsight.py`, its logs, its crash file and its error message boxes, the timer loop, the screens, the fixed keys, the window's text, debug mode on the command line, a by-ear tool, and 36 silent tests.
+2. **The foundation: finished.** `Mindsight.py`, its logs, its crash file and its error message boxes, the timer loop, the screens, the fixed keys, the window's text, debug mode on the command line, a by-ear tool, and 38 silent tests.
 3. **The audio: next.** The recordings through pygame's mixer, the Solved sound, the pause clips, a buzz the game makes itself in place of the original's vibration, and pausing when the window loses focus.
 4. **The story engine.** The 56 scenes and the original's rules: the input lock, the puzzles, failing and the Rewind's retry points.
 5. **The menus and saves.** The original's recorded menus, the dissertation PDF from the credits, and the one saved scene.
@@ -21,6 +21,7 @@ The original was played by swiping, and every word it says is a recording, with 
 
 - **The swipes:** the arrow keys, or W, A, S and D.
 - **The double tap,** which pauses and resumes: Escape, Enter or P.
+- **Before the story starts,** in the menus and on today's stand-in screen, Escape quits the game instead, while Enter and P still pause.
 - A key held with Shift, Control, Alt or the Windows key does nothing, so your screen reader's own commands never reach the game.
 - **No speech, no settings, no volume controls.** The original had none of them; set the level with Windows' own volume. An error that stops the game shows a Windows message box, which your screen reader reads.
 - **Three changes from the original,** to come with the plans that build them: a buzz where it vibrated, swipes ignored while paused, and the credits always following the ending.
@@ -57,7 +58,7 @@ Every run writes `logs\log.txt` in the save folder, `%APPDATA%\Mindsight`, keepi
     python tests/suite.py
     python tests/suite.py keys runloop
 
-The silent tests are in `tests/case/`, 36 of them in five files: `test_paths`, `test_entry`, `test_runloop`, `test_keys` and `test_screens`. Each file imports `_quiet.py` first, which gives it a throwaway save, keeps every message box shut, and uses SDL's dummy video and sound, so nothing is heard, nothing opens and your own save is never touched. `tests/suite.py` runs them eight at once, runs a failed file again alone, and writes the results to `tests/results/`, which git ignores.
+The silent tests are in `tests/case/`, 38 of them in five files: `test_paths`, `test_entry`, `test_runloop`, `test_keys` and `test_screens`. Each file imports `_quiet.py` first, which gives it a throwaway save, keeps every message box shut, and uses SDL's dummy video and sound, so nothing is heard, nothing opens and your own save is never touched. `tests/suite.py` runs them eight at once, runs a failed file again alone, and writes the results to `tests/results/`, which git ignores.
 
 ## Trying it by ear
 

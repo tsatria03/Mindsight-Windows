@@ -1,7 +1,8 @@
 """The screen the game opens on until the story engine (aidocks/plans/foundation_plan.md).
 
 It shows the last key's meaning in the window, such as "Swipe up", and writes it to the
-log. It says nothing, since the game has no speech: to hear the keys, use
+log. It comes before any story, so Escape quits the game, while Enter and P stand for the
+double tap. It says nothing, since the game has no speech: to hear the keys, use
 tests/interact/foundation_check.py.
 """
 from __future__ import annotations
@@ -16,6 +17,8 @@ log = logging.getLogger('standin')
 
 class StandInScreen(Screen):
     name = 'stand-in screen'
+    #: The stand-in comes before any story, so Escape quits it.
+    escape_quits = True
 
     def __init__(self, app):
         super().__init__(app)
@@ -44,10 +47,10 @@ class StandInScreen(Screen):
             '',
             'A stand-in, until the story engine is built.',
             'The arrow keys or W, A, S and D are the four swipes.',
-            'Escape, Enter or P is the double tap, which pauses and resumes.',
+            'Enter or P is the double tap, which pauses and resumes; in the story, Escape is too.',
             '',
             'Last key: ' + self.last,
             self.focus,
             '',
-            'Close the window or press Alt+F4 to quit.',
+            'Escape, Alt+F4 or closing the window quits, before the story starts.',
         ]

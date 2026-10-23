@@ -40,7 +40,12 @@ Read from the binary ([[project_original_behaviour]]):
 - **Headphones are named in the player docs only** (the dev, 2026-10-22: "Keep that in the player facing docks."). `docks/readme.txt` says near its top that the recordings are binaural and need headphones; the game itself shows no notice, so the original's opening is unchanged. It is written when the readme is brought up to date ([[feedback_docs_after_each_plan]]).
 - **A run started with `--scene` never writes the save** (the dev, 2026-10-22: "Agreed", to the proposal), at any checkpoint it reaches, so a test jump can never overwrite real progress. A plain `--debug` run, without `--scene`, saves as normal, since it plays from the start like any other run ([[foundation_plan]]).
 - **No achievements** (the dev, 2026-10-22: "We do not need achievements at all"). The original's eleven Game Center achievements, `ach1` to `ach9`, `ach11` and `ach12`, are dropped with Game Center, and the port reports or keeps none ([[project_original_findings]]).
-- **Quitting** is closing the window or Alt+F4 ([[foundation_plan]]); the original had no Quit.
+- **Escape quits the game before the story has started** (the dev, 2026-10-23: "in Mindsight.py, escape should quit the game if you did not start the story yet."):
+  - In the menu scenes, 1 to 7 (the main menu, New game, Continue's two answers, the audio manual and the credits), Escape quits at once, with nothing saved, as quitting never saves. Enter and P still stand for the double tap there.
+  - Once the story begins, at scene 8 or at a scene Continue loads, Escape is the double tap again, pausing and resuming ([[foundation_plan]]).
+  - After the ending, the credits are a menu again, so Escape quits there.
+  - Each screen says whether Escape quits on it (`Screen.escape_quits`); the App asks before Escape becomes the pause. Built into plan 2's stand-in screen on 2026-10-23, since it comes before any story.
+- **Quitting** is also closing the window or Alt+F4 ([[foundation_plan]]); the original had no Quit.
 
 ## Open questions
 

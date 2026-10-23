@@ -53,6 +53,10 @@ class App:
         if top is None:
             return
         gesture = keys.gesture(key, mods)
+        if key == 'escape' and gesture is not None and top.escape_quits:
+            log.info('Escape quits, before the story has started')
+            self.quit()
+            return
         if gesture is not None:
             log.debug('key %s: %s', key, gesture)
             top.gesture(gesture)

@@ -41,6 +41,10 @@ class Screen:
     def covered(self):
         """Another screen was opened on top of this one."""
 
+    #: Whether Escape quits the game on this screen, before the story has started, rather
+    #: than standing for the double tap (aidocks/plans/menus_saves_plan.md).
+    escape_quits = False
+
     def gesture(self, gesture):
         """A swipe or the double tap: one of platform/keys.py's gestures."""
 

@@ -99,6 +99,28 @@ def test_a_silent_run_quits_by_itself():
     assert r.heard == ['opened', 'closed'] and not app.running
 
 
+def test_escape_quits_only_where_the_screen_says():
+    app = App(loop=RunLoop())
+    r = Recorder(app)
+    app.stack.push(r)
+    app.key_down('escape', [])
+    assert app.running and r.heard[-1] == ('gesture', 'pause')
+    r.escape_quits = True
+    app.key_down('return', [])
+    app.key_down('p', [])
+    app.key_down('escape', ['shift'])
+    assert app.running and r.heard[-3:] == [('gesture', 'pause'), ('gesture', 'pause'), ('ignored', 'escape', ('shift',))]
+    app.key_down('escape', [])
+    assert not app.running
+
+
+def test_escape_quits_the_stand_in():
+    app = App(loop=RunLoop())
+    app.stack.push(StandInScreen(app))
+    app.key_down('escape', [])
+    assert not app.running
+
+
 def test_the_stand_in_screen():
     app = App(loop=RunLoop())
     s = StandInScreen(app)

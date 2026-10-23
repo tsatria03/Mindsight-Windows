@@ -68,7 +68,7 @@ Plan 2 ([[reading_original_plan]] lists the order). Everything else stands on it
   - **Down arrow or S:** swipe down.
   - **Left arrow or A:** swipe left.
   - **Right arrow or D:** swipe right.
-  - **Escape, Enter or P:** the double tap, which pauses and resumes. Enter covers wherever a recording asks the player to double tap; the original's only double tap is the pause.
+  - **Escape, Enter or P:** the double tap, which pauses and resumes. Enter covers wherever a recording asks the player to double tap; the original's only double tap is the pause. **Before the story has started, Escape quits instead** (the dev, 2026-10-23), while Enter and P stay the double tap ([[menus_saves_plan]]); the stand-in screen is one such place.
   - The swipe keys answer the original's spoken menus and its puzzles alike.
   - A key works with no modifier held; with Shift, Control or Alt held, it does nothing, so a screen reader's own commands never reach the game.
   - Closing the window, or Alt+F4, quits.
