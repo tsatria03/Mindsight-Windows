@@ -1,0 +1,44 @@
+# Memory index
+
+The `[[name]]` links in `CLAUDE.md` and across these notes resolve to `aidocks/general/<name>.md`, beside this index, or, for a plan, planned or complete, to `aidocks/plans/<name>.md`. Add a one-line pointer here for every new note.
+
+## Project
+- [Original findings](project_original_findings.md): MiNDSiGHT 1.0.2 by Luke Charman; the tiny unencrypted arm64 binary with the story hard-coded; the 60 MP3s in the dev's layout; the name mapping; FanRadio never played alone; the PDF is a dissertation; what to drop.
+- [Original behaviour](project_original_behaviour.md): the four swipes and the double tap, the input lock, the 56 scenes and what follows each, every puzzle's answer and timing, the vibration cues, failing and the Rewind, saving, pause, and the ending's quirk, with addresses.
+- [Python only](project_python_only.md): pygame for the window, keys and all sound, no FMOD or OpenAL; Prism and the NVDA client for speech; the MP3s converted by the dev.
+- [Windows only](project_windows_only.md): no Linux, macOS or GitHub Actions workflow.
+- [Solo project](project_solo.md): tsatria03 alone; credits name Luke Charman for the original.
+- [Later topics](project_later_topics.md): open questions for plans not yet written, such as the cues in place of vibration, the keys, and the ending's quirk.
+- [Developer tasks](project_dev_tasks.md): repository, tools, tests, build and docs tasks, kept out of the player todo list.
+
+## Plans
+- [Reading the original](../plans/reading_original_plan.md): plan 1, planned, waiting for its section review. Tools to read the binary, the scene table checked against the recordings, analysis/scenes.txt, and the behaviour note checked.
+
+## Completed projects
+- None yet.
+
+## Feedback
+- [Memory in aidocks](feedback_memory_in_aidocks.md): all memory lives in aidocks/, general/ for notes and plans/ for plans.
+- [Plans first](feedback_record_plans_first.md): an agreed plan gets its own note, committed first; finished only on the dev's word.
+- [Completed projects](feedback_completed_projects.md): a finished plan stays in plans/; only its index line moves.
+- [Review plan sections](feedback_review_plan_sections.md): before building any plan, review it section by section with the dev; never start the next plan alone.
+- [Next section on a pass](feedback_next_section_on_pass.md): when the dev says a section's tests passed, mark and commit it, then build the next; not across plans.
+- [Say ear tests ahead](feedback_say_ear_tests_ahead.md): before each section, list the by-ear tests, sound and speech, each optional or mandatory; remind the dev of a mandatory one not reported on.
+- [Grow check tools](feedback_grow_check_tools.md): a plan's by-ear tool starts in its first audible section and grows with each section.
+- [Test tools in interact](feedback_test_tools_in_interact.md): by-ear tools go in tests/interact/, never in the game's menus.
+- [Don't run or build](feedback_dont_run_or_build.md): never build unless told; ask before running anything that plays sound or speaks.
+- [Git commits](feedback_git_commits.md): one commit per change, commit without asking, push only when a plan is finished and its docs updated; git commit -F from Git Bash.
+- [GitHub usernames](feedback_use_github_usernames.md): tsatria03 and the noreply address, never real names.
+- [No other games](feedback_no_other_games.md): never name the games in user/ anywhere in this repo.
+- [Questions are checks](feedback_questions_are_checks.md): a question or correction from the dev is answered in chat, with no edits.
+- [One question at a time](feedback_one_question_at_a_time.md): one question per reply, with a recommendation.
+- [No question pickers](feedback_no_question_pickers.md): ask in plain text, never through the picker tool.
+- [No release records](feedback_no_release_records.md): never record individual releases in notes or the README.
+- [Changelog](feedback_changelog.md): the unrelease: block, newest first, one plain sentence per line ending in a period.
+- [Todo list format](feedback_todo_list_format.md): ##Unfinished. and ##Finished., players only, bugs stated as what happens.
+- [Back first](feedback_back_first.md): Back is the first row of every menu with a way back, and it opens on it.
+- [Docs after each plan](feedback_docs_after_each_plan.md): when a plan is finished, bring every developer and player doc up to date, then ask to push.
+- [Progress summary](feedback_progress_summary.md): after each plan, a brief overall percentage, by weights to be agreed.
+
+## User
+- [Screen reader](user_screen_reader.md): the dev uses NVDA; headings, lists and short lines, no wide tables, no noise from tools.
