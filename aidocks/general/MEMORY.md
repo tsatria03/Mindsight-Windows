@@ -27,7 +27,7 @@ The `[[name]]` links in `CLAUDE.md` and across these notes resolve to `aidocks/g
 - [Completed projects](feedback_completed_projects.md): a finished plan stays in plans/; only its index line moves.
 - [All plans first](feedback_all_plans_first.md): write every plan, one at a time with the dev's answers, before any section review or building.
 - [Review plan sections](feedback_review_plan_sections.md): before building any plan, review all its sections with the dev in one message; never start the next plan alone.
-- [Next section on a pass](feedback_next_section_on_pass.md): when the dev says a section's tests passed, mark and commit it, then build the next; not across plans.
+- [Next section on a pass](feedback_next_section_on_pass.md): a plan with by-ear tests is built a section at a time, one with none built whole; on a pass, mark and commit it, then build the next; not across plans.
 - [Say ear tests ahead](feedback_say_ear_tests_ahead.md): before each section, list the by-ear tests, sound and speech, each optional or mandatory; remind the dev of a mandatory one not reported on.
 - [Grow check tools](feedback_grow_check_tools.md): a plan's by-ear tool starts in its first audible section and grows with each section.
 - [Test tools in interact](feedback_test_tools_in_interact.md): by-ear tools go in tests/interact/, never in the game's menus.
