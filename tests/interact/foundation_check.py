@@ -30,19 +30,13 @@ from __future__ import annotations
 
 import os
 import sys
-import traceback
 
-ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-sys.path.insert(0, ROOT)
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-os.environ.setdefault('PYGAME_HIDE_SUPPORT_PROMPT', '1')
-if not os.environ.get('MINDSIGHT_USER_DIR'):
-    base = os.environ.get('APPDATA') or os.path.expanduser('~')
-    os.environ['MINDSIGHT_USER_DIR'] = os.path.join(base, 'Mindsight', 'interact', 'foundation_check')
+import _tool  # noqa: E402
+_tool.own_save('foundation_check')
 
 import Mindsight  # noqa: E402
 from mindsight import paths  # noqa: E402
-from mindsight.app import App  # noqa: E402
 from mindsight.platform import keys, msgbox, runloop  # noqa: E402
 from mindsight.ui.screens import Screen  # noqa: E402
 import _nvda  # noqa: E402
@@ -146,35 +140,8 @@ class CheckScreen(Screen):
                 'Timers held.' if self.app.loop.held else 'Timers running.']
 
 
-class CheckApp(App):
-    """The game's App, but Escape quits, as it does in every tool, before the game's keys see it."""
-
-    def key_down(self, key, mods):
-        if key == 'escape' and not mods and self.stack.top is not None:
-            self.stack.top.quit()
-            return
-        super().key_down(key, mods)
-
-
 def main(argv=None):
-    argv = sys.argv[1:] if argv is None else argv
-    exit_after = float(argv[argv.index('--exit-after') + 1]) if '--exit-after' in argv else None
-    Mindsight.start_log(verbose=False)
-    Mindsight.log.info('foundation check starting; save folder %s', paths.user_dir())
-    try:
-        import pygame
-        app = CheckApp(Mindsight.parse_args(['--exit-after', str(exit_after)] if exit_after else []),
-                  title='Mindsight foundation check')
-        app.run(CheckScreen(app), pygame)
-        Mindsight.log.info('foundation check closed')
-        return 0
-    except Exception:
-        # A tool never closes silently on an error: it writes crash.txt and says why.
-        text = traceback.format_exc()
-        Mindsight.log.error('the foundation check stopped because of an error:\n%s', text)
-        path = Mindsight.write_crash(text)
-        _nvda.say('The foundation check stopped because of an error. The details are in %s.' % path)
-        return 1
+    return _tool.run('Mindsight foundation check', CheckScreen, argv)
 
 
 if __name__ == '__main__':
