@@ -215,6 +215,12 @@ class Audio:
         """The buzz, over whatever is playing, where the original vibrated."""
         self.pygame.mixer.Channel(BUZZ_CHANNEL).play(self.buzz)
 
+    def set_buzz_level(self, level):
+        """Make the buzz again at ``level``, a share of full scale, for a by-ear tool to try;
+        the game's own level is buzz.py's LEVEL."""
+        from . import buzz
+        self.buzz = buzz.sound(self.pygame, level=level)
+
     def focus_lost(self):
         """The window lost the keyboard: the scene pauses at once."""
         if self.ok:

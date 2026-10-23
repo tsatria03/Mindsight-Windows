@@ -16,6 +16,8 @@ Keys:
     I                    say where the scene is, in seconds
     O                    Solved, at a fifth of full volume, over whatever is playing
     2                    the buzz, over whatever is playing, where the original vibrated
+    Page Up, Page Down   the buzz's level, 5 percent of full scale a step, playing it at once;
+                         it starts at buzz.py's level, and never changes the game
     3                    WelcomeBack, as after an interruption
     H                    say the keys again
     Escape               quit, as does Alt+F4
@@ -35,14 +37,18 @@ _tool.own_save('audio_check')
 
 from mindsight.game import scenes  # noqa: E402
 from mindsight.game.recordings import Recordings, disk_name  # noqa: E402
+from mindsight.platform import buzz  # noqa: E402
 from mindsight.platform.audio import Audio  # noqa: E402
 from mindsight.ui.screens import Screen  # noqa: E402
 import _nvda  # noqa: E402
 
 KEYS = ('Audio check. Up and Down choose a scene, Enter plays it, Left and Right move 5 seconds, '
         'T types a point to play from, Space pauses, I says where it is, O plays Solved, '
-        '2 plays the buzz, 3 plays WelcomeBack, H says the keys again, and Escape quits.')
+        '2 plays the buzz, Page Up and Page Down change its level, 3 plays WelcomeBack, '
+        'H says the keys again, and Escape quits.')
 NUDGE = 5.0
+#: The buzz's level, in percent of full scale: a step, and the lowest and highest.
+LEVEL_STEP, LEVEL_LOWEST, LEVEL_HIGHEST = 5, 5, 100
 
 
 def spoken_name(scene):
@@ -59,6 +65,7 @@ class AudioCheckScreen(Screen):
         self.scene = 1
         self.typing = None          # the digits typed after T, or None
         self.last = 'Nothing yet.'
+        self.buzz_level = round(buzz.LEVEL * 100)
 
     def say(self, text):
         self.last = text
@@ -144,6 +151,12 @@ class AudioCheckScreen(Screen):
             self.say('Solved.')
         elif key in ('2', '[2]'):
             self.audio.play_buzz()
+        elif key in ('page up', 'page down'):
+            step = LEVEL_STEP if key == 'page up' else -LEVEL_STEP
+            self.buzz_level = max(LEVEL_LOWEST, min(LEVEL_HIGHEST, self.buzz_level + step))
+            self.audio.set_buzz_level(self.buzz_level / 100)
+            self.say('Buzz level %d percent.' % self.buzz_level)
+            self.audio.play_buzz()
         elif key in ('3', '[3]'):
             self.audio.play_clip(self.recordings.get(scenes.WELCOME_BACK))
         elif key == 'h':
@@ -187,7 +200,7 @@ class AudioCheckScreen(Screen):
         state = 'Nothing playing.'
         if player is not None and player.playing:
             state = '%s at %.1f s%s' % (player.recording.name, player.position(), ', paused' if player.paused else '')
-        return ['Mindsight audio check', '', self.describe(), state,
+        return ['Mindsight audio check', '', self.describe(), state, 'Buzz level: %d percent' % self.buzz_level,
                 'Typing: ' + self.typing if self.typing is not None else '', '', 'Last: ' + self.last]
 
 

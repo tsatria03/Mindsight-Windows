@@ -63,6 +63,19 @@ def test_the_wave_shapes():
     assert buzz.wave('sawtooth', 0.0) == -1
 
 
+def test_a_tool_can_make_it_at_another_level():
+    audio = Audio()
+    audio.open(pygame)
+    try:
+        audio.set_buzz_level(0.5)
+        raw = audio.buzz.get_raw()
+        import array
+        values = array.array('h', raw)
+        assert max(values) == int(32767 * 0.5)
+    finally:
+        audio.close()
+
+
 def test_it_plays_from_memory_on_its_channel():
     audio = Audio()
     audio.open(pygame)
