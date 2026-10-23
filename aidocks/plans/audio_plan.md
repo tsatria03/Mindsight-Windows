@@ -10,6 +10,14 @@ metadata:
 
 ## Progress
 
+- **Section 2, built 2026-10-23, waiting for the dev's by-ear tests** (the dev: "ready for section 2"):
+  - `mindsight/platform/audio.py`: the mixer at 44,100 Hz, 16-bit stereo, with two reserved channels; `ScenePlayer` through `pygame.mixer.music`, starting partway, looping, pausing, its position timed on the game's clock from its start point, held while paused and wrapped by the length when looping, and its end noticed only after a quarter of a second, never for a loop, a pause or a stop; Solved at 0.2 on channel 0; the pause clips on channel 1. `NoSound` carries the player's message.
+  - `Mindsight.py` opens the sound before the window and closes it after; no sound device shows its message box, writes `crash.txt` and closes the game ([[foundation_plan]]).
+  - `mindsight/game/scenes.py`, begun early: the 56 scenes' recordings by number and the three looping scenes, which `audio_check.py` needs; the story engine adds the rest. `tools/scenes.py` now fails if either differs from the binary, and `test_recordings.py` takes its names from it.
+  - `tests/interact/_tool.py`, what every tool shares: its own save, Escape quitting before the game's keys, and `run()`, which never closes silently on an error; `foundation_check.py` moved onto it, unchanged to the ear.
+  - `tests/interact/audio_check.py`, with the agreed keys and one more, **I, saying where the playing scene is,** to check a typed point such as 112 seconds; a scene ending of itself is spoken.
+  - `tests/case/test_audio.py`, 11 tests: the mixer's settings, starting partway, pause, a loop's wrap, the end and its grace, Solved at 0.2 and the clip channel, a real scene on the dummy driver, no sound device, and the scene table. 59 silent tests in all, each passing.
+  - Checked silently: `audio_check.py` and `foundation_check.py` started through their real entry points and closed cleanly; driven by hand, `audio_check.py` chose scenes, played scene 46 from a typed 112 seconds, moved 5 seconds each way, paused, played Solved and WelcomeBack, looped scene 35, and quit on Escape.
 - **Section 1, built 2026-10-23,** with nothing to test by ear (the dev: "Now you can build section 1."):
   - `mindsight/platform/mp3.py`: an MP3's length from its frames, from a path or bytes, past any ID3 tag. Moved here from `tools/scenes.py`, which now imports it, so the game and the tool never disagree about a length.
   - `mindsight/game/recordings.py`: `disk_name()` and the six renamed names, `Recordings`, every MP3 under `game/data/audio/` by its lower-case name, and `Recording`, with `source()` (a path now; bytes once plan 6 packs the story) and its `length`. `tools/scenes.py` imports the same lookup; its listing came out unchanged.

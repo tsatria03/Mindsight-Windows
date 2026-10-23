@@ -5,30 +5,12 @@ import _quiet  # noqa: F401  (first, before any of the game)
 import os
 import shutil
 
+from mindsight.game import scenes
 from mindsight.game.recordings import RENAMED, Recordings, disk_name
 
-#: Every recording the binary names, as it names them: the 56 scenes, then the three
-#: played outside the scene table (aidocks/general/project_original_behaviour.md).
-#: tools/scenes.py reads this list from the binary itself.
-BINARY_NAMES = [
-    'Rewind', '01_main_menu_list', '02_new_game_menu_choice', '02b_new_game_confirmation',
-    '03_audio_manual_menu_choice', '04_credits_menu_choice', 'NoSavedGame', 'LoadedSuccessfully',
-    '08_introductory_scene', '09_office_puzzle_lead_in', 'Beeps', '10_solve_office_puzzle',
-    '11_street_puzzle_leadin', '11_street_puzzle_leadin2', '12_street_puzzle_iteration_1',
-    '13_street_puzzle_iteration_2', '14_street_puzzle_iteration_3', '15_street_puzzle_pass',
-    '16_street_puzzle_fail', '17_car_accident_scene', '19_car_accident_puzzle_pass',
-    '20_car_accident_puzzle_fail', '21_flashback_scene', '21b_flashback_scene2', '22_first_tower_scene',
-    '23_solve_guard_puzzle', '23_solve_guard_puzzle2', '24_guard_puzzle_pass', '25_guard_puzzle_fail',
-    '26_tower_entry_scene', '26b_tower_entry_scene', '26c_tower_entry_scene', '26d_tower_entry_scene',
-    '26e_tower_entry_scene', '27_second_floor_scene', 'pirahnaloop', '28_pirahna_puzzle_pass',
-    '29_pirahna_puzzle_fail', '30_third_floor_scene', '30b_third_floor_scene', '31_tones_puzzle_pass',
-    '32_tones_puzzle_fail', '33_fourth_floor_scene', '33b_fourth_floor_scene', '34_safe_puzzle_pass',
-    '35_safe_puzzle_fail', '36_roof_entry_scene', '37_roof_puzzle_iteration_1',
-    '37_roof_puzzle_iteration_1_pass', '38_roof_puzzle_iteration_2', '38_roof_puzzle_iteration_2_pass',
-    '39_roof_puzzle_iteration_3', '39_roof_puzzle_iteration_3_pass', '41_roof_puzzle_fail',
-    '42_boss_death_scene', '43_end_game_congrats',
-    'pause_menu', 'WelcomeBack', 'Solved',
-]
+#: Every recording the binary names, as it names them: the 56 scenes, from the game's own
+#: table, which tools/scenes.py checks against the binary, then the three played outside it.
+BINARY_NAMES = list(scenes.NAMES) + [scenes.PAUSE_MENU, scenes.WELCOME_BACK, scenes.SOLVED]
 
 
 def test_the_names_on_disk():

@@ -12,7 +12,7 @@ Options (aidocks/plans/foundation_plan.md):
 Every run writes logs/log.txt in the save folder, %APPDATA%\\Mindsight, keeping the run
 before as log.old.txt. An error that stops the game writes logs/crash.txt and shows a
 Windows message box, which the screen reader reads, so a player who cannot see the
-screen knows why the game closed.
+screen knows why the game closed: missing recordings, no sound device, or any other error.
 """
 from __future__ import annotations
 
@@ -28,6 +28,7 @@ os.environ.setdefault('PYGAME_HIDE_SUPPORT_PROMPT', '1')
 
 from mindsight import paths  # noqa: E402
 from mindsight.platform import msgbox  # noqa: E402
+from mindsight.platform.audio import NoSound  # noqa: E402
 
 log = logging.getLogger('mindsight')
 
@@ -126,10 +127,21 @@ def main(argv=None):
         import pygame
         from mindsight.app import App
         from mindsight.game.standin import StandInScreen
-        app = App(options, debug=debug, start_scene=scene)
-        app.run(StandInScreen(app), pygame)
+        from mindsight.platform.audio import Audio
+        audio = Audio.shared()
+        audio.open(pygame)
+        try:
+            app = App(options, debug=debug, start_scene=scene)
+            app.run(StandInScreen(app), pygame)
+        finally:
+            audio.close()
         log.info('Mindsight closed')
         return 0
+    except NoSound as missing:
+        log.error('%s', missing)
+        write_crash(str(missing) + '\n')
+        msgbox.error(str(missing))
+        return 1
     except paths.MissingData as missing:
         text = str(missing)
         log.error('%s', text)
