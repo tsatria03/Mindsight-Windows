@@ -64,6 +64,6 @@ The plans after this one, proposed, each to get its own note and review before a
 3. The audio: the scenes through `pygame.mixer.music`, starting partway, looping, pause and resume, the Solved sound over the next scene, and the cue sounds in place of vibration.
 4. The story engine: the 56 scenes, the input lock, the puzzles, failing and the Rewind, and debug jumps, with a scene chooser in `tests/interact/`.
 5. The menus and saves, combined at the dev's word: the original's recorded menus answered by the swipe keys, the credits and the PDF, and the one saved scene ([[menus_saves_plan]]).
-6. Building and releasing: `compiler.py` and `releaser.py`.
+6. Building and releasing: `compiler.py` and `releaser.py` ([[build_release_plan]]).
 
 The order and the weights for the progress summary are agreed with the dev once this plan is finished ([[feedback_progress_summary]]).

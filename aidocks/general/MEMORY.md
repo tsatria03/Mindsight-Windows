@@ -8,7 +8,7 @@ The `[[name]]` links in `CLAUDE.md` and across these notes resolve to `aidocks/g
 - [Python only](project_python_only.md): pygame for the window, keys and all sound; no FMOD, no OpenAL and no speech, since the original is self-voiced; the MP3s converted by the dev.
 - [Windows only](project_windows_only.md): no Linux, macOS or GitHub Actions workflow.
 - [Solo project](project_solo.md): tsatria03 alone; credits name Luke Charman for the original.
-- [Later topics](project_later_topics.md): open questions for plans not yet written, such as the build's packing of the recordings.
+- [Later topics](project_later_topics.md): open questions for plans not yet written, such as the plan order and the progress weights.
 - [Developer tasks](project_dev_tasks.md): repository, tools, tests, build and docs tasks, kept out of the player todo list.
 
 ## Plans
@@ -17,6 +17,7 @@ The `[[name]]` links in `CLAUDE.md` and across these notes resolve to `aidocks/g
 - [Audio](../plans/audio_plan.md): plan 3, written, every question answered. The recordings found by name, the scene player through pygame.mixer.music, Solved and the pause clips, MP3 lengths, the generated buzz in place of vibration with buzz_check.py, pausing on losing focus, and the NVDA client for every by-ear tool.
 - [Story engine](../plans/story_engine_plan.md): plan 4, written, every question answered. The 56 scenes and their rules, the input lock kept with silent ignored keys, the buzz cues, the puzzles, failing and the Rewind, the ending fixed so the credits always follow, swipes ignored while paused, the window's three lines, --scene, and story_check.py.
 - [Menus and saves](../plans/menus_saves_plan.md): plan 5, written, every question answered. The original's recorded menus answered by the swipe keys, the PDF in the default viewer, the one saved scene in saves/progress.json, --scene runs never saving, headphones in the readme only, and no achievements.
+- [Build and release](../plans/build_release_plan.md): plan 6, the last, being written, its questions asked one at a time. compiler.py and releaser.py, the build's contents, --test, the zip and gh.
 
 ## Completed projects
 - None yet.

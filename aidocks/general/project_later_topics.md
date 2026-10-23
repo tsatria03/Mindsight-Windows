@@ -14,5 +14,4 @@ Topics that belong to a plan not yet written. When that plan is written, each go
 
 ## Open, for the dev
 
-- **`cryptography` in `requirements.txt`.** It suggests the recordings packed and encrypted for a build. Whether the build does that, or ships the MP3s loose. For the build and release plan.
 - **The plan order and the progress weights** ([[feedback_progress_summary]]), agreed once plan 1 is finished.
