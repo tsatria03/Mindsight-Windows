@@ -10,7 +10,7 @@ metadata:
 
 ## Progress
 
-- **Section 2, built 2026-10-23, waiting for the dev's by-ear tests** (the dev: "yes, continue"):
+- **Section 2, FINISHED 2026-10-23,** its by-ear tests passed (the dev: "tests past"). Built the same day (the dev: "yes, continue"):
   - `mindsight/game/story_screen.py`, `StoryScreen`: opens on scene 1, or jumps to `--scene`'s; each frame hands the position to `Story.tick` for the cue's buzz; a swipe goes to `Story.swipe` with the position; a recording's end to `Story.ended`; and it does what they return: `Play` on the scene player, looping for 10, 26 and 35, Solved, the buzz. `Save` only logs where it would save until plan 5, and never in a `--scene` run; the PDF and Continue's load only log. `escape_quits` is true in scenes 1 to 7. The window shows "Scene 47: roof puzzle iteration 1", then "Your turn" or "Listening", and "Paused".
   - `Mindsight.py` now opens the story screen; **the stand-in screen is gone**, as plan 2 said it would be, with its tests.
   - The pause gesture only logs until section 4, so in the story, Escape, Enter and P do nothing yet; Alt+F4 quits.
