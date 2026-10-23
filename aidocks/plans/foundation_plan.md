@@ -10,7 +10,7 @@ metadata:
 
 ## Progress
 
-- **Section 2, built 2026-10-23, waiting for the dev's by-ear tests:**
+- **Section 2, FINISHED 2026-10-23,** its by-ear tests passed (the dev: "The tests for section 2 past."). Built the same day:
   - `mindsight/platform/runloop.py`, the timer loop, with `hold()` and `resume()`.
   - `mindsight/platform/keys.py`, the fixed keys: each pygame key name to its gesture, `up`, `down`, `left`, `right` or `pause`, with the keypad's Enter as the double tap too; a game key with Shift, Control, Alt or the Windows key held stands for nothing.
   - `mindsight/ui/screens.py`, the screen stack. A screen hears a game key as `gesture()`, a game key with a modifier as `ignored_key()`, and any other key as `other_key()`, which only the by-ear tools use.
