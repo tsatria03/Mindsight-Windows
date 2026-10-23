@@ -45,6 +45,10 @@ Read from the binary ([[project_original_behaviour]], [[project_original_finding
   - **`tests/interact/buzz_check.py`,** a by-ear tool of its own, sets the buzz's frequency and its wave shape (sine, square, triangle or sawtooth) and plays it on demand, so the dev can choose by ear. Like every tool there, it never changes the game: the dev says which values they like, and they go into `buzz.py` ([[feedback_test_tools_in_interact]]).
   - **Its keys** (agreed 2026-10-22): Up and Down move the frequency up or down by 10 Hz; Left and Right change the wave shape; Space plays the buzz; Escape quits. Each change says the new value, such as "180 hertz, square".
   - Hearing the buzz is a mandatory by-ear test; only the dev can judge it.
+- **Losing focus works like the original's interruption** (the dev, 2026-10-22: "I like that.", to the proposal), from `interruptedPlayer:` (0x100007b64):
+  - When the window loses focus, the scene and every timer pause at once, so no cue time or timed puzzle runs on unheard.
+  - When it gets focus back, the scene steps back 3 s and `WelcomeBack` plays, and the game stays paused until Escape, Enter or P resumes it.
+  - If no recording was playing, such as a menu waiting for its swipe, coming back plays `WelcomeBack` only, with nothing to step back; to be confirmed at the section review.
 - **Every by-ear tool speaks through the NVDA client** (the dev, 2026-10-22: "Yes, keep the nvda client for all interactive tests."): `vendor/nvda/nvdaControllerClient64.dll` through ctypes, from a small helper in `tests/interact/`, used by the tools only and never by the game, which stays without speech ([[foundation_plan]]). Each line is printed in the console as well, and when NVDA is not running the tool only prints. So `vendor/nvda/` stays in the repo.
 - **Tests stay silent:** they run on SDL's dummy audio driver, so nothing is heard ([[feedback_dont_run_or_build]]).
 
@@ -53,5 +57,5 @@ Read from the binary ([[project_original_behaviour]], [[project_original_finding
 Asked one at a time; each answer moves into Decided.
 1. Answered: the cue sound, a buzz the game makes, with `buzz_check.py`.
 4. Answered: `buzz_check.py`'s keys, and the NVDA client for every by-ear tool.
-2. **Losing focus:** whether the game pauses when its window loses focus, and whether coming back steps back 3 s and plays `WelcomeBack`, as the original did after a phone call.
+2. Answered: losing focus, as the original's interruption.
 3. **No sound device:** what the game does if the mixer cannot open.
