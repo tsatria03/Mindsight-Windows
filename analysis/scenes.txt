@@ -1,0 +1,316 @@
+MiNDSIGHT, every scene
+
+Written by tools/scenes.py from the original's binary, game/MiNDSIGHT; do not edit it by hand.
+Scenes are numbered as the binary numbers them, and listed in story order: the menus, then the story, with scene 11 before 10, and the Rewind last.
+Find "Scene <number>:" to jump to a scene.
+Swipes are up, down, left and right; the port answers them with the arrow keys or W, S, A and D.
+A double tap pauses and resumes; the port uses Escape, Enter or P.
+A looping scene never ends, so nothing follows it until it is answered, and it never vibrates.
+
+Where the port departs from the original:
+The port plays a short buzz wherever the original vibrated.
+The port ignores swipes while paused; the original still acted on them.
+The port always plays the credits after the ending; the original went back to a retry point if the player had failed any puzzle that run.
+
+Scene 1: main_menu_list
+Recording: story/speech/main_menu_list.mp3, 18.1 seconds.
+Then: it waits for a swipe.
+When it ends: a buzz in the port, a vibration in the original, to say a swipe counts now.
+Swipe up: New game, scene 2.
+Swipe down: Continue: scene 7 with a save, scene 6 without one.
+Swipe left: the audio manual, scene 4.
+Swipe right: the credits, scene 5.
+
+Scene 2: new_game_menu_choice
+Recording: story/speech/new_game_menu_choice.mp3, 12.4 seconds.
+Then: it waits for a swipe.
+When it ends: a buzz in the port, a vibration in the original, to say a swipe counts now.
+Swipe up: start the new game, scene 3.
+Swipe down: back to the main menu, scene 1.
+
+Scene 3: new_game_confirmation
+Recording: story/speech/new_game_confirmation.mp3, 9.8 seconds.
+Then: scene 8.
+
+Scene 4: audio_manual_menu_choice
+Recording: story/speech/audio_manual_menu_choice.mp3, 51.5 seconds.
+Then: scene 1.
+
+Scene 5: credits_menu_choice
+Recording: story/speech/credits_menu_choice.mp3, 41.7 seconds.
+Then: it waits for a swipe.
+When it ends: a buzz in the port, a vibration in the original, to say a swipe counts now.
+Swipe right: back to the main menu, scene 1.
+Swipe left: open the dissertation PDF.
+
+Scene 6: NoSavedGame
+Recording: story/speech/NoSavedGame.mp3, 10.1 seconds.
+Then: it waits for a swipe.
+When it ends: a buzz in the port, a vibration in the original, to say a swipe counts now.
+Swipe up: start a new game, scene 3.
+Swipe down: back to the main menu, scene 1.
+
+Scene 7: LoadedSuccessfully
+Recording: story/speech/LoadedSuccessfully.mp3, 5.7 seconds.
+Then: the saved scene, from its start.
+
+Scene 8: introductory_scene
+Recording: story/sceen/introductory_scene.mp3, 165.8 seconds.
+Then: scene 9, and the game saves.
+
+Scene 9: office_puzzle_lead_in
+Recording: story/sceen/office_puzzle_lead_in.mp3, 74.4 seconds.
+Then: scene 11.
+
+Scene 11: solve_office_puzzle
+Recording: story/sceen/solve_office_puzzle.mp3, 55.8 seconds.
+Then: scene 10.
+Puzzle: Office keys. Answer: right.
+A swipe counts after 22 seconds.
+Buzz at 22 seconds, where the original vibrated.
+Right answer: scene 12, with Solved, and the game saves.
+Any other swipe does nothing.
+
+Scene 10: Beeps
+Recording: system/misc/Beeps.mp3, 39.6 seconds.
+It loops until answered.
+Puzzle: Office keys. Answer: right.
+Right answer: scene 12, with Solved, and the game saves.
+Any other swipe does nothing.
+
+Scene 12: street_puzzle_leadin
+Recording: story/sceen/street_puzzle_leadin.mp3, 32.2 seconds.
+Then: scene 13, and the game saves.
+
+Scene 13: street_puzzle_leadin2
+Recording: story/sceen/street_puzzle_leadin2.mp3, 41.3 seconds.
+Then: scene 14, and the game saves.
+
+Scene 14: street_puzzle_iteration_1
+Recording: story/sceen/street_puzzle_iteration_1.mp3, 37.4 seconds.
+Then, if unanswered: the Rewind, scene 0.
+Puzzle: Street, round 1. Answer: right.
+A swipe counts after 13 seconds.
+Buzz at 13 seconds, where the original vibrated.
+Right answer: scene 15, with Solved.
+Wrong answer: scene 18, the fail; then the Rewind; then scene 13, from 20.4 seconds.
+
+Scene 15: street_puzzle_iteration_2
+Recording: story/sceen/street_puzzle_iteration_2.mp3, 35.2 seconds.
+Then, if unanswered: the Rewind, scene 0.
+Puzzle: Street, round 2. Answer: up.
+A swipe counts after 10 seconds.
+Buzz at 11 seconds, where the original vibrated.
+Right answer: scene 16, with Solved.
+Wrong answer: scene 18, the fail; then the Rewind; then scene 13, from 20.4 seconds.
+
+Scene 16: street_puzzle_iteration_3
+Recording: story/sceen/street_puzzle_iteration_3.mp3, 35.7 seconds.
+Then, if unanswered: the Rewind, scene 0.
+Puzzle: Street, round 3. Answer: left.
+A swipe counts after 10 seconds.
+Buzz at 11 seconds, where the original vibrated.
+Right answer: scene 17, with Solved.
+Wrong answer: scene 18, the fail; then the Rewind; then scene 13, from 20.4 seconds.
+
+Scene 17: street_puzzle_pass
+Recording: story/sceen/street_puzzle_pass.mp3, 13.6 seconds.
+Then: scene 19, and the game saves.
+
+Scene 18: street_puzzle_fail
+Recording: story/sceen/street_puzzle_fail.mp3, 9.1 seconds.
+Then: the Rewind, scene 0.
+
+Scene 19: car_accident_scene
+Recording: story/sceen/car_accident_scene.mp3, 23.7 seconds.
+Then, if unanswered: scene 21, the fail.
+Puzzle: Car accident. Answer: right.
+A swipe counts after 21 seconds.
+Buzz at 21 seconds, where the original vibrated.
+Right answer: scene 20, with Solved, and the game saves.
+Wrong answer: scene 21, the fail; then the Rewind; then scene 19, from its start.
+
+Scene 20: car_accident_puzzle_pass
+Recording: story/sceen/car_accident_puzzle_pass.mp3, 10.6 seconds.
+Then: scene 22, and the game saves.
+
+Scene 21: car_accident_puzzle_fail
+Recording: story/sceen/car_accident_puzzle_fail.mp3, 9.5 seconds.
+Then: the Rewind, scene 0.
+
+Scene 22: flashback_scene
+Recording: story/sceen/flashback_scene.mp3, 16.2 seconds.
+Then: scene 23, and the game saves.
+
+Scene 23: flashback_scene2
+Recording: story/sceen/flashback_scene2.mp3, 142.6 seconds.
+Then: scene 24, and the game saves.
+
+Scene 24: first_tower_scene
+Recording: story/sceen/first_tower_scene.mp3, 88.6 seconds.
+Then: scene 25.
+
+Scene 25: solve_guard_puzzle
+Recording: story/sceen/solve_guard_puzzle.mp3, 58.7 seconds.
+Then: scene 26.
+
+Scene 26: solve_guard_puzzle2
+Recording: story/sceen/solve_guard_puzzle2.mp3, 24.6 seconds.
+It loops until answered.
+Puzzle: Guard. Answer: right.
+Right answer: scene 27.
+Swipe left: scene 28; either way the story goes on.
+
+Scene 27: guard_puzzle_pass
+Recording: story/sceen/guard_puzzle_pass.mp3, 6.2 seconds.
+Then: scene 29, and the game saves.
+
+Scene 28: guard_puzzle_fail
+Recording: story/sceen/guard_puzzle_fail.mp3, 61.6 seconds.
+Then: scene 29, and the game saves.
+
+Scene 29: tower_entry_scene
+Recording: story/sceen/tower_entry_scene.mp3, 42.6 seconds.
+Then: scene 30, and the game saves.
+
+Scene 30: tower_entry_scene2
+Recording: story/sceen/tower_entry_scene2.mp3, 28.7 seconds.
+Then: scene 31, and the game saves.
+
+Scene 31: tower_entry_scene3
+Recording: story/sceen/tower_entry_scene3.mp3, 99.2 seconds.
+Then: scene 32, and the game saves.
+
+Scene 32: tower_entry_scene4
+Recording: story/sceen/tower_entry_scene4.mp3, 61.9 seconds.
+Then: scene 33, and the game saves.
+
+Scene 33: tower_entry_scene5
+Recording: story/sceen/tower_entry_scene5.mp3, 84.4 seconds.
+Then: scene 34, and the game saves.
+
+Scene 34: second_floor_scene
+Recording: story/sceen/second_floor_scene.mp3, 111 seconds.
+Then: scene 35.
+
+Scene 35: pirahnaloop
+Recording: system/misc/pirahnaloop.mp3, 124 seconds.
+It loops until answered.
+Puzzle: Piranhas. Answer: any swipe, inside a window.
+Windows, in seconds into each loop: 15 to 19, 25 to 27, 31 to 34, 41 to 45, 50 to 52, 57 to 59, 67 to 71, 77 to 79, 83 to 86, 93 to 97, 103 to 105, 109 to 111, 119 to 122.
+Right answer: scene 36, with Solved, and the game saves.
+Wrong answer: scene 37, the fail; then the Rewind; then scene 34, from 70 seconds.
+
+Scene 36: pirahna_puzzle_pass
+Recording: story/sceen/pirahna_puzzle_pass.mp3, 7.2 seconds.
+Then: scene 38, and the game saves.
+
+Scene 37: pirahna_puzzle_fail
+Recording: story/sceen/pirahna_puzzle_fail.mp3, 9.4 seconds.
+Then: the Rewind, scene 0.
+
+Scene 38: third_floor_scene
+Recording: story/sceen/third_floor_scene.mp3, 28.3 seconds.
+Then: scene 39, and the game saves.
+
+Scene 39: third_floor_scene2
+Recording: story/sceen/third_floor_scene2.mp3, 110.4 seconds.
+It must be heard to the end before a swipe counts.
+When it ends: a buzz in the port, a vibration in the original, to say a swipe counts now.
+Puzzle: Tones. Answer: left.
+Right answer: scene 40, with Solved, and the game saves.
+Wrong answer: scene 41, the fail; then the Rewind; then scene 39, from 42 seconds.
+
+Scene 40: tones_puzzle_pass
+Recording: story/sceen/tones_puzzle_pass.mp3, 26.4 seconds.
+Then: scene 42, and the game saves.
+
+Scene 41: tones_puzzle_fail
+Recording: story/sceen/tones_puzzle_fail.mp3, 16.3 seconds.
+Then: the Rewind, scene 0.
+
+Scene 42: fourth_floor_scene
+Recording: story/sceen/fourth_floor_scene.mp3, 28.3 seconds.
+Then: scene 43, and the game saves.
+
+Scene 43: fourth_floor_scene2
+Recording: story/sceen/fourth_floor_scene2.mp3, 122.6 seconds.
+It must be heard to the end before a swipe counts.
+When it ends: a buzz in the port, a vibration in the original, to say a swipe counts now.
+Puzzle: Safe. Answer: down.
+Right answer: scene 44, with Solved, and the game saves.
+Wrong answer: scene 45, the fail; then the Rewind; then scene 43, from 68.5 seconds.
+
+Scene 44: safe_puzzle_pass
+Recording: story/sceen/safe_puzzle_pass.mp3, 25.6 seconds.
+Then: scene 46, and the game saves.
+
+Scene 45: safe_puzzle_fail
+Recording: story/sceen/safe_puzzle_fail.mp3, 17.7 seconds.
+Then: the Rewind, scene 0.
+
+Scene 46: roof_entry_scene
+Recording: story/sceen/roof_entry_scene.mp3, 141.8 seconds.
+Then: scene 47.
+
+Scene 47: roof_puzzle_iteration_1
+Recording: story/sceen/roof_puzzle_iteration_1.mp3, 9.5 seconds.
+Then, if unanswered: scene 53, the fail.
+Puzzle: Roof, round 1. Answer: right.
+A swipe counts after 7 seconds.
+Buzz at 7 seconds, where the original vibrated.
+Right answer: scene 48, with Solved.
+Wrong answer: scene 53, the fail; then the Rewind; then scene 46, from 112 seconds.
+
+Scene 48: roof_puzzle_iteration_1_pass
+Recording: story/sceen/roof_puzzle_iteration_1_pass.mp3, 3.2 seconds.
+Then: scene 49.
+
+Scene 49: roof_puzzle_iteration_2
+Recording: story/sceen/roof_puzzle_iteration_2.mp3, 11.2 seconds.
+Then, if unanswered: scene 53, the fail.
+Puzzle: Roof, round 2. Answer: left.
+A swipe counts after 7 seconds.
+Buzz at 8.4 seconds, where the original vibrated.
+Right answer: scene 50, with Solved.
+Wrong answer: scene 53, the fail; then the Rewind; then scene 46, from 112 seconds.
+
+Scene 50: roof_puzzle_iteration_2_pass
+Recording: story/sceen/roof_puzzle_iteration_2_pass.mp3, 3.3 seconds.
+Then: scene 51.
+
+Scene 51: roof_puzzle_iteration_3
+Recording: story/sceen/roof_puzzle_iteration_3.mp3, 9.7 seconds.
+Then, if unanswered: scene 53, the fail.
+Puzzle: Roof, round 3. Answer: down.
+A swipe counts after 7 seconds.
+Buzz at 7 seconds, where the original vibrated.
+Right answer: scene 52, with Solved, and the game saves.
+Wrong answer: scene 53, the fail; then the Rewind; then scene 46, from 112 seconds.
+
+Scene 52: roof_puzzle_iteration_3_pass
+Recording: story/sceen/roof_puzzle_iteration_3_pass.mp3, 2 seconds.
+Then: scene 54.
+
+Scene 53: roof_puzzle_fail
+Recording: story/sceen/roof_puzzle_fail.mp3, 8.5 seconds.
+Then: the Rewind, scene 0.
+
+Scene 54: boss_death_scene
+Recording: story/sceen/boss_death_scene.mp3, 168.1 seconds.
+Then: scene 55.
+
+Scene 55: end_game_congrats
+Recording: story/speech/end_game_congrats.mp3, 3.1 seconds.
+Then: scene 5, the credits.
+Port: the credits always follow; the original went back to a retry point after any failure that run.
+
+Scene 0: Rewind
+Recording: system/misc/Rewind.mp3, 6.4 seconds.
+It plays after a failure, then the retry, by the puzzle failed:
+After scenes 14, 15 or 16: scene 13, from 20.4 seconds.
+After scene 19: scene 19, from its start.
+After scene 35: scene 34, from 70 seconds.
+After scene 39: scene 39, from 42 seconds.
+After scene 43: scene 43, from 68.5 seconds.
+After scenes 47, 49 or 51: scene 46, from 112 seconds.
