@@ -19,4 +19,4 @@ metadata:
   - what the dev will test by ear, and whether each test is optional or mandatory ([[feedback_say_ear_tests_ahead]])
 - Ask one question at a time about anything the review turns up ([[feedback_one_question_at_a_time]]). Changes go into the plan and are committed before building.
 - Building starts only when the dev says so after the review.
-- A plan with no by-ear tests, such as building and releasing, may need no section review if the dev says so, but it still starts only on the dev's word.
+- **The one exception: plan 6, building and releasing, has no section review** (the dev, 2026-10-23: "Yes. Skip the section review for that plan only."). It still starts only on the dev's word, never by itself after plan 5 ([[build_release_plan]]).

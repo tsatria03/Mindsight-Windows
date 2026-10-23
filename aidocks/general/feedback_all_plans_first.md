@@ -15,4 +15,5 @@ metadata:
 - Ask its questions one per reply ([[feedback_one_question_at_a_time]]), recording each answer in the plan, and committing, before the next question.
 - Bring in every item from [[project_later_topics]] that belongs to the plan, and strike it from there.
 - Only when the last plan is written, offer plan 1's section review ([[feedback_review_plan_sections]]). Nothing is built before then.
+- **All six plans were written by 2026-10-23,** every question answered.
 - If a later plan's answer changes an earlier plan, update the earlier note too, and say so.

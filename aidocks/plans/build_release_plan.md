@@ -6,7 +6,7 @@ metadata:
   type: project
 ---
 
-**Status: being written.** Its open questions are being asked one at a time; no review or building until every plan is written ([[feedback_all_plans_first]]).
+**Status: written,** every question answered on 2026-10-23. It has no section review; it is built only on the dev's word, after plans 1 to 5 ([[feedback_all_plans_first]]).
 
 Plan 6, the last ([[reading_original_plan]] lists the order). It packages what plans 2 to 5 build.
 
@@ -18,6 +18,7 @@ Plan 6, the last ([[reading_original_plan]] lists the order). It packages what p
 
 ## Decided
 
+- **No section review for this plan** (the dev, 2026-10-23: "Yes. Skip the section review for that plan only."), since it has nothing to hear beyond a finished build. It still starts only on the dev's word, and each section's tests are still listed ahead, each optional or mandatory; playing a little of a built game from `story.dat` is mandatory ([[feedback_say_ear_tests_ahead]]). Every other plan keeps its review.
 - **Windows only,** with no GitHub Actions workflow and no Linux or macOS parts ([[project_windows_only]]).
 - **Two scripts at the repo's root, adapted from the reference material in the gitignored `user/` folder,** never naming where they came from ([[feedback_no_other_games]]):
   - `compiler.py` builds the game with PyInstaller into `dist\Mindsight-Windows\`, around `Mindsight.exe`. It only builds: it never zips and never changes the repository. Run with no options, it shows a numbered menu, each choice one command line, and Enter with nothing typed says the menu again. `--dry-run` lists what it would do without building.
@@ -47,4 +48,4 @@ Plan 6, the last ([[reading_original_plan]] lists the order). It packages what p
 Asked one at a time; each answer moves into Decided.
 1. Answered: the story folder packed into `data\story.dat`, the misc folder loose and whole.
 2. Answered: both kinds of build, chosen each time.
-3. **Section reviews:** whether this plan, with nothing to hear beyond a build, needs a section review before it is built.
+3. Answered: no section review for this plan only.

@@ -17,7 +17,7 @@ The `[[name]]` links in `CLAUDE.md` and across these notes resolve to `aidocks/g
 - [Audio](../plans/audio_plan.md): plan 3, written, every question answered. The recordings found by name, the scene player through pygame.mixer.music, Solved and the pause clips, MP3 lengths, the generated buzz in place of vibration with buzz_check.py, pausing on losing focus, and the NVDA client for every by-ear tool.
 - [Story engine](../plans/story_engine_plan.md): plan 4, written, every question answered. The 56 scenes and their rules, the input lock kept with silent ignored keys, the buzz cues, the puzzles, failing and the Rewind, the ending fixed so the credits always follow, swipes ignored while paused, the window's three lines, --scene, and story_check.py.
 - [Menus and saves](../plans/menus_saves_plan.md): plan 5, written, every question answered. The original's recorded menus answered by the swipe keys, the PDF in the default viewer, the one saved scene in saves/progress.json, --scene runs never saving, headphones in the readme only, and no achievements.
-- [Build and release](../plans/build_release_plan.md): plan 6, the last, being written, its questions asked one at a time. compiler.py and releaser.py, the build's contents, --test, the zip and gh.
+- [Build and release](../plans/build_release_plan.md): plan 6, the last, written, every question answered; no section review. compiler.py with both kinds of build and releaser.py, the story folder packed in data\story.dat with misc loose, --test, the zip and gh.
 
 ## Completed projects
 - None yet.
