@@ -15,18 +15,21 @@ Read straight from the binary:
 The puzzles' answers, cue times, piranha windows and retry points sit in
 less regular code, so they are a table here, PUZZLES and RETRIES, each value
 with the address it comes from; every one is checked against the binary.
-A recording is found on disk the way the game finds it: the binary's name
-without its number prefix, six letter-suffixed names mapped, as .mp3
-anywhere under game/data/audio/. Nothing here plays or writes under game/.
+A recording is found on disk by the game's own lookup and timed by the game's
+own MP3 reader (mindsight/game/recordings.py, mindsight/platform/mp3.py): the
+binary's name without its number prefix, six letter-suffixed names mapped, as
+.mp3 anywhere under game/data/audio/. Nothing here plays or writes under game/.
 """
 import os
 import re
-import struct
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import dis64 as D  # noqa: E402
 import macho64 as M  # noqa: E402
+from mindsight.game.recordings import RENAMED, disk_name  # noqa: E402,F401  (the game's own lookup)
+from mindsight.platform.mp3 import length as mp3_length  # noqa: E402  (the game's own reader)
 
 ROOT = M.ROOT
 AUDIO = os.path.join(ROOT, "game", "data", "audio")
@@ -36,15 +39,6 @@ UP, DOWN, LEFT, RIGHT = 0, 1, 2, 3
 DIRECTIONS = {UP: "up", DOWN: "down", LEFT: "left", RIGHT: "right"}
 SCENES = 56
 
-# The six names whose letter suffix became a number on disk (the dev's renaming).
-RENAMED = {
-    "26b_tower_entry_scene": "tower_entry_scene2",
-    "26c_tower_entry_scene": "tower_entry_scene3",
-    "26d_tower_entry_scene": "tower_entry_scene4",
-    "26e_tower_entry_scene": "tower_entry_scene5",
-    "30b_third_floor_scene": "third_floor_scene2",
-    "33b_fourth_floor_scene": "fourth_floor_scene2",
-}
 # The recordings played outside the scene table: pause, interruption and Solved.
 EXTRA = ("pause_menu", "WelcomeBack", "Solved")
 
@@ -230,10 +224,6 @@ def read_flow():
 
 # ---- the recordings on disk ----
 
-def disk_name(binary_name):
-    return RENAMED.get(binary_name) or re.sub(r"^\d+[a-z]?_", "", binary_name)
-
-
 def files_on_disk():
     found = {}
     for d, _, fs in os.walk(AUDIO):
@@ -242,31 +232,6 @@ def files_on_disk():
             if ext.lower() == ".mp3":
                 found[stem.lower()] = os.path.relpath(os.path.join(d, f), AUDIO).replace(os.sep, "/")
     return found
-
-
-BITRATES = {1: [0, 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320],
-            2: [0, 8, 16, 24, 32, 40, 48, 56, 64, 80, 96, 112, 128, 144, 160]}
-RATES = {3: [44100, 48000, 32000], 2: [22050, 24000, 16000], 0: [11025, 12000, 8000]}
-
-
-def mp3_length(path):
-    """Seconds, by counting the MP3's frames, past an ID3 tag; layer III only."""
-    b = open(path, "rb").read()
-    i = 0
-    if b[:3] == b"ID3":
-        i = 10 + ((b[6] & 127) << 21 | (b[7] & 127) << 14 | (b[8] & 127) << 7 | (b[9] & 127))
-    t = 0.0
-    while i + 4 <= len(b):
-        h = struct.unpack(">I", b[i:i + 4])[0]
-        ver, layer, bri, sri, pad = (h >> 19) & 3, (h >> 17) & 3, (h >> 12) & 15, (h >> 10) & 3, (h >> 9) & 1
-        if (h >> 21) & 0x7FF != 0x7FF or layer != 1 or bri in (0, 15) or sri == 3 or ver == 1:
-            i += 1
-            continue
-        rate = RATES[ver][sri]
-        rate_kbps = BITRATES[1 if ver == 3 else 2][bri]
-        t += (1152 if ver == 3 else 576) / rate
-        i += (144 if ver == 3 else 72) * rate_kbps * 1000 // rate + pad
-    return t
 
 
 # ---- the checks ----
