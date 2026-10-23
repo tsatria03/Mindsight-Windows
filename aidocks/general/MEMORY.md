@@ -8,12 +8,13 @@ The `[[name]]` links in `CLAUDE.md` and across these notes resolve to `aidocks/g
 - [Python only](project_python_only.md): pygame for the window, keys and all sound; no FMOD, no OpenAL and no speech, since the original is self-voiced; the MP3s converted by the dev.
 - [Windows only](project_windows_only.md): no Linux, macOS or GitHub Actions workflow.
 - [Solo project](project_solo.md): tsatria03 alone; credits name Luke Charman for the original.
-- [Later topics](project_later_topics.md): open questions for plans not yet written, such as the cues in place of vibration, the keys, and the ending's quirk.
+- [Later topics](project_later_topics.md): open questions for plans not yet written, such as the input lock, the ending's quirk and the headphones notice.
 - [Developer tasks](project_dev_tasks.md): repository, tools, tests, build and docs tasks, kept out of the player todo list.
 
 ## Plans
 - [Reading the original](../plans/reading_original_plan.md): plan 1, written, no open questions; its review waits until every plan is written. Tools to read the binary, the scene table checked against the recordings, analysis/scenes.txt, and the behaviour note checked.
 - [Foundation](../plans/foundation_plan.md): plan 2, written, every question answered; debug mode on the command line only. Mindsight.py, paths, logs, error message boxes, the timer loop, the fixed keys (arrows and WASD; Escape, Enter and P), the window's text and the silent tests; no speech, Settings, key binder or volumes.
+- [Audio](../plans/audio_plan.md): plan 3, being written, its questions asked one at a time. The recordings found by name, the scene player through pygame.mixer.music, Solved and the pause clips, MP3 lengths, the cue sound, and audio_check.py.
 
 ## Completed projects
 - None yet.
