@@ -46,10 +46,10 @@ def tool_app_class():
     return ToolApp
 
 
-def run(title, make_screen, argv=None, before=None, after=None):
+def run(title, make_screen, argv=None, before=None, after=None, debug=False):
     """Run a tool: ``make_screen(app)`` is its first screen. ``before(pygame)`` runs once
     the log has started and ``after()`` once the window has closed, such as opening and
-    closing the sound."""
+    closing the sound. ``debug`` runs it in the game's debug mode, its title saying so."""
     import Mindsight
     import _nvda
     from mindsight import paths
@@ -63,7 +63,7 @@ def run(title, make_screen, argv=None, before=None, after=None):
             before(pygame)
         try:
             app = tool_app_class()(Mindsight.parse_args(['--exit-after', str(exit_after)] if exit_after else []),
-                                   title=title)
+                                   title=title, debug=debug)
             app.run(make_screen(app), pygame)
         finally:
             if after is not None:

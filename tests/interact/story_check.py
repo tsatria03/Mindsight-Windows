@@ -1,6 +1,11 @@
 """Play the story by ear, from any scene (aidocks/plans/story_engine_plan.md).
 
     python tests/interact/story_check.py
+    python tests/interact/story_check.py --scene 47
+
+It always runs in the game's debug mode (the dev, 2026-10-23), its window titled "Mindsight
+story check (debug)", and like the game's ``--debug --scene N``, ``--scene N`` starts it at
+scene N, 0 to 55.
 
 It is the game's own story screen, with the game's own keys, plus a few of its own to get
 around, and it speaks through NVDA, as every tool here does; the game itself never speaks.
@@ -115,10 +120,23 @@ class StoryCheckScreen(StoryScreen):
         return 'Scene %d, %s, %s, %s, %s.' % (scene, plain_name(scene), where, failure, turn)
 
 
+def scene_from(argv):
+    """The scene ``--scene N`` names, when it is one; or None."""
+    if '--scene' not in argv:
+        return None
+    try:
+        scene = int(argv[argv.index('--scene') + 1])
+    except (IndexError, ValueError):
+        return None
+    return scene if 0 <= scene < S.COUNT else None
+
+
 def main(argv=None):
+    argv = sys.argv[1:] if argv is None else argv
     audio = Audio.shared()
-    return _tool.run('Mindsight story check', lambda app: StoryCheckScreen(app, audio), argv,
-                     before=audio.open, after=audio.close)
+    scene = scene_from(argv)
+    return _tool.run('Mindsight story check', lambda app: StoryCheckScreen(app, audio, start_scene=scene), argv,
+                     before=audio.open, after=audio.close, debug=True)
 
 
 if __name__ == '__main__':
