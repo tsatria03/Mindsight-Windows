@@ -16,7 +16,7 @@ The `[[name]]` links in `CLAUDE.md` and across these notes resolve to `aidocks/g
 - [Foundation](../plans/foundation_plan.md): plan 2, written, every question answered; debug mode on the command line only. Mindsight.py, paths, logs, error message boxes, the timer loop, the fixed keys (arrows and WASD; Escape, Enter and P), the window's text and the silent tests; no speech, Settings, key binder or volumes.
 - [Audio](../plans/audio_plan.md): plan 3, written, every question answered. The recordings found by name, the scene player through pygame.mixer.music, Solved and the pause clips, MP3 lengths, the generated buzz in place of vibration with buzz_check.py, pausing on losing focus, and the NVDA client for every by-ear tool.
 - [Story engine](../plans/story_engine_plan.md): plan 4, written, every question answered. The 56 scenes and their rules, the input lock kept with silent ignored keys, the buzz cues, the puzzles, failing and the Rewind, the ending fixed so the credits always follow, swipes ignored while paused, the window's three lines, --scene, and story_check.py.
-- [Menus and saves](../plans/menus_saves_plan.md): plan 5, being written, its questions asked one at a time. The original's recorded menus answered by the swipe keys, the PDF, and the one saved scene in saves/progress.json.
+- [Menus and saves](../plans/menus_saves_plan.md): plan 5, written, every question answered. The original's recorded menus answered by the swipe keys, the PDF in the default viewer, the one saved scene in saves/progress.json, --scene runs never saving, headphones in the readme only, and no achievements.
 
 ## Completed projects
 - None yet.

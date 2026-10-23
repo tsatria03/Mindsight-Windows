@@ -43,6 +43,6 @@ metadata:
 
 ## What the port drops
 
-- Game Center and its achievements, unless the dev asks for them locally ([[project_later_topics]]).
+- Game Center and its achievements; the port keeps no achievements at all, at the dev's word ([[menus_saves_plan]]).
 - The on-screen remaining-time label (`updateCurrentTimeLabel`, 0x100007590), the background image and the now-playing icon.
 - The idle-timer switching in `MSAppDelegate`, which only kept the phone's screen awake.

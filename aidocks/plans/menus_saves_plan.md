@@ -6,7 +6,7 @@ metadata:
   type: project
 ---
 
-**Status: being written.** Its open questions are being asked one at a time; no review or building until every plan is written ([[feedback_all_plans_first]]).
+**Status: written,** every question answered on 2026-10-22. Its section review waits until every plan is written ([[feedback_all_plans_first]]).
 
 Plan 5 ([[reading_original_plan]] lists the order). The menus and the saves were first proposed as two plans and were combined at the dev's word (2026-10-22: "yes, combine them."), since the original's menus are scenes the story engine already plays, and its save is one number. It stands on [[story_engine_plan]].
 
@@ -39,6 +39,7 @@ Read from the binary ([[project_original_behaviour]]):
   - If Windows has no PDF viewer, nothing opens, the log says why, and the credits carry on waiting for a swipe.
 - **Headphones are named in the player docs only** (the dev, 2026-10-22: "Keep that in the player facing docks."). `docks/readme.txt` says near its top that the recordings are binaural and need headphones; the game itself shows no notice, so the original's opening is unchanged. It is written when the readme is brought up to date ([[feedback_docs_after_each_plan]]).
 - **A run started with `--scene` never writes the save** (the dev, 2026-10-22: "Agreed", to the proposal), at any checkpoint it reaches, so a test jump can never overwrite real progress. A plain `--debug` run, without `--scene`, saves as normal, since it plays from the start like any other run ([[foundation_plan]]).
+- **No achievements** (the dev, 2026-10-22: "We do not need achievements at all"). The original's eleven Game Center achievements, `ach1` to `ach9`, `ach11` and `ach12`, are dropped with Game Center, and the port reports or keeps none ([[project_original_findings]]).
 - **Quitting** is closing the window or Alt+F4 ([[foundation_plan]]); the original had no Quit.
 
 ## Open questions
@@ -47,4 +48,4 @@ Asked one at a time; each answer moves into Decided.
 1. Answered: the dissertation PDF.
 2. Answered: headphones, in the player docs only.
 3. Answered: a `--scene` run never saves.
-4. **Achievements:** whether the port keeps any, with Game Center gone and no speech to announce them.
+4. Answered: no achievements.
