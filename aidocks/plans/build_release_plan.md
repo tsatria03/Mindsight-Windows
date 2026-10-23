@@ -35,6 +35,7 @@ Plan 6, the last ([[reading_original_plan]] lists the order). It packages what p
   - **Where the game looks:** from source, the loose `game/data/audio/story/` wins; without it, `dist\data\story.dat`; in a build, `data\story.dat` beside the exe. A missing or damaged pack shows a message box saying to extract the whole folder again ([[foundation_plan]]).
   - **`compiler.py` makes the pack** with every build, reads every recording back, leaves `story/` out of the build's `game\`, and puts the pack's size and SHA-256 inside the build, so a `story.dat` from another build is caught at once. **`tools/build_pack.py`** makes `dist\data\story.dat` on its own, for a source run without the loose folder.
   - `--test` also needs the log to say the story's recordings came from `story.dat`; the zip stores `.dat` files, as it stores MP3s.
+- **Both kinds of build, chosen each time** (the dev, 2026-10-23, asked for both): the folder build, `Mindsight.exe` with its files beside it, the default; and the single exe, everything inside it. Each is one choice in `compiler.py`'s numbered menu and one command line, and `data\story.dat` sits beside the exe in both. `--test` checks either.
 - **`compiler.py --test` starts a finished build silently** for a few seconds with `--exit-after`, on a throwaway save, with SDL's dummy drivers and the message boxes off, and reads its log: the data found, the sound opened, a clean close, no `crash.txt` and exit code 0 ([[foundation_plan]]).
 - **The release zip** holds one `Mindsight-Windows` folder, stores the MP3s as they are, since they barely shrink, and compresses the rest; it is written as `.part` and renamed once whole.
 - **Players download releases from this repo's GitHub releases page,** `tsatria03/Mindsight-Windows`.
@@ -45,5 +46,5 @@ Plan 6, the last ([[reading_original_plan]] lists the order). It packages what p
 
 Asked one at a time; each answer moves into Decided.
 1. Answered: the story folder packed into `data\story.dat`, the misc folder loose and whole.
-2. **The kinds of build:** the folder build, a single exe, or a choice of both each time.
+2. Answered: both kinds of build, chosen each time.
 3. **Section reviews:** whether this plan, with nothing to hear beyond a build, needs a section review before it is built.
