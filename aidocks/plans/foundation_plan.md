@@ -44,6 +44,7 @@ Plan 2 ([[reading_original_plan]] lists the order). Everything else stands on it
   - **Escape pauses and resumes**, as the double tap did.
   - **Enter is the double tap too**, for wherever a recording asks the player to double tap. The original's only double tap is the pause, so Enter and Escape do the same thing.
   - **Every one of them is rebindable** on the F1 screen, like every other action.
+- **The window shows plain text for a sighted helper** (the dev, 2026-10-22: "yes, show a window for sited users."): in a menu the port adds, its rows; during the story, the scene playing and which keys work there. It is secondary: the recordings and the speech are the real interface, and nothing is only in the window. The original is entirely self-voiced, with no text to speech and no screen reader use, so the port's speech covers only what the port adds.
 - **What interrupts what,** for screen reader speech:
   - Each move in a menu cuts off what was being said.
   - A key the player presses speaks at once, cutting off earlier speech but never the recordings, which keep playing underneath.
@@ -57,7 +58,7 @@ Plan 2 ([[reading_original_plan]] lists the order). Everything else stands on it
 
 Asked one at a time; each answer moves into Decided.
 1. Answered: the keys, now in Decided.
-2. Whether there is a debug mode for source runs, to jump to any scene, and its command-line options.
-3. Whether the window shows plain text for a sighted helper.
+2. Whether there is a debug mode for source runs, to jump to any scene, and its command-line options. Asked 2026-10-22; the dev put it off for later ("let's save that for a later question").
+3. Answered: the window's text, now in Decided.
 4. Which volumes there are, beyond the master, and their keys.
 5. Until the menus plan, the stand-in menu the game opens on.
