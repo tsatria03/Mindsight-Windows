@@ -30,7 +30,7 @@ How `game/MiNDSIGHT` plays, read on 2026-10-22 with capstone from its arm64 code
 - **At a cue time** (`vibrateIfNecessary`, 0x100007738, run every 0.1 s by `incrementalUpdate`): scene 11 at 22 s, 14 at 13 s, 15 at 11 s, 16 at 11 s, 19 at 21 s, 47 at 7 s, 49 at 8.4 s, 51 at 7 s (each `currentTime >=`).
 - **When a waiting scene ends** (`audioPlayerDidFinishPlaying:`): scenes 1, 2, 5, 6, 26, 35, 39 and 43. Scenes 26 and 35 loop, so in practice they never end.
 - The vibration cues for 15, 16 and 49 come a second or so after a swipe already counts (10, 10 and 7 s).
-- The port has no vibration, so these cues need a sound or speech in their place ([[project_later_topics]]).
+- The port has no vibration, so a buzz the game makes itself plays at these cues instead ([[audio_plan]]).
 
 ## The scenes
 
