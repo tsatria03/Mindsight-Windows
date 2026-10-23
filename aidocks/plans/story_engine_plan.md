@@ -25,6 +25,10 @@ Plan 4 ([[reading_original_plan]] lists the order). It stands on [[foundation_pl
   - the piranha windows, strictly between their start and end, counted from 0 on each loop
   - failing: a fail scene or a timed round running out leads to the Rewind, then the retry point
   - Solved at 0.2 over the start of the next scene
+- **The input lock is kept exactly as the original's, and an ignored key is silent** (the dev, 2026-10-22: "yes", to the proposal):
+  - A swipe key does nothing until the recording playing has finished, wherever the original locked input: after every swipe it acted on, and for the whole of scenes 39 and 43, the tones and the safe. It turns on as a recording ends and stays on into the next scene; scene 35, the piranha loop, turns it on at once.
+  - Before a timed scene's cue time, a swipe key does nothing.
+  - An ignored key is never a failure and makes no sound, so nothing can be mistaken for the buzz.
 - **The buzz** plays at each timed scene's cue and when a waiting scene's recording ends, where the original vibrated, once per recording ([[audio_plan]]).
 - **The keys** are the four swipes and the double tap, as [[foundation_plan]] fixes them.
 - **The story's timers run on the timer loop**, held while paused.
@@ -33,7 +37,7 @@ Plan 4 ([[reading_original_plan]] lists the order). It stands on [[foundation_pl
 ## Open questions
 
 Asked one at a time; each answer moves into Decided.
-1. **The input lock:** whether the port keeps it as the original did, ignoring a swipe until the recording ends, or before a timed puzzle's cue, and whether an ignored key makes any sound.
+1. Answered: the input lock, kept, with ignored keys silent.
 2. **The ending's quirk:** after a run with any failure, the original resumes that failure's retry point instead of the credits. Keep it, or fix it so the credits always follow the ending.
 3. **Swipes while paused:** the original still acts on a swipe while paused. Keep it, or ignore swipes while paused.
 4. **The window's text during the story:** what the sighted helper sees for each scene, such as its number and recording name.
