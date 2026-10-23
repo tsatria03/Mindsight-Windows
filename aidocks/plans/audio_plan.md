@@ -30,18 +30,26 @@ Read from the binary ([[project_original_behaviour]], [[project_original_finding
    - the pause clips as a `pygame.mixer.Sound` on another channel
    - the mixer opened at 44,100 Hz, 16-bit, stereo, so the binaural recordings play untouched; the 22,050 Hz misc sounds are resampled by the mixer
    - `tests/interact/audio_check.py` starts here: choose any of the 56 scenes by number, play it, pause and resume, jump to a point, and hear Solved over it
-3. **The cue sound and losing focus**, grown into `audio_check.py`. What they are is in the open questions.
+3. **The cue sound and losing focus:** `mindsight/platform/buzz.py`, the buzz, with `tests/interact/buzz_check.py` to tune it by ear; and losing focus, as the open questions settle it, grown into `audio_check.py`.
 
 ## Decided
 
 - **pygame's mixer plays everything** ([[project_python_only]]). Nothing else opens the audio device.
 - **The scene streams; the short sounds are loaded whole.** `Solved` (1.1 s), `pause_menu` (5.1 s), `WelcomeBack` and the cue sound are `Sound`s, so they play over the scene without stopping it.
 - **Volumes are the original's:** every recording at full volume except `Solved` at 0.2; the player sets the level with Windows' own volume ([[foundation_plan]]).
+- **The cue sound is a buzz the game makes itself,** in place of the original's vibration (the dev, 2026-10-22: "Do you mind making the buzzz? I don't want it to be saved as an audio file. I also want an interactive test to control the freq of it, along with the wave shape."):
+  - **What the original did:** `AudioServicesPlaySystemSound(0xfff)` (`vibrate`, 0x1000076f0), iOS's standard vibration, with no frequency, strength or length of the game's own; commonly about 400 ms on the phone.
+  - **Made in code, never saved as a file:** `mindsight/platform/buzz.py` computes the samples once at startup with the standard `array` module and turns them into a `pygame.mixer.Sound` from that buffer. Nothing is written to disk, and no file joins `game/data/audio/`.
+  - **Its starting shape, to be tuned by ear:** a low tone of about 170 Hz, pulsed about 30 times a second for a motor's rattle, 400 ms long with about 10 ms of fade at each end so it never clicks, the same in both ears, and well below the voices. It starts on its first sample, so the cue lands exactly when a swipe starts to count.
+  - **Its numbers live in one place** in `buzz.py`, so a value the dev chooses by ear is a one-line change.
+  - **`tests/interact/buzz_check.py`,** a by-ear tool of its own, sets the buzz's frequency and its wave shape (sine, square, triangle or sawtooth) and plays it on demand, so the dev can choose by ear. Like every tool there, it never changes the game: the dev says which values they like, and they go into `buzz.py` ([[feedback_test_tools_in_interact]]).
+  - Hearing the buzz is a mandatory by-ear test; only the dev can judge it.
 - **Tests stay silent:** they run on SDL's dummy audio driver, so nothing is heard ([[feedback_dont_run_or_build]]).
 
 ## Open questions
 
 Asked one at a time; each answer moves into Decided.
-1. **The cue sound in place of vibration:** what it is, and how loud against the recordings.
+1. Answered: the cue sound, a buzz the game makes, with `buzz_check.py`.
+4. **How `buzz_check.py` tells the dev its values,** since the game has no speech: its keys, and what it says each value through.
 2. **Losing focus:** whether the game pauses when its window loses focus, and whether coming back steps back 3 s and plays `WelcomeBack`, as the original did after a phone call.
 3. **No sound device:** what the game does if the mixer cannot open.
