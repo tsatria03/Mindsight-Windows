@@ -6,7 +6,7 @@ metadata:
   type: project
 ---
 
-**Status: built, not yet confirmed** (2026-10-23), all four sections at once (the dev, 2026-10-23, after the review: "Since plan 1 has no hering tests, you can build it. I mean all 4 sections without pausing at each section for review."). Reviewed in one message on 2026-10-23 ([[feedback_review_plan_sections]]).
+**Status: FINISHED 2026-10-23,** confirmed by the dev ("The plan looks good."), who then moved the listing into `analysis/script/`. Built all four sections at once (the dev, 2026-10-23, after the review: "Since plan 1 has no hering tests, you can build it. I mean all 4 sections without pausing at each section for review."). Reviewed in one message on 2026-10-23 ([[feedback_review_plan_sections]]).
 
 **Done before the plan, 2026-10-22:** the binary was read with capstone through a throwaway helper outside the repo, and what it showed is already written down in [[project_original_findings]] and [[project_original_behaviour]], with the dev's corrections. This plan makes the reading repeatable inside the repo, so every number in those notes can be checked again, and later plans can cite tools rather than memory.
 

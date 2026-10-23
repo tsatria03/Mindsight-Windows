@@ -14,4 +14,5 @@ The developer tasks, which `docks/todo list.txt` leaves out because it ships to 
 
 ## Finished
 
+- The dev's move of the scene listing into `analysis/script/` is committed as a rename, and `tools/scenes.py` writes it there (2026-10-23).
 - The dev's sound reorganization, from the original's one flat folder into `story/sceen/`, `story/speech/` and `system/misc/` under `game/data/audio/`, with the m4a files converted to MP3, went in with the initial commit (2026-10-22).

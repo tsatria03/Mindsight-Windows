@@ -14,4 +14,4 @@ Topics that belong to a plan not yet written. When that plan is written, each go
 
 ## Open, for the dev
 
-- **The plan order and the progress weights** ([[feedback_progress_summary]]), agreed once plan 1 is finished.
+- **The progress weights,** proposed after plan 1 in [[feedback_progress_summary]], waiting for the dev's word.
