@@ -6,11 +6,11 @@ metadata:
   type: project
 ---
 
-**Status: being built,** one section at a time, since it has by-ear tests ([[feedback_next_section_on_pass]]); reviewed in one message on 2026-10-23.
+**Status: FINISHED 2026-10-23,** its last section's by-ear tests passed (the dev: "Also section 3 tests past."). Built one section at a time, reviewed in one message the same day.
 
 ## Progress
 
-- **Section 3, built 2026-10-23, waiting for the dev's by-ear tests:**
+- **Section 3, FINISHED 2026-10-23,** its by-ear tests passed, the buzz set to the dev's 160 Hz, sine, at 20 percent. Built the same day:
   - `mindsight/platform/buzz.py`: the buzz made in memory with `array` and turned into a `pygame.mixer.Sound` from its buffer, never a file, in about a hundredth of a second: 170 Hz, sine, 400 ms, 10 ms fades and a steady level between them (first built pulsed 30 times a second, which the dev turned down), both ears alike, at 0.3 of full scale. Its numbers are the module's first lines; its four shapes are sine, square, triangle and sawtooth.
   - `mindsight/platform/audio.py`: the buzz on a third reserved channel (`play_buzz()`); `focus_lost()` pausing the scene; `focus_gained(welcome_back)` stepping it back 3 s, never before its start, keeping it paused, and playing WelcomeBack, which alone plays when nothing was. Resuming after a step back plays on from that point. The game's own screens use these once the story engine exists.
   - `tests/interact/buzz_check.py`: Up or W, Down or S for the frequency, 5 Hz a step since the dev asked (10 at first), 20 to 2000; Left and Right for the shape; Space to play; I for the values; H for the keys; Escape to quit; each change spoken, such as "180 hertz, square". `audio_check.py` grew: 2 plays the buzz, and switching away pauses the scene, coming back stepping it back with WelcomeBack.

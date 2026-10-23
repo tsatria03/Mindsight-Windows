@@ -26,6 +26,7 @@ metadata:
   - plan 6, building and releasing: 15
 - **Progress so far:**
   - plan 1 finished: about 15 percent (2026-10-23).
-  - plan 2 finished: about 30 percent (2026-10-23). It came in at its weight: smaller than first planned, with speech, Settings, the key binder and the volumes dropped, but with foundation_check.py and the message boxes added.
+  - plan 2 finished: about 30 percent (2026-10-23).
+  - plan 3 finished: about 50 percent (2026-10-23). It came in at its weight: pygame's mixer did what the plan asked, starting partway and looping cleanly by ear, and the buzz took a few rounds of tuning (the pulse dropped, the level and frequency chosen by ear). It came in at its weight: smaller than first planned, with speech, Settings, the key binder and the volumes dropped, but with foundation_check.py and the message boxes added.
 - If a plan turns out bigger or smaller than its weight, change the weights here, and say so in the summary.
 - Plans added after the port is complete are reported as additions, not as a percentage.

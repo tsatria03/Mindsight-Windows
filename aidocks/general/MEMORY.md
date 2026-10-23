@@ -12,12 +12,12 @@ The `[[name]]` links in `CLAUDE.md` and across these notes resolve to `aidocks/g
 - [Developer tasks](project_dev_tasks.md): repository, tools, tests, build and docs tasks, kept out of the player todo list.
 
 ## Plans
-- [Audio](../plans/audio_plan.md): plan 3, written, every question answered. The recordings found by name, the scene player through pygame.mixer.music, Solved and the pause clips, MP3 lengths, the generated buzz in place of vibration with buzz_check.py, pausing on losing focus, and the NVDA client for every by-ear tool.
 - [Story engine](../plans/story_engine_plan.md): plan 4, written, every question answered. The 56 scenes and their rules, the input lock kept with silent ignored keys, the buzz cues, the puzzles, failing and the Rewind, the ending fixed so the credits always follow, swipes ignored while paused, the window's three lines, --scene, and story_check.py.
 - [Menus and saves](../plans/menus_saves_plan.md): plan 5, written, every question answered. The original's recorded menus answered by the swipe keys, the PDF in the default viewer, the one saved scene in saves/progress.json, --scene runs never saving, headphones in the readme only, and no achievements.
 - [Build and release](../plans/build_release_plan.md): plan 6, the last, written, every question answered; no section review. compiler.py with both kinds of build and releaser.py, the story folder packed in data\story.dat with misc loose, --test, the zip and gh.
 
 ## Completed projects
+- [Audio](../plans/audio_plan.md): plan 3, FINISHED 2026-10-23. recordings.py and mp3.py; audio.py's scene player, Solved at 0.2 and the pause clips; the buzz made in memory, 160 Hz, sine, 20 percent, no pulse; losing focus pausing and stepping back 3 s with WelcomeBack; no sound device's message box; audio_check.py and buzz_check.py; 71 silent tests.
 - [Foundation](../plans/foundation_plan.md): plan 2, FINISHED 2026-10-23. Mindsight.py with --debug, --scene, -v and --exit-after; paths, logs, crash.txt and the error message boxes; the timer loop, the screens, the fixed keys and the stand-in screen; foundation_check.py; 36 silent tests.
 - [Reading the original](../plans/reading_original_plan.md): plan 1, FINISHED 2026-10-23. tools/macho64.py, dis64.py and scenes.py, and analysis/script/scenes.txt; every puzzle value checked against the binary, no problems; the notes corrected to six renamed recordings.
 
