@@ -6,10 +6,15 @@ metadata:
   type: project
 ---
 
-**Status: being built,** one section at a time, since it has by-ear tests ([[feedback_next_section_on_pass]]); reviewed in one message on 2026-10-23.
+**Status: built, not yet confirmed** (2026-10-23), one section at a time, since it has by-ear tests ([[feedback_next_section_on_pass]]); reviewed in one message on 2026-10-23.
 
 ## Progress
 
+- **Section 3, built 2026-10-23,** with nothing to test by ear:
+  - `tests/case/_quiet.py`: a throwaway save, deleted at the end; `MINDSIGHT_NO_MESSAGEBOX`, `MINDSIGHT_SILENT` and SDL's dummy drivers, set outright; `run_tests(globals())`.
+  - `tests/suite.py`: each file in its own process, eight at once, a failed file run again alone, the results in the gitignored `tests/results/`, and names with or without `test_`.
+  - **36 silent tests in five files,** all passing on their first run: `test_paths` (7: the throwaway save, the recordings found, the missing-data message naming where it looked, `VERSION`, and every test file importing `_quiet` first), `test_entry` (9: the options, `--scene` and `--debug`'s rules, `crash.txt`, two silent runs of `main()` with the log before kept, and both message boxes, missing data and an error), `test_runloop` (7), `test_keys` (7: every agreed key, pygame's own names, modifiers, the labels) and `test_screens` (6: the stack, the three ways a key reaches a screen, focus and quit events, a silent run, and the stand-in screen).
+  - The dev's own `log.txt` was checked after the run, untouched by it.
 - **Section 2, FINISHED 2026-10-23,** its by-ear tests passed (the dev: "The tests for section 2 past."). Built the same day:
   - `mindsight/platform/runloop.py`, the timer loop, with `hold()` and `resume()`.
   - `mindsight/platform/keys.py`, the fixed keys: each pygame key name to its gesture, `up`, `down`, `left`, `right` or `pause`, with the keypad's Enter as the double tap too; a game key with Shift, Control, Alt or the Windows key held stands for nothing.
