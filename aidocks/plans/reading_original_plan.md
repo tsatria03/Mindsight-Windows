@@ -63,8 +63,7 @@ The plans after this one, proposed, each to get its own note and review before a
 2. The foundation: the entry script, paths, logs, crash file and error message boxes, the timer loop, the screens, the fixed keys, the window's text, and the silent tests; no speech, Settings, key binder or volumes ([[foundation_plan]]).
 3. The audio: the scenes through `pygame.mixer.music`, starting partway, looping, pause and resume, the Solved sound over the next scene, and the cue sounds in place of vibration.
 4. The story engine: the 56 scenes, the input lock, the puzzles, failing and the Rewind, and debug jumps, with a scene chooser in `tests/interact/`.
-5. The menus: the original's recorded menus answered by the swipe keys, the credits, the audio manual and pause.
-6. The saves: the one saved scene, Continue, and New game.
-7. Building and releasing: `compiler.py` and `releaser.py`.
+5. The menus and saves, combined at the dev's word: the original's recorded menus answered by the swipe keys, the credits and the PDF, and the one saved scene ([[menus_saves_plan]]).
+6. Building and releasing: `compiler.py` and `releaser.py`.
 
 The order and the weights for the progress summary are agreed with the dev once this plan is finished ([[feedback_progress_summary]]).

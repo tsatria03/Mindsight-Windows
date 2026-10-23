@@ -14,8 +14,5 @@ Topics that belong to a plan not yet written. When that plan is written, each go
 
 ## Open, for the dev
 
-- **The dissertation PDF.** The credits' left swipe opened it in another app. Whether the port opens it with Windows' default viewer, and whether the build ships it. For the menus plan.
-- **Achievements.** Game Center is dropped. With no speech, local achievements could not be announced, so most likely none. For a later plan, if at all.
-- **A headphones notice** at the start, since the recordings are binaural. With no speech it could only be in the window or the readme, or left out. For the menus plan.
 - **`cryptography` in `requirements.txt`.** It suggests the recordings packed and encrypted for a build. Whether the build does that, or ships the MP3s loose. For the build and release plan.
 - **The plan order and the progress weights** ([[feedback_progress_summary]]), agreed once plan 1 is finished.
