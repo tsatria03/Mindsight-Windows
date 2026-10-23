@@ -6,7 +6,7 @@ metadata:
   type: project
 ---
 
-**Status: being reviewed** (2026-10-23), in one message; built one section at a time once the review's questions are answered ([[feedback_next_section_on_pass]]).
+**Status: reviewed** in one message on 2026-10-23, its two questions answered; built one section at a time, since it has by-ear tests ([[feedback_next_section_on_pass]]). Not started yet.
 
 Plan 4 ([[reading_original_plan]] lists the order). It stands on [[foundation_plan]] and [[audio_plan]]. Every rule it plays is in [[project_original_behaviour]], with the binary's addresses.
 
@@ -40,6 +40,12 @@ Plan 4 ([[reading_original_plan]] lists the order). It stands on [[foundation_pl
   - Continue, down on the main menu, always answers scene 6, `NoSavedGame`, since there is no save yet.
   - The credits' left swipe, which opens the dissertation, does nothing.
   - Escape quits in scenes 1 to 7 and pauses from scene 8 on, through `Screen.escape_quits` ([[menus_saves_plan]]).
+- **`story_check.py`'s keys** (the dev, 2026-10-23, at the review: "Yes. I like that."):
+  - the game's own keys, passed straight through: the arrows or W, A, S and D for the swipes, and Enter or P for the pause, since Escape quits the tool
+  - T: type a scene number, then Enter, to jump there
+  - I: say the state: the scene, its position, the failure, and whether a swipe counts yet
+  - L: skip to 5 seconds before the playing scene's end, to hear endings and what follows quickly
+  - Escape or Alt+F4: quit ([[feedback_test_tools_in_interact]])
 - **The buzz** plays at each timed scene's cue and when a waiting scene's recording ends, where the original vibrated, once per recording ([[audio_plan]]).
 - **The keys** are the four swipes and the double tap, as [[foundation_plan]] fixes them.
 - **The story's timers run on the timer loop**, held while paused.
@@ -52,3 +58,5 @@ Asked one at a time; each answer moves into Decided.
 2. Answered: the ending's quirk, fixed.
 3. Answered: swipes while paused, ignored.
 4. Answered: the window's text during the story.
+5. Answered at the review: the menus played by the story engine.
+6. Answered at the review: `story_check.py`'s keys.
