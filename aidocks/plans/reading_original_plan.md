@@ -6,7 +6,7 @@ metadata:
   type: project
 ---
 
-**Status: planned,** waiting for the dev's section review ([[feedback_review_plan_sections]]).
+**Status: written,** with no open questions. Its section review waits until every plan is written ([[feedback_all_plans_first]], [[feedback_review_plan_sections]]).
 
 **Done before the plan, 2026-10-22:** the binary was read with capstone through a throwaway helper outside the repo, and what it showed is already written down in [[project_original_findings]] and [[project_original_behaviour]], with the dev's corrections. This plan makes the reading repeatable inside the repo, so every number in those notes can be checked again, and later plans can cite tools rather than memory.
 
