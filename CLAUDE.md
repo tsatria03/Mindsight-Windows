@@ -10,11 +10,11 @@ A Windows port of **MiNDSiGHT** (`com.lukecharman.mindsight` 1.0.2, by Luke Char
 
 - **A solo project.** tsatria03 makes it alone ([[project_solo]]).
 - **Windows only** ([[project_windows_only]]).
-- **Python only**, with pygame for the window, the keys and all sound. **No FMOD**, no OpenAL, and **no speech**: the original is entirely self-voiced, so there is no Prism, no NVDA client, no Settings screen, no key binder and no volume controls. Errors go to a Windows message box, which screen readers read by themselves ([[project_python_only]], [[foundation_plan]]).
+- **Python only**, with pygame for the window, the keys and all sound. **No FMOD**, no OpenAL, and **no speech**: the original is entirely self-voiced, so the game has no Prism, no NVDA client, no Settings screen, no key binder and no volume controls. Errors go to a Windows message box, which screen readers read by themselves ([[project_python_only]], [[foundation_plan]]).
 - **The keys are fixed:** the arrows or W, A, S and D for the four swipes, and Escape, Enter or P for the double tap, which pauses and resumes ([[foundation_plan]]).
 - **Developer tasks**, open and finished, are in [[project_dev_tasks]].
 - **The story is code, not data.** The original's 56 scenes, what follows each, every puzzle's answer and every timing are hard-coded in its binary, so the port's scene table is written from it. What the bundle holds is in [[project_original_findings]]; how it plays, with addresses, is in [[project_original_behaviour]]. Questions waiting for later plans are in [[project_later_topics]].
-- **Status:** the plans are being written, one at a time, each with the dev's answers, before any is reviewed or built ([[feedback_all_plans_first]]). Plan 1, reading the original, is written ([[reading_original_plan]]), which also lists the plans proposed after it; plan 2, the foundation, is written ([[foundation_plan]]); plan 3, the audio, is written ([[audio_plan]]). New work gets a plan of its own first ([[feedback_record_plans_first]]).
+- **Status:** the plans are being written, one at a time, each with the dev's answers, before any is reviewed or built ([[feedback_all_plans_first]]). Plan 1, reading the original, is written ([[reading_original_plan]]), which also lists the plans proposed after it; plan 2, the foundation, is written ([[foundation_plan]]); plan 3, the audio, is written ([[audio_plan]]); plan 4, the story engine, is being written ([[story_engine_plan]]). New work gets a plan of its own first ([[feedback_record_plans_first]]).
 
 ## Layout
 
