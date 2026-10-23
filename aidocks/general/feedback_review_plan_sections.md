@@ -1,6 +1,6 @@
 ---
 name: feedback_review_plan_sections
-description: "Before a plan is built, review each of its sections with the dev, and never start building it until the dev says so after that review; never start the next plan alone."
+description: "Before a plan is built, review all of its sections with the dev in one message, and never start building it until the dev says so after that review; never start the next plan alone."
 metadata:
   node_type: memory
   type: feedback
@@ -12,7 +12,8 @@ metadata:
 
 **How to apply:**
 - When a plan is finished, never move on to the next by yourself. Offer its review instead.
-- **The review goes section by section.** For each section, give:
+- **The whole review goes in one message** (the dev, 2026-10-23, at plan 1's review: "Please review every section in one message."): every section of the plan, one after another, then one question about anything that needs an answer.
+- **The review goes section by section** within that message. For each section, give:
   - what it builds, in plain words
   - the decisions it rests on, with anything that has changed since the plan was written, or that an earlier plan's build has changed
   - anything still uncertain, such as a number to check in the original's code

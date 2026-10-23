@@ -27,7 +27,7 @@ The `[[name]]` links in `CLAUDE.md` and across these notes resolve to `aidocks/g
 - [Plans first](feedback_record_plans_first.md): an agreed plan gets its own note, committed first; finished only on the dev's word.
 - [Completed projects](feedback_completed_projects.md): a finished plan stays in plans/; only its index line moves.
 - [All plans first](feedback_all_plans_first.md): write every plan, one at a time with the dev's answers, before any section review or building.
-- [Review plan sections](feedback_review_plan_sections.md): before building any plan, review it section by section with the dev; never start the next plan alone.
+- [Review plan sections](feedback_review_plan_sections.md): before building any plan, review all its sections with the dev in one message; never start the next plan alone.
 - [Next section on a pass](feedback_next_section_on_pass.md): when the dev says a section's tests passed, mark and commit it, then build the next; not across plans.
 - [Say ear tests ahead](feedback_say_ear_tests_ahead.md): before each section, list the by-ear tests, sound and speech, each optional or mandatory; remind the dev of a mandatory one not reported on.
 - [Grow check tools](feedback_grow_check_tools.md): a plan's by-ear tool starts in its first audible section and grows with each section.
