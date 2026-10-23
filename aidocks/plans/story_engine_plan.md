@@ -6,7 +6,7 @@ metadata:
   type: project
 ---
 
-**Status: written,** every question answered on 2026-10-22. Its section review waits until every plan is written ([[feedback_all_plans_first]]).
+**Status: being reviewed** (2026-10-23), in one message; built one section at a time once the review's questions are answered ([[feedback_next_section_on_pass]]).
 
 Plan 4 ([[reading_original_plan]] lists the order). It stands on [[foundation_plan]] and [[audio_plan]]. Every rule it plays is in [[project_original_behaviour]], with the binary's addresses.
 
@@ -36,6 +36,10 @@ Plan 4 ([[reading_original_plan]] lists the order). It stands on [[foundation_pl
   - whether a swipe counts yet: "Listening", or "Your turn" once the lock is off and any cue time has passed
   - "Paused" while paused
   - It never shows a puzzle's answer, and everything in it can also be heard.
+- **The story engine plays the menus too** (the dev, 2026-10-23, at the review: "I completely agree with that."): scenes 1 to 7, the main menu, New game, the audio manual, the credits and No saved game, are in the same table, so the story screen plays them and their swipes, and `Mindsight.py` opens on scene 1, as the original did. Until plan 5 ([[menus_saves_plan]]):
+  - Continue, down on the main menu, always answers scene 6, `NoSavedGame`, since there is no save yet.
+  - The credits' left swipe, which opens the dissertation, does nothing.
+  - Escape quits in scenes 1 to 7 and pauses from scene 8 on, through `Screen.escape_quits` ([[menus_saves_plan]]).
 - **The buzz** plays at each timed scene's cue and when a waiting scene's recording ends, where the original vibrated, once per recording ([[audio_plan]]).
 - **The keys** are the four swipes and the double tap, as [[foundation_plan]] fixes them.
 - **The story's timers run on the timer loop**, held while paused.

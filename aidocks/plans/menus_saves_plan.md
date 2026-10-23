@@ -24,7 +24,7 @@ Read from the binary ([[project_original_behaviour]]):
 ## Sections
 
 1. **The save.** `mindsight/game/progress.py`: `saves/progress.json` in the save folder, holding the scene number, written through the safe JSON files ([[foundation_plan]]) at the original's checkpoints, and read by Continue. A damaged or missing file counts as no save. Silent tests.
-2. **The menus around the story.** The menu scenes' answers, which the story engine's table already holds, checked end to end: New game, Continue with and without a save, the audio manual, the credits, and the ending reaching the credits; with what the open questions settle. `tests/interact/menu_check.py`, with its own save, runs the game from its start, with keys to make or clear a save.
+2. **The menus around the story.** The story engine already plays the menu scenes and their swipes ([[story_engine_plan]]); this section adds what needs the save or the PDF: Continue with and without a save, the credits' left swipe opening the dissertation, and coming back from it to the main menu, checked end to end. `tests/interact/menu_check.py`, with its own save, runs the game from its start, with keys to make or clear a save.
 
 ## Decided
 
