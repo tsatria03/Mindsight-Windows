@@ -13,7 +13,7 @@ A Windows port of **MiNDSiGHT** (`com.lukecharman.mindsight` 1.0.2, by Luke Char
 - **Python only**, with pygame for the window, the keys and all sound, and Prism and the NVDA client for speech. **No FMOD** and no OpenAL ([[project_python_only]]).
 - **Developer tasks**, open and finished, are in [[project_dev_tasks]].
 - **The story is code, not data.** The original's 56 scenes, what follows each, every puzzle's answer and every timing are hard-coded in its binary, so the port's scene table is written from it. What the bundle holds is in [[project_original_findings]]; how it plays, with addresses, is in [[project_original_behaviour]]. Questions waiting for later plans are in [[project_later_topics]].
-- **Status:** plan 1, reading the original, is planned and waiting for its section review ([[reading_original_plan]]). The plans after it are proposed there. New work gets a plan of its own first ([[feedback_record_plans_first]]).
+- **Status:** the plans are being written, one at a time, each with the dev's answers, before any is reviewed or built ([[feedback_all_plans_first]]). Plan 1, reading the original, is written ([[reading_original_plan]]), which also lists the plans proposed after it; plan 2, the foundation, is being written ([[foundation_plan]]). New work gets a plan of its own first ([[feedback_record_plans_first]]).
 
 ## Layout
 
@@ -31,6 +31,7 @@ A Windows port of **MiNDSiGHT** (`com.lukecharman.mindsight` 1.0.2, by Luke Char
 ## Working here
 
 - **The dev runs and builds, not Claude.** Ask before running the game or anything that plays sound or speaks ([[feedback_dont_run_or_build]]).
+- **All plans are written first,** one at a time, with the dev's answers, before any review or building ([[feedback_all_plans_first]]).
 - **Before each plan,** review it section by section with the dev, and build only on their word ([[feedback_review_plan_sections]]). Within a plan, when the dev says a section's tests passed, mark and commit it, then build the next section without asking ([[feedback_next_section_on_pass]]).
 - **Before each section,** list what the dev will test by ear, sound or speech, each test marked optional or mandatory ([[feedback_say_ear_tests_ahead]]). A plan's by-ear tool grows with each section ([[feedback_grow_check_tools]]).
 - **After each plan,** bring every developer doc, `aidocks/` included, and every player doc up to date, give a brief progress summary ([[feedback_progress_summary]]), then ask to push ([[feedback_docs_after_each_plan]]).
