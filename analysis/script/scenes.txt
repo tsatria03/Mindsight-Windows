@@ -15,7 +15,7 @@ The port always plays the credits after the ending; the original went back to a 
 Scene 1: main_menu_list
 Recording: story/speech/main_menu_list.mp3, 18.1 seconds.
 Then: it waits for a swipe.
-When it ends: a buzz in the port, a vibration in the original, to say a swipe counts now.
+As it ends, or begins after the scene before it ends: a buzz in the port, a vibration in the original.
 Swipe up: New game, scene 2.
 Swipe down: Continue: scene 7 with a save, scene 6 without one.
 Swipe left: the audio manual, scene 4.
@@ -24,7 +24,7 @@ Swipe right: the credits, scene 5.
 Scene 2: new_game_menu_choice
 Recording: story/speech/new_game_menu_choice.mp3, 12.4 seconds.
 Then: it waits for a swipe.
-When it ends: a buzz in the port, a vibration in the original, to say a swipe counts now.
+As it ends, or begins after the scene before it ends: a buzz in the port, a vibration in the original.
 Swipe up: start the new game, scene 3.
 Swipe down: back to the main menu, scene 1.
 
@@ -39,14 +39,14 @@ Then: scene 1.
 Scene 5: credits_menu_choice
 Recording: story/speech/credits_menu_choice.mp3, 41.7 seconds.
 Then: it waits for a swipe.
-When it ends: a buzz in the port, a vibration in the original, to say a swipe counts now.
+As it ends, or begins after the scene before it ends: a buzz in the port, a vibration in the original.
 Swipe right: back to the main menu, scene 1.
 Swipe left: open the dissertation PDF.
 
 Scene 6: NoSavedGame
 Recording: story/speech/NoSavedGame.mp3, 10.1 seconds.
 Then: it waits for a swipe.
-When it ends: a buzz in the port, a vibration in the original, to say a swipe counts now.
+As it ends, or begins after the scene before it ends: a buzz in the port, a vibration in the original.
 Swipe up: start a new game, scene 3.
 Swipe down: back to the main menu, scene 1.
 
@@ -157,6 +157,7 @@ Then: scene 26.
 Scene 26: solve_guard_puzzle2
 Recording: story/sceen/solve_guard_puzzle2.mp3, 24.6 seconds.
 It loops until answered.
+As it begins after the scene before it ends: a buzz in the port, a vibration in the original.
 Puzzle: Guard. Answer: right.
 Right answer: scene 27.
 Swipe left: scene 28; either way the story goes on.
@@ -196,6 +197,7 @@ Then: scene 35.
 Scene 35: pirahnaloop
 Recording: system/misc/pirahnaloop.mp3, 124 seconds.
 It loops until answered.
+As it begins after the scene before it ends: a buzz in the port, a vibration in the original.
 Puzzle: Piranhas. Answer: any swipe, inside a window.
 Windows, in seconds into each loop: 15 to 19, 25 to 27, 31 to 34, 41 to 45, 50 to 52, 57 to 59, 67 to 71, 77 to 79, 83 to 86, 93 to 97, 103 to 105, 109 to 111, 119 to 122.
 Right answer: scene 36, with Solved, and the game saves.
@@ -216,7 +218,7 @@ Then: scene 39, and the game saves.
 Scene 39: third_floor_scene2
 Recording: story/sceen/third_floor_scene2.mp3, 110.4 seconds.
 It must be heard to the end before a swipe counts.
-When it ends: a buzz in the port, a vibration in the original, to say a swipe counts now.
+As it ends, or begins after the scene before it ends: a buzz in the port, a vibration in the original.
 Puzzle: Tones. Answer: left.
 Right answer: scene 40, with Solved, and the game saves.
 Wrong answer: scene 41, the fail; then the Rewind; then scene 39, from 42 seconds.
@@ -236,7 +238,7 @@ Then: scene 43, and the game saves.
 Scene 43: fourth_floor_scene2
 Recording: story/sceen/fourth_floor_scene2.mp3, 122.6 seconds.
 It must be heard to the end before a swipe counts.
-When it ends: a buzz in the port, a vibration in the original, to say a swipe counts now.
+As it ends, or begins after the scene before it ends: a buzz in the port, a vibration in the original.
 Puzzle: Safe. Answer: down.
 Right answer: scene 44, with Solved, and the game saves.
 Wrong answer: scene 45, the fail; then the Rewind; then scene 43, from 68.5 seconds.

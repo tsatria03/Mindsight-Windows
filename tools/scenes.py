@@ -392,8 +392,11 @@ def write_listing(names, flow, found, lengths, loops, vibrate_end, locked_off):
                 out.append("Then, if unanswered: scene %d, the fail." % f["next"])
             else:
                 out.append("Then: scene %d%s." % (f["next"], ", and the game saves" if f["saves"] else ""))
-        if k in vibrate_end and k not in loops:
-            out.append("When it ends: a buzz in the port, a vibration in the original, to say a swipe counts now.")
+        if k in vibrate_end:
+            if k in loops:
+                out.append("As it begins after the scene before it ends: a buzz in the port, a vibration in the original.")
+            else:
+                out.append("As it ends, or begins after the scene before it ends: a buzz in the port, a vibration in the original.")
         if k in MENUS:
             for d, text in MENUS[k]:
                 out.append("Swipe %s: %s." % (DIRECTIONS[d], text))
@@ -447,6 +450,59 @@ def check_menus():
             problem("%s sets scenes %s, not %s" % (sel, sorted(stored), sorted(want)))
 
 
+def check_game_table(flow, vibrate_end, locked_off, locked_on):
+    """mindsight/game/scenes.py's table, value by value, against the binary and the
+    tables above, which are themselves checked against the binary."""
+    G = game_scenes
+    for k in range(SCENES):
+        then, f = G.THEN[k], flow[k]
+        if f["kind"] == "waits" or k in G.LOOPING:
+            ok = then.how == G.WAITS
+        elif f["kind"] == "loads":
+            ok = then.how == G.LOADS
+        elif f["kind"] == "tests":
+            ok = (k == 0 and then.how == G.RETRY) or (k == 55 and then.next == 5)
+        else:
+            ok = (then.how == G.PLAYS and then.next == f["next"] and then.saves == f["saves"]
+                  and then.failure == f["failure"])
+        if not ok:
+            problem("scenes.py's THEN[%d] is %s, but the binary says %s" % (k, then, f))
+    if set(G.CUE_AT_END) != vibrate_end:
+        problem("scenes.py's CUE_AT_END differs from the binary's %s" % sorted(vibrate_end))
+    if set(G.LOCKED_WHILE_PLAYING) != locked_off or set(G.OPEN_AT_START) != locked_on:
+        problem("scenes.py's input lock scenes differ from the binary's")
+    retries = {f: (scene, float(secs)) for fs, scene, _, secs, _ in RETRIES for f in fs}
+    if G.RETRIES != retries:
+        problem("scenes.py's RETRIES differ: %s, not %s" % (G.RETRIES, retries))
+    if [tuple(map(int, w)) for w in G.PIRANHA_WINDOWS] != PIRANHA_WINDOWS:
+        problem("scenes.py's PIRANHA_WINDOWS differ from the binary's")
+    directions = {UP: G.UP, DOWN: G.DOWN, LEFT: G.LEFT, RIGHT: G.RIGHT}
+    for p in PUZZLES:
+        for k in p["scenes"]:
+            if k in p["gate"] and G.GATES.get(k) != p["gate"][k][1]:
+                problem("scenes.py's gate for scene %d is %s, not %s" % (k, G.GATES.get(k), p["gate"][k][1]))
+            if k in p["cue"] and G.CUES.get(k) != p["cue"][k][1]:
+                problem("scenes.py's cue for scene %d is %s, not %s" % (k, G.CUES.get(k), p["cue"][k][1]))
+            if k == G.PIRANHA:
+                answers = {G.ANY: G.PIRANHA_PASS}
+                wrong = G.PIRANHA_FAIL
+            else:
+                answers = G.ANSWERS.get(k, {})
+                wrong = answers.get(G.ANY) or (answers.get(directions[p["wrong"][0]]) if p.get("wrong") else None)
+            right = answers.get(directions[p["answer"][0]]) if p["answer"] else answers.get(G.ANY)
+            if right is None or right.to != p["passes"] or right.saves != p["saves"] or right.solved != p["solved"]:
+                problem("scenes.py's right answer for scene %d is %s" % (k, right))
+            if p["fails"] is not None and (wrong is None or wrong.to != p["fails"] or wrong.failure != p["failure"]):
+                problem("scenes.py's wrong answer for scene %d is %s" % (k, wrong))
+    if set(G.GATES) | set(G.CUES) != {k for p in PUZZLES for k in p["gate"]} | {k for p in PUZZLES for k in p["cue"]}:
+        problem("scenes.py has gates or cues for scenes the binary does not")
+    want_menus = {1: {G.UP: 2, G.DOWN: G.CONTINUE, G.LEFT: 4, G.RIGHT: 5}, 2: {G.UP: 3, G.DOWN: 1},
+                  6: {G.UP: 3, G.DOWN: 1}, 5: {G.RIGHT: 1, G.LEFT: G.PDF}}
+    for k, want in want_menus.items():
+        if {d: a.to for d, a in G.ANSWERS[k].items()} != want:
+            problem("scenes.py's menu answers for scene %d differ" % k)
+
+
 def main():
     check_only = "--check" in sys.argv[1:]
     names = read_recordings()
@@ -481,6 +537,7 @@ def main():
             problem("%s is not on disk" % n)
     unnamed = sorted(found[k] for k in found if k not in named)
 
+    check_game_table(flow, vibrate_end, locked_off, locked_on)
     if tuple(names.get(k) for k in range(SCENES)) != game_scenes.NAMES:
         problem("mindsight/game/scenes.py's NAMES differ from the binary's")
     if set(game_scenes.LOOPING) != loops:
