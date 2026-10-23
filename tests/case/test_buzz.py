@@ -30,6 +30,13 @@ def test_it_is_well_below_full():
     assert buzz.LEVEL <= 0.5
 
 
+def test_it_holds_one_level_between_its_fades():
+    s = left(buzz.samples(shape='square'))
+    fade = int(buzz.RATE * buzz.FADE_MS / 1000)
+    middle = {abs(v) for v in s[fade + 1:len(s) - fade - 1]}
+    assert middle == {int(32767 * buzz.LEVEL)}
+
+
 def test_each_shape_differs():
     made = {shape: bytes(buzz.samples(shape=shape)) for shape in buzz.SHAPES}
     assert len(set(made.values())) == len(buzz.SHAPES)
@@ -43,7 +50,7 @@ def test_each_shape_differs():
 
 def test_its_pitch_follows_the_frequency():
     for frequency in (100, 170, 400):
-        s = left(buzz.samples(frequency=frequency, pulse=0, shape='square'))
+        s = left(buzz.samples(frequency=frequency, shape='square'))
         crossings = sum(1 for a, b in zip(s, s[1:]) if a < 0 <= b)
         expected = frequency * buzz.LENGTH_MS / 1000
         assert abs(crossings - expected) <= 2, (frequency, crossings)

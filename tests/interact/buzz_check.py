@@ -96,7 +96,7 @@ class BuzzCheckScreen(Screen):
 
     def lines(self):
         return ['Mindsight buzz check', '', 'Frequency: %d Hz' % self.frequency, 'Shape: ' + self.shape,
-                'Pulse %d a second, %d ms, level %.2f' % (buzz.PULSE, buzz.LENGTH_MS, buzz.LEVEL), '',
+                '%d ms, level %.2f, no pulse' % (buzz.LENGTH_MS, buzz.LEVEL), '',
                 'Last: ' + self.last]
 
 

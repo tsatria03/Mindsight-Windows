@@ -3,9 +3,10 @@
 
 The original vibrated with iOS's standard vibration, AudioServicesPlaySystemSound(0xfff)
 (vibrate, 0x1000076f0), to say a swipe counts now. The port plays a short buzz instead,
-made here in memory once at startup, never saved as a file: a low tone, pulsed for a
-motor's rattle, faded in and out so it never clicks, the same in both ears, and well below
-the voices. It starts on its first sample, so it lands exactly when a swipe starts to count.
+made here in memory once at startup, never saved as a file: a steady low tone, faded in
+and out so it never clicks, the same in both ears, and well below the voices. It has no
+pulse: the dev turned it down (2026-10-23). It starts on its first sample, so it lands
+exactly when a swipe starts to count.
 
 Its numbers are all here, in one place, so a value the dev chooses by ear in
 tests/interact/buzz_check.py is a one-line change.
@@ -19,8 +20,6 @@ import math
 FREQUENCY = 170
 #: The tone's wave shape: one of SHAPES.
 SHAPE = 'sine'
-#: How many times a second the tone pulses, for a motor's rattle.
-PULSE = 30
 #: The whole buzz, in milliseconds: about the length of iOS's vibration.
 LENGTH_MS = 400
 #: The fade in and the fade out, in milliseconds, so it never clicks.
@@ -46,7 +45,7 @@ def wave(shape: str, phase: float) -> float:
     raise ValueError('no wave shape %r; the shapes are %s' % (shape, ', '.join(SHAPES)))
 
 
-def samples(frequency=FREQUENCY, shape=SHAPE, pulse=PULSE, length_ms=LENGTH_MS, fade_ms=FADE_MS,
+def samples(frequency=FREQUENCY, shape=SHAPE, length_ms=LENGTH_MS, fade_ms=FADE_MS,
             level=LEVEL, rate=RATE) -> array.array:
     """The buzz as 16-bit stereo samples, left and right alike, interleaved."""
     count = int(rate * length_ms / 1000)
@@ -55,10 +54,9 @@ def samples(frequency=FREQUENCY, shape=SHAPE, pulse=PULSE, length_ms=LENGTH_MS, 
     peak = 32767 * level
     for i in range(count):
         t = i / rate
+        # Only the fades in and out, so it never clicks; between them, a steady level.
         envelope = min(1.0, i / fade, (count - 1 - i) / fade)
-        # A pulse from silent to full, pulse times a second, starting at full.
-        rattle = 0.5 + 0.5 * math.cos(2 * math.pi * pulse * t)
-        value = int(peak * envelope * rattle * wave(shape, frequency * t))
+        value = int(peak * envelope * wave(shape, frequency * t))
         out[2 * i] = out[2 * i + 1] = value
     return out
 
