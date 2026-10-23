@@ -8,7 +8,7 @@ The `[[name]]` links in `CLAUDE.md` and across these notes resolve to `aidocks/g
 - [Python only](project_python_only.md): pygame for the window, keys and all sound; no FMOD, no OpenAL and no speech, since the original is self-voiced; the MP3s converted by the dev.
 - [Windows only](project_windows_only.md): no Linux, macOS or GitHub Actions workflow.
 - [Solo project](project_solo.md): tsatria03 alone; credits name Luke Charman for the original.
-- [Later topics](project_later_topics.md): open questions for plans not yet written, such as the plan order and the progress weights.
+- [Later topics](project_later_topics.md): open questions for plans not yet written; none open now.
 - [Developer tasks](project_dev_tasks.md): repository, tools, tests, build and docs tasks, kept out of the player todo list.
 
 ## Plans
@@ -43,7 +43,7 @@ The `[[name]]` links in `CLAUDE.md` and across these notes resolve to `aidocks/g
 - [Todo list format](feedback_todo_list_format.md): ##Unfinished. and ##Finished., players only, bugs stated as what happens.
 - [Back first](feedback_back_first.md): Back is the first row of every menu with a way back, and it opens on it.
 - [Docs after each plan](feedback_docs_after_each_plan.md): when a plan is finished, bring every developer and player doc up to date, then ask to push.
-- [Progress summary](feedback_progress_summary.md): after each plan, a brief overall percentage, by weights to be agreed.
+- [Progress summary](feedback_progress_summary.md): after each plan, a brief overall percentage, by the agreed weights: 15, 15, 20, 25, 10 and 15.
 
 ## User
 - [Screen reader](user_screen_reader.md): the dev uses NVDA; headings, lists and short lines, no wide tables, no noise from tools.
