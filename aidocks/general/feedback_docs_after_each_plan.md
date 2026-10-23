@@ -8,7 +8,9 @@ metadata:
 
 **After each plan is finished, update every doc it touches, so none falls behind.**
 
-**Why:** the dev's standing rule, taken from the reference material in `user/` on 2026-10-22. Docs left until the end fall behind and need a catch-up.
+**Why:** the dev's standing rule, taken from the reference material in `user/` on 2026-10-22, and asked for again after plan 1 (the dev, 2026-10-23: "Please also make a propper readme.md file for the project. Make sure to update it after each plan, same for the aidocks folder, the player facing docks folder when possible, and of course claude.md."). Docs left until the end fall behind and need a catch-up.
+
+**`README.md` is a proper developer's guide,** written after plan 1 (2026-10-23): what the port is, status by plan, how it will play, requirements, the tools, the layout, credits and licences. As each plan lands it gains running, tests, the by-ear tools and building, as they come to exist.
 
 **How to apply:**
 - When the dev confirms a plan finished, before offering the next plan's review ([[feedback_review_plan_sections]]), go through:

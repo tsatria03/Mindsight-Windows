@@ -25,7 +25,7 @@ A Windows port of **MiNDSiGHT** (`com.lukecharman.mindsight` 1.0.2, by Luke Char
 - **`analysis/script/scenes.txt`**: every scene as plain text, written by `tools/scenes.py`; find "Scene <number>:" to jump to one. The dev keeps it in `script/`.
 - **`vendor/nvda/`**: `nvdaControllerClient64.dll` (x64) and its license. The game never speaks; the by-ear tools in `tests/interact/` speak through it ([[audio_plan]]).
 - **`docks/`**: the documents a player reads: `readme.txt`, `changelog.txt` and `todo list.txt` ([[feedback_changelog]], [[feedback_todo_list_format]]). The readme describes only what works in the game now.
-- **`README.md`**: the developer's guide. **`requirements.txt`**: `pygame`, `prismatoid` and `cryptography`; `prismatoid` goes when the foundation is built. **`VERSION`**: the version, such as `26.10.22-1`.
+- **`README.md`**: the developer's guide: status by plan, how it will play, requirements, the tools, the layout, credits and licences, brought up to date after each plan. **`requirements.txt`**: `pygame`, `prismatoid` and `cryptography`; `prismatoid` goes when the foundation is built. **`VERSION`**: the version, such as `26.10.22-1`.
 - **`build/`** and **`dist/`**: build output, gitignored.
 - **`user/`** is gitignored private reference material. Read it, but never edit it. Never name the dev's other games kept in it, in any of this repo's files ([[feedback_no_other_games]]).
 - **`New File*.txt`** at the root is the dev's private scratchpad. It is gitignored; never read, edit, flag or delete it.
@@ -36,7 +36,7 @@ A Windows port of **MiNDSiGHT** (`com.lukecharman.mindsight` 1.0.2, by Luke Char
 - **All plans are written first,** one at a time, with the dev's answers, before any review or building ([[feedback_all_plans_first]]).
 - **Before each plan,** review it section by section with the dev, and build only on their word ([[feedback_review_plan_sections]]). Within a plan, when the dev says a section's tests passed, mark and commit it, then build the next section without asking ([[feedback_next_section_on_pass]]).
 - **Before each section,** list what the dev will test by ear, sound or speech, each test marked optional or mandatory ([[feedback_say_ear_tests_ahead]]). A plan's by-ear tool grows with each section ([[feedback_grow_check_tools]]).
-- **After each plan,** bring every developer doc, `aidocks/` included, and every player doc up to date, give a brief progress summary ([[feedback_progress_summary]]), then ask to push ([[feedback_docs_after_each_plan]]).
+- **After each plan,** bring `README.md`, `CLAUDE.md`, every note in `aidocks/` and, where there is something to say, every player doc in `docks/` up to date, give a brief progress summary ([[feedback_progress_summary]]), then ask to push ([[feedback_docs_after_each_plan]]).
 - **Plans first:** an agreed plan goes into its own note in `aidocks/plans/` before any code, and is marked finished only once the dev says it works ([[feedback_record_plans_first]]).
 - **Committing and pushing:** commit finished work without asking; push only once a whole plan is finished and its docs are updated; "commit/push" means both; history rewrites need a go-ahead ([[feedback_git_commits]]). Name people by GitHub username only ([[feedback_use_github_usernames]]).
 - **Questions:** a question or correction from the dev is a check, answered in chat ([[feedback_questions_are_checks]]). Ask one question per reply, in plain text ([[feedback_one_question_at_a_time]], [[feedback_no_question_pickers]]).
