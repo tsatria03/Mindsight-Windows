@@ -6,9 +6,19 @@ metadata:
   type: project
 ---
 
-**Status: being built,** all four sections at once (the dev, 2026-10-23, after the review: "Since plan 1 has no hering tests, you can build it. I mean all 4 sections without pausing at each section for review."). Reviewed in one message on 2026-10-23 ([[feedback_review_plan_sections]]).
+**Status: built, not yet confirmed** (2026-10-23), all four sections at once (the dev, 2026-10-23, after the review: "Since plan 1 has no hering tests, you can build it. I mean all 4 sections without pausing at each section for review."). Reviewed in one message on 2026-10-23 ([[feedback_review_plan_sections]]).
 
 **Done before the plan, 2026-10-22:** the binary was read with capstone through a throwaway helper outside the repo, and what it showed is already written down in [[project_original_findings]] and [[project_original_behaviour]], with the dev's corrections. This plan makes the reading repeatable inside the repo, so every number in those notes can be checked again, and later plans can cite tools rather than memory.
+
+## Built
+
+- **Section 1:** `tools/macho64.py`, `tools/dis64.py` and `tools/README.md`. `macho64.py` also lists the string constants (`--strings`) and the imports (`--imports`), and names each instance variable's offset variable. `dis64.py` follows `adr` and literal `ldr` loads, names instance variables and marks each load or store through one (`-> _currentScene`), lists a switch's cases right after its `br`, skipping the table's data, and finds every store to an instance variable (`--writes`). `--writes whichFailure` finds the 12 stores, none clearing it.
+- **Section 2:** `tools/scenes.py`. From the binary it reads each scene's recording, what follows and whether it saves (by following each `playNextScene` case to the shared tail), the looping scenes and the input lock's scenes, and the scenes that vibrate as they end, from the masks in `playScene:fromInterval:` and `audioPlayerDidFinishPlaying:successfully:`. The puzzles, the piranha windows, the retry points, the retry tests and the menus' scenes are tables, each value checked at its address. It finds all 59 named recordings on disk, and only `system/misc/FanRadio.mp3` unnamed; it reports no problems. Fed seven wrong values on purpose, in memory, it reported all seven.
+- **Section 3:** `analysis/scenes.txt`, written by `tools/scenes.py`: 56 scenes, with the port's three departures marked at the top and at scene 55. A looping scene shows no "then" and no vibration, since it never ends.
+- **Section 4:** every address cited in [[project_original_behaviour]], [[project_original_findings]] and the plans resolves to the method or instruction it names. The note's scene list matches the tool's reading of `playNextScene` scene for scene. Solved's volume (0.2), the timer (0.1 s), the vibration (0xfff), `saved.plist`, the 3-second step back and the eleven achievements' scenes match too. Corrections made:
+  - **six letter-suffixed names, not five,** in the findings note and in plans 1 and 3; the tool's table had all six
+  - scene 10's unused "then", noted in the behaviour note
+  - `pause_menu`'s words, from the dev's listening
 
 ## Why
 
@@ -30,7 +40,7 @@ The original has no story data: its 56 scenes, what follows each, the puzzles' a
 
 ### 2. The scene table and the recordings
 
-- `tools/scenes.py`: reads from the binary the recording of each of the 56 scenes (`urlForScene:`'s jump table at 0x100009014), what follows each one and whether it saves (`playNextScene`'s jump table at 0x100006e04), and the looping scenes. It finds each recording on disk by the port's own lookup: the name without its number prefix, the five letter-suffixed names mapped, found anywhere under `game/data/audio/` ([[project_original_findings]]).
+- `tools/scenes.py`: reads from the binary the recording of each of the 56 scenes (`urlForScene:`'s jump table at 0x100009014), what follows each one and whether it saves (`playNextScene`'s jump table at 0x100006e04), and the looping scenes. It finds each recording on disk by the port's own lookup: the name without its number prefix, the six letter-suffixed names mapped, found anywhere under `game/data/audio/` ([[project_original_findings]]).
 - It checks that every recording the binary names is on disk, and lists the files it never names (today, only `FanRadio.mp3`).
 - **The puzzle values are a table in the tool, each checked against the binary** (agreed at the review, 2026-10-23). What follows each scene, the saves and the loops come from the two jump tables. The answers, cue times, piranha windows and retry points sit in separate handlers, in less regular code, so `tools/scenes.py` holds them in a table, each with the address of the constant or branch it comes from, and checks every one against the binary; any that differs is a problem.
 - `--check` prints only problems.

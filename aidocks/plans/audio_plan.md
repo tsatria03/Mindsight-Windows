@@ -22,7 +22,7 @@ Read from the binary ([[project_original_behaviour]], [[project_original_finding
 
 ## Sections
 
-1. **The recordings.** `mindsight/game/recordings.py` finds a recording by the binary's name: the number prefix dropped, the five letter-suffixed names mapped, as `.mp3` anywhere under `game/data/audio/` in any letter case ([[project_original_findings]]). `mindsight/platform/mp3.py` reads an MP3's length from its frames, since pygame cannot give a streamed MP3's length. Silent tests. Nothing to hear.
+1. **The recordings.** `mindsight/game/recordings.py` finds a recording by the binary's name: the number prefix dropped, the six letter-suffixed names mapped, as `.mp3` anywhere under `game/data/audio/` in any letter case ([[project_original_findings]]). `mindsight/platform/mp3.py` reads an MP3's length from its frames, since pygame cannot give a streamed MP3's length. Silent tests. Nothing to hear.
 2. **The players.** `mindsight/platform/audio.py`:
    - the scene through `pygame.mixer.music`, the only pygame player that starts partway (`play(start=)`) and loops (`loops=-1`), with pause, resume, its position and its end
    - the position worked out as the start point plus `get_pos()`, wrapped by the length for a looping scene, and held still while paused

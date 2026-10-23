@@ -46,7 +46,7 @@ How `game/MiNDSIGHT` plays, read on 2026-10-22 with capstone from its arm64 code
 - 7 `LoadedSuccessfully`: then loads the save and plays the saved scene from its start.
 - 8 `introductory_scene` (sceen): then 9, saves.
 - 9 `office_puzzle_lead_in`: then 11.
-- 10 `Beeps` (misc): loops.
+- 10 `Beeps` (misc): loops. Its case in `playNextScene` leads to 12, but a loop never ends, so that never happens.
 - 11 `solve_office_puzzle`: then 10.
 - 12 `street_puzzle_leadin`: then 13, saves.
 - 13 `street_puzzle_leadin2`: then 14, saves.

@@ -24,7 +24,7 @@ metadata:
 - **60 MP3 files** (the dev, 2026-10-22): 45 in `game/data/audio/story/sceen/`, 10 in `game/data/audio/story/speech/` and 5 in `game/data/audio/system/misc/`. The folder name `sceen` is the dev's spelling and stays as it is.
 - **Every one was `.m4a` in the original and was converted to MP3 by the dev** so pygame can play it with no conversion at run time ([[project_python_only]]). The binary still asks for each one as `m4a`.
 - **The layout is the dev's own.** The original kept every sound in one flat folder in the app; the dev sorted them into these folders before making the repo (2026-10-22). The binary asks for each sound by bare name, never by path, so the port finds a recording by its file name anywhere under `game/data/audio/`.
-- **The names on disk drop the binary's number prefixes**: the binary's `08_introductory_scene` is `introductory_scene.mp3`. Five letter-suffixed names need a mapping:
+- **The names on disk drop the binary's number prefixes**: the binary's `08_introductory_scene` is `introductory_scene.mp3`. Six letter-suffixed names need a mapping (first written as five, corrected when `tools/scenes.py` checked it, 2026-10-23):
   - `26b_tower_entry_scene` to `26e_tower_entry_scene`: `tower_entry_scene2.mp3` to `tower_entry_scene5.mp3`
   - `30b_third_floor_scene`: `third_floor_scene2.mp3`
   - `33b_fourth_floor_scene`: `fourth_floor_scene2.mp3`
