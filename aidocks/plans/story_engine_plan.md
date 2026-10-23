@@ -10,6 +10,10 @@ metadata:
 
 ## Progress
 
+- **Section 3, built 2026-10-23, waiting for the dev's by-ear tests** (the dev: "tests past", for section 2):
+  - Failing, the Rewind, the timed rounds running out and the piranha windows were already in section 1's rules and played by section 2's screen, so this section proves them end to end and grows the tool.
+  - `tests/case/test_story_screen.py` grew three tests: a wrong street round to its fail, the Rewind and scene 13 from 20.4 s; a roof round running out to its fail, the Rewind and scene 46 from 112 s; and the piranha windows on a real looping player on the dummy driver, a swipe inside the first window after a whole loop passing, one outside failing with failure 35. The test now puts the real clock back. 97 silent tests in all, each passing.
+  - `story_check.py`'s I now says, after a failure, where the Rewind goes back to, such as "failure 35, the Rewind goes back to scene 34 from 70 seconds", and in the piranha loop whether the position is inside a window, naming it, or outside every window.
 - **Section 2, FINISHED 2026-10-23,** its by-ear tests passed (the dev: "tests past"). Built the same day (the dev: "yes, continue"):
   - `mindsight/game/story_screen.py`, `StoryScreen`: opens on scene 1, or jumps to `--scene`'s; each frame hands the position to `Story.tick` for the cue's buzz; a swipe goes to `Story.swipe` with the position; a recording's end to `Story.ended`; and it does what they return: `Play` on the scene player, looping for 10, 26 and 35, Solved, the buzz. `Save` only logs where it would save until plan 5, and never in a `--scene` run; the PDF and Continue's load only log. `escape_quits` is true in scenes 1 to 7. The window shows "Scene 47: roof puzzle iteration 1", then "Your turn" or "Listening", and "Paused".
   - `Mindsight.py` now opens the story screen; **the stand-in screen is gone**, as plan 2 said it would be, with its tests.

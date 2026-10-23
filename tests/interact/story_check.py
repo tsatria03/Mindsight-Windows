@@ -17,7 +17,9 @@ The game's keys, passed straight through:
 
 The tool's own keys:
     T        type a scene number, then Enter, to jump there, as if the scene before had ended
-    I        say the state: the scene, where it is, the failure, and whether a swipe counts
+    I        say the state: the scene, where it is, the failure and where the Rewind will
+             go back to, whether a swipe counts, and in the piranha loop, whether it is
+             inside a window
     L        skip to 5 seconds before the playing scene's end
     H        say the keys again
     Escape   quit, as does Alt+F4
@@ -114,10 +116,20 @@ class StoryCheckScreen(StoryScreen):
 
     def state(self):
         scene = self.story.scene
-        where = '%.1f seconds in' % self.position() if self.audio.scene.playing else 'not playing'
-        failure = 'failure %d' % self.story.failure if self.story.failure is not None else 'no failure'
-        turn = 'a swipe counts now' if self.story.counts(self.position()) else 'a swipe does nothing yet'
-        return 'Scene %d, %s, %s, %s, %s.' % (scene, plain_name(scene), where, failure, turn)
+        at = self.position()
+        where = '%.1f seconds in' % at if self.audio.scene.playing else 'not playing'
+        failure = 'no failure'
+        if self.story.failure is not None:
+            retry = S.RETRIES.get(self.story.failure)
+            failure = 'failure %d' % self.story.failure
+            if retry is not None:
+                failure += ', the Rewind goes back to scene %d from %g seconds' % retry
+        turn = 'a swipe counts now' if self.story.counts(at) else 'a swipe does nothing yet'
+        parts = ['Scene %d' % scene, plain_name(scene), where, failure, turn]
+        if scene == S.PIRANHA:
+            window = next(((a, b) for a, b in S.PIRANHA_WINDOWS if a < at < b), None)
+            parts.append('inside the window from %d to %d' % window if window else 'outside every window')
+        return ', '.join(parts) + '.'
 
 
 def scene_from(argv):

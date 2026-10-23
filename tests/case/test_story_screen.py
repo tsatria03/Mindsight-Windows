@@ -1,6 +1,7 @@
 """The story screen, on a stand-in for the audio: opening on the main menu, the rules done
 on the audio, the input lock and the cue, Solved and the buzz, --scene, Escape in the
-menus, the window's lines, and a silent run of the game."""
+menus, the window's lines, failing and the Rewind's retries, the piranha windows on a
+real looping player, and a silent run of the game."""
 import _quiet  # noqa: F401  (first, before any of the game)
 
 import logging
@@ -141,6 +142,59 @@ def test_the_window_lines():
     assert 'Listening' in s.lines()
     audio.scene.at = 7.5
     assert 'Your turn' in s.lines()
+
+
+def test_failing_a_street_round_and_the_rewind():
+    app, audio, s = screen(start_scene=15)
+    audio.scene.at = 10.5
+    app.key_down('down', [])
+    assert audio.log[-1] == ('play', '16_street_puzzle_fail', 0.0, False)
+    audio.scene.end()
+    assert audio.log[-1] == ('play', 'Rewind', 0.0, False)
+    audio.scene.end()
+    assert audio.log[-1] == ('play', '11_street_puzzle_leadin2', 20.4, False)
+
+
+def test_a_roof_round_running_out():
+    app, audio, s = screen(start_scene=47)
+    audio.scene.end()
+    assert audio.log[-1] == ('play', '41_roof_puzzle_fail', 0.0, False)
+    audio.scene.end()
+    audio.scene.end()
+    assert audio.log[-1] == ('play', '36_roof_entry_scene', 112.0, False)
+
+
+def test_the_piranha_windows_on_a_real_looping_player():
+    import pygame
+    from mindsight.platform import runloop
+    from mindsight.platform.audio import Audio
+
+    class Clock:
+        now = 500.0
+
+        def __call__(self):
+            return self.now
+    real_clock = runloop.clock
+    clock = runloop.clock = Clock()
+    audio = Audio()
+    audio.open(pygame)
+    try:
+        app = App(loop=RunLoop())
+        s = StoryScreen(app, audio, start_scene=35)
+        app.stack.push(s)
+        loop_length = audio.scene.recording.length
+        clock.now += loop_length + 16           # once round, then inside the first window
+        assert abs(s.position() - 16) < 1e-6
+        app.key_down('a', [])
+        assert s.story.scene == 36 and audio.scene.recording.name == '28_pirahna_puzzle_pass'
+        s2 = StoryScreen(App(loop=RunLoop()), audio, start_scene=35)
+        s2.app.stack.push(s2)
+        clock.now += 21                         # outside every window
+        s2.gesture('up')
+        assert s2.story.scene == 37 and s2.story.failure == 35
+    finally:
+        audio.close()
+        runloop.clock = real_clock
 
 
 def test_the_game_runs_silently_on_the_story_screen():
