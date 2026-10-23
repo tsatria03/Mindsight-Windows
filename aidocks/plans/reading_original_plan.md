@@ -14,7 +14,7 @@ metadata:
 
 - **Section 1:** `tools/macho64.py`, `tools/dis64.py` and `tools/README.md`. `macho64.py` also lists the string constants (`--strings`) and the imports (`--imports`), and names each instance variable's offset variable. `dis64.py` follows `adr` and literal `ldr` loads, names instance variables and marks each load or store through one (`-> _currentScene`), lists a switch's cases right after its `br`, skipping the table's data, and finds every store to an instance variable (`--writes`). `--writes whichFailure` finds the 12 stores, none clearing it.
 - **Section 2:** `tools/scenes.py`. From the binary it reads each scene's recording, what follows and whether it saves (by following each `playNextScene` case to the shared tail), the looping scenes and the input lock's scenes, and the scenes that vibrate as they end, from the masks in `playScene:fromInterval:` and `audioPlayerDidFinishPlaying:successfully:`. The puzzles, the piranha windows, the retry points, the retry tests and the menus' scenes are tables, each value checked at its address. It finds all 59 named recordings on disk, and only `system/misc/FanRadio.mp3` unnamed; it reports no problems. Fed seven wrong values on purpose, in memory, it reported all seven.
-- **Section 3:** `analysis/scenes.txt`, written by `tools/scenes.py`: 56 scenes, with the port's three departures marked at the top and at scene 55. A looping scene shows no "then" and no vibration, since it never ends.
+- **Section 3:** `analysis/script/scenes.txt`, written by `tools/scenes.py`: 56 scenes, with the port's three departures marked at the top and at scene 55. A looping scene shows no "then" and no vibration, since it never ends.
 - **Section 4:** every address cited in [[project_original_behaviour]], [[project_original_findings]] and the plans resolves to the method or instruction it names. The note's scene list matches the tool's reading of `playNextScene` scene for scene. Solved's volume (0.2), the timer (0.1 s), the vibration (0xfff), `saved.plist`, the 3-second step back and the eleven achievements' scenes match too. Corrections made:
   - **six letter-suffixed names, not five,** in the findings note and in plans 1 and 3; the tool's table had all six
   - scene 10's unused "then", noted in the behaviour note
@@ -48,7 +48,7 @@ The original has no story data: its 56 scenes, what follows each, the puzzles' a
 
 ### 3. A readable listing
 
-- `analysis/scenes.txt`, written by `tools/scenes.py`: every scene in story order, each beginning "Scene <number>: <recording>", so a screen reader's find can jump to it, with its length, what follows, whether it saves, whether it loops, and, for a puzzle, the answer, the cue time and the retry point. Plain text, short lines.
+- `analysis/script/scenes.txt`, written by `tools/scenes.py`: every scene in story order, each beginning "Scene <number>: <recording>", so a screen reader's find can jump to it, with its length, what follows, whether it saves, whether it loops, and, for a puzzle, the answer, the cue time and the retry point. Plain text, short lines.
 - It marks where the port departs from the original (agreed at the review): the credits always following the ending, swipes ignored while paused, and the buzz in place of vibration.
 - Nothing to test by ear. The dev may read it to check it against what they remember of the original (optional).
 
@@ -61,7 +61,7 @@ The original has no story data: its 56 scenes, what follows each, the puzzles' a
 ## Decided
 
 - No FMOD; pygame plays everything ([[project_python_only]]).
-- The tools never write under `game/`, play nothing and speak nothing. The only file they write is `analysis/scenes.txt`.
+- The tools never write under `game/`, play nothing and speak nothing. The only file they write is `analysis/script/scenes.txt`.
 - `capstone` is needed by `tools/dis64.py` and `tools/scenes.py` only, never by the game, so it is not in `requirements.txt`; `tools/README.md` says to install it.
 
 ## Open questions

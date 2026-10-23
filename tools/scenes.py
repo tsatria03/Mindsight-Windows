@@ -1,8 +1,8 @@
 """Read the original's 56 scenes from game/MiNDSIGHT, check them and the
 puzzles against the binary and the recordings on disk, and write the whole
-story as analysis/scenes.txt. Needs capstone, through tools/dis64.py.
+story as analysis/script/scenes.txt. Needs capstone, through tools/dis64.py.
 
-    python tools/scenes.py            check, then write analysis/scenes.txt
+    python tools/scenes.py            check, then write analysis/script/scenes.txt
     python tools/scenes.py --check    check only, printing only problems
 
 Read straight from the binary:
@@ -30,7 +30,7 @@ import macho64 as M  # noqa: E402
 
 ROOT = M.ROOT
 AUDIO = os.path.join(ROOT, "game", "data", "audio")
-OUT = os.path.join(ROOT, "analysis", "scenes.txt")
+OUT = os.path.join(ROOT, "analysis", "script", "scenes.txt")
 
 UP, DOWN, LEFT, RIGHT = 0, 1, 2, 3
 DIRECTIONS = {UP: "up", DOWN: "down", LEFT: "left", RIGHT: "right"}
