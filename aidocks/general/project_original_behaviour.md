@@ -132,6 +132,6 @@ A fail scene, or a timed round that runs out, leads to scene 0, `Rewind`. When i
 ## Pause and interruptions
 
 - **The double tap pauses**: the scene player pauses, and `pause_menu` plays on the pause player (5.1 s). **Another double tap resumes**: the scene plays on, and the pause clip stops.
-- Pausing does not lock the swipes. A swipe while paused still acts, starting the next scene while the game still counts as paused. The port ignores swipes while paused, at the dev's word ([[story_engine_plan]]). What `pause_menu` says has not been heard yet; the code gives it no options of its own.
+- Pausing does not lock the swipes. A swipe while paused still acts, starting the next scene while the game still counts as paused. The port ignores swipes while paused, at the dev's word ([[story_engine_plan]]). `pause_menu` says only that the game is paused, and to double tap the screen to pick up where you left off (the dev, 2026-10-23: "It just says, you paused the game, to pick up where you left off, double tap the screen."); it offers no options, as the code shows. In the port, Enter, Escape or P stands for that double tap ([[foundation_plan]]).
 - **An interruption, such as a phone call** (`interruptedPlayer:`, 0x100007b64, on `AVAudioSessionInterruptionNotification`, at its start and its end alike): the scene pauses, steps back 3 s, `WelcomeBack` plays, and the game counts as paused, so the double tap resumes it.
 - Only the scene player's end moves the story on; the pause clips and the Solved sound ending do nothing.

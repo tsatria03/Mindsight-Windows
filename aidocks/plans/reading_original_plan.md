@@ -43,7 +43,7 @@ The original has no story data: its 56 scenes, what follows each, the puzzles' a
 ### 4. Checking the behaviour note
 
 - Every claim in [[project_original_behaviour]] is checked against the tools' output, and each address it cites is confirmed; anything that differs is corrected there.
-- Questions only listening can settle go to the dev one at a time, such as what `pause_menu` says. Listening to the original's recordings is the dev's to do, never Claude's ([[feedback_dont_run_or_build]]).
+- Questions only listening can settle go to the dev one at a time. Listening to the original's recordings is the dev's to do, never Claude's ([[feedback_dont_run_or_build]]). The one such question, what `pause_menu` says, was settled at the review: it says only that the game is paused, and to double tap to carry on (the dev, 2026-10-23).
 - Nothing to test by ear, beyond those optional listens.
 
 ## Decided
