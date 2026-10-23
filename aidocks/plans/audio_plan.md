@@ -6,7 +6,7 @@ metadata:
   type: project
 ---
 
-**Status: written,** every question answered on 2026-10-22. Its section review waits until every plan is written ([[feedback_all_plans_first]]).
+**Status: reviewed** in one message on 2026-10-23; built one section at a time, since it has by-ear tests ([[feedback_next_section_on_pass]]). Not started yet.
 
 Plan 3 ([[reading_original_plan]] lists the order). It stands on [[foundation_plan]] and serves the story engine.
 
@@ -50,6 +50,16 @@ Read from the binary ([[project_original_behaviour]], [[project_original_finding
   - When it gets focus back, the scene steps back 3 s and `WelcomeBack` plays, and the game stays paused until Escape, Enter or P resumes it.
   - If no recording was playing, such as a menu waiting for its swipe, coming back plays `WelcomeBack` only, with nothing to step back; to be confirmed at the section review.
 - **No sound device closes the game with a message box** (the dev, 2026-10-22: "I agree with that.", to the proposal). If the mixer cannot open, the game shows a Windows message box, read by the screen reader, saying that no sound device could be opened and the game needs one; it writes the reason to the log and closes. Every part of the game is a recording, so carrying on silently would leave a blind player with nothing.
+- **`audio_check.py`'s keys** (agreed at the review, 2026-10-23, the dev choosing O for Solved: "O can be for solved."):
+  - Up or W, Down or S: the scene before or after, saying its number and name
+  - Enter: play that scene from its start
+  - Left and Right: back or forward 5 seconds in the playing scene
+  - J: play from the point typed, in seconds, then Enter
+  - Space: pause or resume
+  - O: Solved
+  - 2: the buzz, once section 3 builds it
+  - 3: WelcomeBack
+  - Escape or Alt+F4: quit ([[feedback_test_tools_in_interact]])
 - **Every by-ear tool speaks through the NVDA client** (the dev, 2026-10-22: "Yes, keep the nvda client for all interactive tests."): `vendor/nvda/nvdaControllerClient64.dll` through ctypes, from a small helper in `tests/interact/`, used by the tools only and never by the game, which stays without speech ([[foundation_plan]]). Each line is printed in the console as well, and when NVDA is not running the tool only prints. So `vendor/nvda/` stays in the repo.
 - **Tests stay silent:** they run on SDL's dummy audio driver, so nothing is heard ([[feedback_dont_run_or_build]]).
 
