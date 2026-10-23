@@ -6,15 +6,22 @@ metadata:
   type: project
 ---
 
-**Status: written,** every question answered on 2026-10-22. Its section review waits until every plan is written ([[feedback_all_plans_first]]).
+**Status: reviewed,** in one message on 2026-10-23; built one section at a time, since it has by-ear tests ([[feedback_next_section_on_pass]]). Not started yet.
 
 Plan 2 ([[reading_original_plan]] lists the order). Everything else stands on it: the audio, the story engine, the menus and the saves all use its paths, timers, keys and screen loop.
 
 ## Sections
 
-1. The entry script, paths, logs, the crash file and the error message boxes.
-2. The timer loop and the screen loop, with the fixed keys and the window's text, and a stand-in screen until the story engine.
-3. The silent test setup: `tests/case/_quiet.py`, `tests/suite.py` and the first test files.
+1. **The entry script, paths, logs, the crash file and the error message boxes.** `Mindsight.py` with its four options; `mindsight/paths.py`; `logs/log.txt`, `log.old.txt` and `logs/crash.txt`; the missing-data and crash message boxes; `prismatoid` out of `requirements.txt`; a plain window titled "Mindsight", or "Mindsight (debug)", until section 2. `tests/interact/foundation_check.py` starts here, with keys to show each message box for real. To test by ear:
+   1. Mandatory: the missing-data message box is read by NVDA, and Enter closes it.
+   2. Mandatory: the crash message box is read, naming `crash.txt`.
+   3. Optional: `python Mindsight.py` opens a window NVDA announces as Mindsight, and Alt+F4 closes it.
+   4. Optional: with `--debug`, NVDA announces "Mindsight (debug)".
+2. **The timer loop, the screens and the keys.** `mindsight/platform/runloop.py`, `mindsight/ui/screens.py` and `mindsight/platform/keys.py`, the window's text, and the stand-in screen. `foundation_check.py` grows here: the game's own keys and timer loop, each key's meaning spoken, a countdown, and focus changes. To test by ear:
+   1. Mandatory: each swipe key and each pause key is reported correctly, and Shift+Up or Control+W reports nothing.
+   2. Optional: a timer counts down and stops while held.
+   3. Optional: Alt+Tab is reported as losing and regaining focus.
+3. **The silent tests.** `tests/case/_quiet.py`, `tests/suite.py` and the first test files: the paths, the options, the logs and crash file, the message boxes, the timer loop, the screens and the keys. Nothing to test by ear; running `python tests/suite.py` is optional.
 
 ## Decided
 
@@ -61,7 +68,8 @@ Plan 2 ([[reading_original_plan]] lists the order). Everything else stands on it
   - `-v` writes a more detailed log.
   - `--exit-after SECONDS` quits by itself after that many seconds, so the build test can start a built game silently and check it runs.
 - **The data counts as found** only when `game/data/audio/` is there.
-- **Until the story engine,** the game opens on a stand-in screen that names the key pressed in the window, so the window, the keys and the logs can be tried. Escape, Enter and P there say nothing, since there is no speech; the window shows them.
+- **Until the story engine,** the game opens on a stand-in screen that shows the last key's meaning in the window, such as "Swipe up", and writes it to the log; it says nothing, since the game has no speech. Confirmed at the review (2026-10-23).
+- **`tests/interact/foundation_check.py`,** a by-ear tool (the dev, 2026-10-23: "Yes please.", to the proposal at the review), speaking through the NVDA client like every tool, with its own save under `%APPDATA%\Mindsight\interactoundation_check` ([[feedback_test_tools_in_interact]], [[feedback_grow_check_tools]]). Section 1 gives it keys to show each message box for real, so they can be heard without moving files or crashing the game; section 2 adds the game's own keys and timer loop.
 - **Tests stay silent and off the real save** ([[feedback_dont_run_or_build]]): every test imports `_quiet.py` first, which points the save at a throwaway folder, gives SDL dummy video and audio drivers, and stops the message boxes from opening.
 - `tests/suite.py` runs each test file as its own process, several at once, runs a failed file again alone, writes `tests/results/results-<date>-<n>.txt`, exits 1 on a failure, and takes names with or without `test_`.
 - **`requirements.txt` loses `prismatoid`** when this plan is built. `vendor/nvda/` stays: the by-ear tools in `tests/interact/` speak through it, never the game ([[audio_plan]]).
@@ -73,4 +81,4 @@ Asked one at a time; each answer moves into Decided.
 2. Answered: debug mode, command-line only, after the dev first put it off.
 3. Answered: the window's text.
 4. Answered: no volumes at all.
-5. The stand-in screen: proposed in Decided as following from having no menus of the port's own; to be confirmed at the section review.
+5. Answered at the review: the stand-in screen, with `foundation_check.py` to hear the keys.
