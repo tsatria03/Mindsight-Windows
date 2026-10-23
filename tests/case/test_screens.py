@@ -1,4 +1,4 @@
-"""The screen stack, the App's keys and focus, a silent run, and the stand-in screen."""
+"""The screen stack, the App's keys and focus, Escape quitting where a screen says, and a silent run."""
 import _quiet  # noqa: F401  (first, before any of the game)
 
 import types
@@ -6,7 +6,6 @@ import types
 import pygame
 
 from mindsight.app import App
-from mindsight.game.standin import StandInScreen
 from mindsight.platform.runloop import RunLoop
 from mindsight.ui.screens import Screen, ScreenStack
 
@@ -112,30 +111,6 @@ def test_escape_quits_only_where_the_screen_says():
     assert app.running and r.heard[-3:] == [('gesture', 'pause'), ('gesture', 'pause'), ('ignored', 'escape', ('shift',))]
     app.key_down('escape', [])
     assert not app.running
-
-
-def test_escape_quits_the_stand_in():
-    app = App(loop=RunLoop())
-    app.stack.push(StandInScreen(app))
-    app.key_down('escape', [])
-    assert not app.running
-
-
-def test_the_stand_in_screen():
-    app = App(loop=RunLoop())
-    s = StandInScreen(app)
-    app.stack.push(s)
-    assert 'Last key: No key yet.' in s.lines()
-    app.key_down('d', [])
-    assert 'Last key: Swipe right.' in s.lines()
-    app.key_down('return', [])
-    assert 'Last key: Pause or resume.' in s.lines()
-    app.key_down('a', ['alt'])
-    assert 'Last key: Alt plus A: ignored, with a modifier held.' in s.lines()
-    s.focus_lost()
-    assert 'The window lost the keyboard.' in s.lines()
-    s.focus_gained()
-    assert 'The window has the keyboard.' in s.lines()
 
 
 _quiet.run_tests(globals())

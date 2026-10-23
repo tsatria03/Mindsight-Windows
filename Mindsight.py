@@ -126,13 +126,13 @@ def main(argv=None):
             log.info('the game will start at scene %d, and this run will never save', scene)
         import pygame
         from mindsight.app import App
-        from mindsight.game.standin import StandInScreen
+        from mindsight.game.story_screen import StoryScreen
         from mindsight.platform.audio import Audio
         audio = Audio.shared()
         audio.open(pygame)
         try:
             app = App(options, debug=debug, start_scene=scene)
-            app.run(StandInScreen(app), pygame)
+            app.run(StoryScreen(app, audio, start_scene=scene), pygame)
         finally:
             audio.close()
         log.info('Mindsight closed')

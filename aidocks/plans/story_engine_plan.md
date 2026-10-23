@@ -10,7 +10,14 @@ metadata:
 
 ## Progress
 
-- **Section 1, built 2026-10-23,** with nothing to test by ear (the dev: "yes go ahead."):
+- **Section 2, built 2026-10-23, waiting for the dev's by-ear tests** (the dev: "yes, continue"):
+  - `mindsight/game/story_screen.py`, `StoryScreen`: opens on scene 1, or jumps to `--scene`'s; each frame hands the position to `Story.tick` for the cue's buzz; a swipe goes to `Story.swipe` with the position; a recording's end to `Story.ended`; and it does what they return: `Play` on the scene player, looping for 10, 26 and 35, Solved, the buzz. `Save` only logs where it would save until plan 5, and never in a `--scene` run; the PDF and Continue's load only log. `escape_quits` is true in scenes 1 to 7. The window shows "Scene 47: roof puzzle iteration 1", then "Your turn" or "Listening", and "Paused".
+  - `Mindsight.py` now opens the story screen; **the stand-in screen is gone**, as plan 2 said it would be, with its tests.
+  - The pause gesture only logs until section 4, so in the story, Escape, Enter and P do nothing yet; Alt+F4 quits.
+  - `tests/interact/story_check.py`, on the game's own story screen, never saving: the agreed keys, T, I and L, with Escape quitting.
+  - `tests/case/test_story_screen.py`, 8 tests on a stand-in audio: opening on the menu and its lock, the new game into the story, the office puzzle's gate, cue and Solved, the loop, saving never in a `--scene` run, Escape in the menus only, the window's lines, and a silent run of `Mindsight.py`. 94 silent tests in all, each passing.
+  - Checked silently: all four tools started through their real entry points and closed cleanly; driven by hand, `story_check.py` said the state, jumped to scene 11, skipped near its end, refused to skip a loop and a scene 99, and quit on Escape.
+- **Section 1, FINISHED 2026-10-23,** with nothing to test by ear (the dev: "yes go ahead."); the dev moved on to section 2 on it:
   - `mindsight/game/scenes.py`, the whole table: each scene's recording; `THEN`, what follows as it ends (waits, plays the next, loads the save, or the Rewind's retry), whether that next scene is saved, and the failure a timed round sets as it runs out; `RETRIES`; the input lock's scenes; `GATES`, after which a swipe counts, and `CUES`, at which the buzz plays; `CUE_AT_END`; `ANSWERS`, each scene's swipes, with Solved, the save, the failure and whether the lock closes; the piranha windows; and `MENUS`, scenes 1 to 7, where Escape quits.
   - `mindsight/game/story.py`, `Story`, the rules with no sound: `start`, `jump` (as if the scene before had ended, for `--scene` and the tools), `counts` (the window's "Your turn"), `swipe`, `tick` (the cue's buzz) and `ended`, each returning effects: `Play`, `Save`, `SOLVED`, `BUZZ`, `PDF`, `LOAD`. Continue asks `has_save`, false until plan 5. The credits follow the ending: the failure is cleared as scene 55 starts.
   - `tools/scenes.py` checks the whole table against the binary, every scene's `THEN`, the retries, the gates and cues, the right and wrong answers and the menus; fed five wrong values, it reported all five.
