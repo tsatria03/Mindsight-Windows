@@ -10,4 +10,4 @@ A tool the dev uses to try a feature by ear goes in `tests/interact/` as its own
 
 **Why:** the dev's standing rule, taken from the reference material in `user/` on 2026-10-22.
 
-**How to apply:** when the dev asks for a way to test or try something, such as jumping to any scene or puzzle, make a `tests/interact/` script with its own save folder under `%APPDATA%\Mindsight\interact\`, so the game's save, volumes and keys are untouched ([[feedback_dont_run_or_build]]).
+**How to apply:** when the dev asks for a way to test or try something, such as jumping to any scene or puzzle, make a `tests/interact/` script with its own save folder under `%APPDATA%\Mindsight\interact\`, so the game's own save is untouched ([[feedback_dont_run_or_build]]).

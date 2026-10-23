@@ -11,7 +11,7 @@ metadata:
 **Ask first before running:**
 - the game, including any headless run
 - scratch scripts that import and execute game code
-- anything that could speak through NVDA or Prism for real, or play sound
+- anything that could play sound, open a message box, or make the screen reader speak
 
 **Tests:**
 - They speak nothing, play no sound, open no window, and keep off the dev's real save, wherever they are run from.

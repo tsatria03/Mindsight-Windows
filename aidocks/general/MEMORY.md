@@ -5,7 +5,7 @@ The `[[name]]` links in `CLAUDE.md` and across these notes resolve to `aidocks/g
 ## Project
 - [Original findings](project_original_findings.md): MiNDSiGHT 1.0.2 by Luke Charman; the tiny unencrypted arm64 binary with the story hard-coded; the 60 MP3s in the dev's layout; the name mapping; FanRadio never played alone; the PDF is a dissertation; what to drop.
 - [Original behaviour](project_original_behaviour.md): the four swipes and the double tap, the input lock, the 56 scenes and what follows each, every puzzle's answer and timing, the vibration cues, failing and the Rewind, saving, pause, and the ending's quirk, with addresses.
-- [Python only](project_python_only.md): pygame for the window, keys and all sound, no FMOD or OpenAL; Prism and the NVDA client for speech; the MP3s converted by the dev.
+- [Python only](project_python_only.md): pygame for the window, keys and all sound; no FMOD, no OpenAL and no speech, since the original is self-voiced; the MP3s converted by the dev.
 - [Windows only](project_windows_only.md): no Linux, macOS or GitHub Actions workflow.
 - [Solo project](project_solo.md): tsatria03 alone; credits name Luke Charman for the original.
 - [Later topics](project_later_topics.md): open questions for plans not yet written, such as the cues in place of vibration, the keys, and the ending's quirk.
@@ -13,7 +13,7 @@ The `[[name]]` links in `CLAUDE.md` and across these notes resolve to `aidocks/g
 
 ## Plans
 - [Reading the original](../plans/reading_original_plan.md): plan 1, written, no open questions; its review waits until every plan is written. Tools to read the binary, the scene table checked against the recordings, analysis/scenes.txt, and the behaviour note checked.
-- [Foundation](../plans/foundation_plan.md): plan 2, being written, its questions asked one at a time. Mindsight.py, paths, logs, speech, the timer loop, settings, keys, F1, the spoken menu and the silent tests.
+- [Foundation](../plans/foundation_plan.md): plan 2, being written, its questions asked one at a time. Mindsight.py, paths, logs, error message boxes, the timer loop, the fixed keys (arrows and WASD; Escape, Enter and P), the window's text and the silent tests; no speech, Settings, key binder or volumes.
 
 ## Completed projects
 - None yet.

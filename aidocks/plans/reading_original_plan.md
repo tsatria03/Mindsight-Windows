@@ -60,10 +60,10 @@ None yet. The questions for later plans are in [[project_later_topics]].
 
 The plans after this one, proposed, each to get its own note and review before any code:
 1. Reading the original (this plan).
-2. The foundation: the entry script, paths, logs and crash file, speech, the timer loop, settings, the key map, the screens and the spoken menu, F1, and the silent tests.
-3. The audio: the scenes through `pygame.mixer.music`, starting partway, looping, pause and resume, the Solved sound over the next scene, the cue sounds in place of vibration, and the volumes.
+2. The foundation: the entry script, paths, logs, crash file and error message boxes, the timer loop, the screens, the fixed keys, the window's text, and the silent tests; no speech, Settings, key binder or volumes ([[foundation_plan]]).
+3. The audio: the scenes through `pygame.mixer.music`, starting partway, looping, pause and resume, the Solved sound over the next scene, and the cue sounds in place of vibration.
 4. The story engine: the 56 scenes, the input lock, the puzzles, failing and the Rewind, and debug jumps, with a scene chooser in `tests/interact/`.
-5. The menus: the original's spoken menus answered by the arrow keys, the credits, pause, and anything the port adds.
+5. The menus: the original's recorded menus answered by the swipe keys, the credits, the audio manual and pause.
 6. The saves: the one saved scene, Continue, and New game.
 7. Building and releasing: `compiler.py` and `releaser.py`.
 

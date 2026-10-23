@@ -10,7 +10,8 @@ A Windows port of **MiNDSiGHT** (`com.lukecharman.mindsight` 1.0.2, by Luke Char
 
 - **A solo project.** tsatria03 makes it alone ([[project_solo]]).
 - **Windows only** ([[project_windows_only]]).
-- **Python only**, with pygame for the window, the keys and all sound, and Prism and the NVDA client for speech. **No FMOD** and no OpenAL ([[project_python_only]]).
+- **Python only**, with pygame for the window, the keys and all sound. **No FMOD**, no OpenAL, and **no speech**: the original is entirely self-voiced, so there is no Prism, no NVDA client, no Settings screen, no key binder and no volume controls. Errors go to a Windows message box, which screen readers read by themselves ([[project_python_only]], [[foundation_plan]]).
+- **The keys are fixed:** the arrows or W, A, S and D for the four swipes, and Escape, Enter or P for the double tap, which pauses and resumes ([[foundation_plan]]).
 - **Developer tasks**, open and finished, are in [[project_dev_tasks]].
 - **The story is code, not data.** The original's 56 scenes, what follows each, every puzzle's answer and every timing are hard-coded in its binary, so the port's scene table is written from it. What the bundle holds is in [[project_original_findings]]; how it plays, with addresses, is in [[project_original_behaviour]]. Questions waiting for later plans are in [[project_later_topics]].
 - **Status:** the plans are being written, one at a time, each with the dev's answers, before any is reviewed or built ([[feedback_all_plans_first]]). Plan 1, reading the original, is written ([[reading_original_plan]]), which also lists the plans proposed after it; plan 2, the foundation, is being written ([[foundation_plan]]). New work gets a plan of its own first ([[feedback_record_plans_first]]).
@@ -21,9 +22,9 @@ A Windows port of **MiNDSiGHT** (`com.lukecharman.mindsight` 1.0.2, by Luke Char
 - **`mindsight/`**: the port's Python package, empty until plan 2.
 - **`tests/case/`**: silent test scripts, to come. **`tests/interact/`**: tools played by ear, run by the dev, each with its own save under `%APPDATA%\Mindsight\interact\` ([[feedback_test_tools_in_interact]]). Run only the tests covering what changed, in the background, and the full suite only when the dev asks ([[feedback_dont_run_or_build]]).
 - **`tools/`**: scripts for reading the original, to come in plan 1. **`analysis/`**: what they write, for reference.
-- **`vendor/nvda/`**: `nvdaControllerClient64.dll` (x64) and its license.
+- **`vendor/nvda/`**: `nvdaControllerClient64.dll` (x64) and its license, unused since the port has no speech; whether to remove it is asked before anything is deleted ([[project_later_topics]]).
 - **`docks/`**: the documents a player reads: `readme.txt`, `changelog.txt` and `todo list.txt` ([[feedback_changelog]], [[feedback_todo_list_format]]). The readme describes only what works in the game now.
-- **`README.md`**: the developer's guide. **`requirements.txt`**: `pygame`, `prismatoid` and `cryptography`. **`VERSION`**: the version, such as `26.10.22-1`.
+- **`README.md`**: the developer's guide. **`requirements.txt`**: `pygame`, `prismatoid` and `cryptography`; `prismatoid` goes when the foundation is built. **`VERSION`**: the version, such as `26.10.22-1`.
 - **`build/`** and **`dist/`**: build output, gitignored.
 - **`user/`** is gitignored private reference material. Read it, but never edit it. Never name the dev's other games kept in it, in any of this repo's files ([[feedback_no_other_games]]).
 - **`New File*.txt`** at the root is the dev's private scratchpad. It is gitignored; never read, edit, flag or delete it.
