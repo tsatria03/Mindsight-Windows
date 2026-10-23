@@ -14,7 +14,7 @@ Plan 6, the last ([[reading_original_plan]] lists the order). It packages what p
 
 1. **`compiler.py`**, the build, with its silent `--test`.
 2. **`releaser.py`**, the release.
-3. Whatever the open questions add, such as packing the recordings.
+3. **The story pack:** `mindsight/platform/pack.py`, the pack and its reader, played from memory, made by `compiler.py` and `tools/build_pack.py`.
 
 ## Decided
 
@@ -27,6 +27,14 @@ Plan 6, the last ([[reading_original_plan]] lists the order). It packages what p
   - **Not the NVDA client:** the game never speaks; only the by-ear tools use it, and they are for the repository, never the build ([[audio_plan]]).
   - Beside the exe: `docks\` (the readme, changelog and todo list, the changelog without an empty `unrelease:`), `VERSION` and the port's licence as `license.txt`.
   - The third-party licences, as `licenses\`, for what the build carries, such as pygame's LGPL.
+- **The story folder is packed; the misc folder ships as it is** (the dev, 2026-10-22: "Yes, pack the story folder in. Leave the misc folder as is in the system. Do not exclude any sounds from there."):
+  - **`data\story.dat`** beside `Mindsight.exe` holds every file of `game/data/audio/story/`, both `sceen/` (45) and `speech/` (10), 55 recordings, about 70 MB.
+  - **`game/data/audio/system/misc/` ships loose and whole**, all 5 files, about 4.4 MB: `Beeps`, `FanRadio`, `pirahnaloop`, `Rewind` and `Solved`. Nothing is left out, `FanRadio.mp3` included, though the game never plays it ([[project_original_findings]]); an earlier suggestion to leave it out was turned down.
+  - **Encrypted with AES-256-GCM** through the `cryptography` package: an index naming each recording by its path inside `story/`, such as `sceen/roof_entry_scene.mp3`, and each recording encrypted on its own, with a fresh nonce and its own name as associated data. No compression, since MP3s barely shrink. The key ships inside the game, so this keeps out casual copying, not a determined person.
+  - **Played from memory:** a recording is read and decrypted when it is needed and handed to pygame as bytes, `pygame.mixer.music.load` taking a file-like object for the scene; nothing decrypted is ever written to disk.
+  - **Where the game looks:** from source, the loose `game/data/audio/story/` wins; without it, `dist\data\story.dat`; in a build, `data\story.dat` beside the exe. A missing or damaged pack shows a message box saying to extract the whole folder again ([[foundation_plan]]).
+  - **`compiler.py` makes the pack** with every build, reads every recording back, leaves `story/` out of the build's `game\`, and puts the pack's size and SHA-256 inside the build, so a `story.dat` from another build is caught at once. **`tools/build_pack.py`** makes `dist\data\story.dat` on its own, for a source run without the loose folder.
+  - `--test` also needs the log to say the story's recordings came from `story.dat`; the zip stores `.dat` files, as it stores MP3s.
 - **`compiler.py --test` starts a finished build silently** for a few seconds with `--exit-after`, on a throwaway save, with SDL's dummy drivers and the message boxes off, and reads its log: the data found, the sound opened, a clean close, no `crash.txt` and exit code 0 ([[foundation_plan]]).
 - **The release zip** holds one `Mindsight-Windows` folder, stores the MP3s as they are, since they barely shrink, and compresses the rest; it is written as `.part` and renamed once whole.
 - **Players download releases from this repo's GitHub releases page,** `tsatria03/Mindsight-Windows`.
@@ -36,6 +44,6 @@ Plan 6, the last ([[reading_original_plan]] lists the order). It packages what p
 ## Open questions
 
 Asked one at a time; each answer moves into Decided.
-1. **Packing the recordings:** `requirements.txt` lists `cryptography`. Whether a build packs the recordings, encrypted, into one file beside the exe, or ships the MP3s loose.
+1. Answered: the story folder packed into `data\story.dat`, the misc folder loose and whole.
 2. **The kinds of build:** the folder build, a single exe, or a choice of both each time.
 3. **Section reviews:** whether this plan, with nothing to hear beyond a build, needs a section review before it is built.
