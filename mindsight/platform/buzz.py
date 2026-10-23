@@ -16,16 +16,17 @@ from __future__ import annotations
 import array
 import math
 
-#: The tone's frequency, in Hz.
-FREQUENCY = 170
+#: The tone's frequency, in Hz: the dev's choice by ear (2026-10-23).
+FREQUENCY = 160
 #: The tone's wave shape: one of SHAPES.
 SHAPE = 'sine'
 #: The whole buzz, in milliseconds: about the length of iOS's vibration.
 LENGTH_MS = 400
 #: The fade in and the fade out, in milliseconds, so it never clicks.
 FADE_MS = 10
-#: Its loudest, as a share of full scale, well below the voices.
-LEVEL = 0.3
+#: Its loudest, as a share of full scale, well below the voices: the dev's choice by ear,
+#: over a scene in audio_check.py (2026-10-23).
+LEVEL = 0.2
 
 SHAPES = ('sine', 'square', 'triangle', 'sawtooth')
 RATE = 44100
