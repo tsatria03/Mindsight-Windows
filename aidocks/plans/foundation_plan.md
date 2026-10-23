@@ -6,7 +6,17 @@ metadata:
   type: project
 ---
 
-**Status: reviewed,** in one message on 2026-10-23; built one section at a time, since it has by-ear tests ([[feedback_next_section_on_pass]]). Not started yet.
+**Status: being built,** one section at a time, since it has by-ear tests ([[feedback_next_section_on_pass]]); reviewed in one message on 2026-10-23.
+
+## Progress
+
+- **Section 1, built 2026-10-23, waiting for the dev's by-ear tests** (the dev: "build section 1 first."):
+  - `Mindsight.py`: the four options, `logs/log.txt` with `log.old.txt`, `logs/crash.txt`, and a plain window titled "Mindsight", or "Mindsight (debug)" with `--debug`, which closing the window or Alt+F4 shuts. `--scene N` is checked for debug mode and the range 0 to 55, and logged; the story engine will use it. A missing recordings folder or any error that stops the game writes `crash.txt` and shows its message box.
+  - `mindsight/paths.py`: the recordings in `game/data/audio`, beside the executable or in the repository; `VERSION`; and the save folder, `%APPDATA%\Mindsight` or `MINDSIGHT_USER_DIR`. `paths.MissingData` carries the player's message, naming where the game looked.
+  - `mindsight/platform/msgbox.py`: `MessageBoxW` with an error icon, on top; `MINDSIGHT_NO_MESSAGEBOX` keeps it shut for the tests, keeping the text in `msgbox.shown`.
+  - The empty `platform/`, `ui/` and `game/` packages; `prismatoid` out of `requirements.txt`.
+  - `tests/interact/_nvda.py`, the tools' speech through the NVDA client, printing every line too, and only printing with `MINDSIGHT_SILENT` or no NVDA; and `tests/interact/foundation_check.py`, with 1 for the missing recordings message, 2 for the crash message (writing a crash.txt that says the game did not really stop), H for the keys and Escape to quit.
+  - Checked silently: the tool started through its real entry point with speech, message boxes, video and sound off and a throwaway save, ran 2 seconds and closed cleanly, writing its log; its two keys' actions gave the game's own texts. `Mindsight.py` itself is compiled but not yet run, since running the game waits for the dev's word ([[feedback_dont_run_or_build]]).
 
 Plan 2 ([[reading_original_plan]] lists the order). Everything else stands on it: the audio, the story engine, the menus and the saves all use its paths, timers, keys and screen loop.
 
