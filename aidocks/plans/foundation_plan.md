@@ -39,6 +39,11 @@ Plan 2 ([[reading_original_plan]] lists the order). Everything else stands on it
   - **The spoken menu,** for the list menus the port adds, such as Settings: rows read without their place; Up, Down, Left and Right all move, wrapping round; Home and End jump to the first and last row; Back first ([[feedback_back_first]]).
   - **F1 key bindings screen:** every action rebindable, spoken in full, from anywhere in the game, with the timers held while it is open. F1 and Escape are fixed. A binding is one key with exact modifiers, saved in `config/keys.json`. The key map's actions are grouped by where they work, and a key clashes only within its group.
   - **Master volume:** Shift+Home raises it and Shift+End lowers it, from anywhere in the game, each press saying the new level.
+- **The keys for the original's gestures** (the dev, 2026-10-22: "I like the 4 arrows, pluse escape for pause/resume. All should be rebindable. Enter can be for the double tap if it asks for it."):
+  - **The four arrow keys are the four swipes:** Up, Down, Left and Right, one for one. They answer the original's spoken menus and its puzzles alike.
+  - **Escape pauses and resumes**, as the double tap did.
+  - **Enter is the double tap too**, for wherever a recording asks the player to double tap. The original's only double tap is the pause, so Enter and Escape do the same thing.
+  - **Every one of them is rebindable** on the F1 screen, like every other action.
 - **What interrupts what,** for screen reader speech:
   - Each move in a menu cuts off what was being said.
   - A key the player presses speaks at once, cutting off earlier speech but never the recordings, which keep playing underneath.
@@ -51,7 +56,7 @@ Plan 2 ([[reading_original_plan]] lists the order). Everything else stands on it
 ## Open questions
 
 Asked one at a time; each answer moves into Decided.
-1. The keys for the four swipes and for the double tap's pause.
+1. Answered: the keys, now in Decided.
 2. Whether there is a debug mode for source runs, to jump to any scene, and its command-line options.
 3. Whether the window shows plain text for a sighted helper.
 4. Which volumes there are, beyond the master, and their keys.
