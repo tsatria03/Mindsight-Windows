@@ -10,7 +10,7 @@ The developer tasks, which `docks/todo list.txt` leaves out because it ships to 
 
 ## Unfinished
 
-- `docks/readme.txt`, `changelog.txt` and `todo list.txt` are empty, since nothing can be played yet. They are filled in as plans land, starting with plan 2 ([[feedback_docs_after_each_plan]]).
+- `docks/readme.txt`, `changelog.txt` and `todo list.txt` are empty, since nothing can be played yet. They are filled in once a player has something to play, from plan 3 or 4 on; after plan 2 the game opens only on its stand-in screen ([[feedback_docs_after_each_plan]]).
 
 ## Finished
 
