@@ -13,7 +13,7 @@ The `[[name]]` links in `CLAUDE.md` and across these notes resolve to `aidocks/g
 
 ## Plans
 - [Reading the original](../plans/reading_original_plan.md): plan 1, written, no open questions; its review waits until every plan is written. Tools to read the binary, the scene table checked against the recordings, analysis/scenes.txt, and the behaviour note checked.
-- [Foundation](../plans/foundation_plan.md): plan 2, being written, its questions asked one at a time. Mindsight.py, paths, logs, error message boxes, the timer loop, the fixed keys (arrows and WASD; Escape, Enter and P), the window's text and the silent tests; no speech, Settings, key binder or volumes.
+- [Foundation](../plans/foundation_plan.md): plan 2, written, every question answered; debug mode on the command line only. Mindsight.py, paths, logs, error message boxes, the timer loop, the fixed keys (arrows and WASD; Escape, Enter and P), the window's text and the silent tests; no speech, Settings, key binder or volumes.
 
 ## Completed projects
 - None yet.

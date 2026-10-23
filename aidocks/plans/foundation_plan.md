@@ -6,7 +6,7 @@ metadata:
   type: project
 ---
 
-**Status: being written.** Its open questions are being asked one at a time; no review or building until every plan is written ([[feedback_all_plans_first]]).
+**Status: written,** every question answered on 2026-10-22. Its section review waits until every plan is written ([[feedback_all_plans_first]]).
 
 Plan 2 ([[reading_original_plan]] lists the order). Everything else stands on it: the audio, the story engine, the menus and the saves all use its paths, timers, keys and screen loop.
 
@@ -52,6 +52,13 @@ Plan 2 ([[reading_original_plan]] lists the order). Everything else stands on it
   - **Safe JSON files,** for the save: a temporary file first, then a `.bak` of the old one, then a swap. A damaged file is kept as `.damaged` and the backup loaded instead; with no backup, it is replaced at once ([[saves_plan]], when written).
   - **Logs:** every run writes `logs/log.txt` in the save folder and keeps the run before as `log.old.txt`. An error that stops the game writes `logs/crash.txt`, and shows the message box above.
   - **Screen loop:** a stack of screens at 60 frames a second. A screen can open another on top, close itself, or replace the stack. Switching away from the window is passed to the top screen.
+- **Debug mode is command-line only** (the dev, 2026-10-22: "The debugger should be commandline only. How ever you activate it."), for runs from source only, never in a built game, and never remembered between runs:
+  - `--debug` turns it on for that run; the window title says "Mindsight (debug)".
+  - `--scene N`, in debug mode only, starts the game at scene N, from 0 to 55, by the original's numbering ([[project_original_behaviour]]), with nothing saved from the jump. A number outside that range is logged and ignored.
+  - Its use in the story, such as what a jump sets up, is settled in the story engine plan.
+- **Two more options,** for any run:
+  - `-v` writes a more detailed log.
+  - `--exit-after SECONDS` quits by itself after that many seconds, so the build test can start a built game silently and check it runs.
 - **The data counts as found** only when `game/data/audio/` is there.
 - **Until the story engine,** the game opens on a stand-in screen that names the key pressed in the window, so the window, the keys and the logs can be tried. Escape, Enter and P there say nothing, since there is no speech; the window shows them.
 - **Tests stay silent and off the real save** ([[feedback_dont_run_or_build]]): every test imports `_quiet.py` first, which points the save at a throwaway folder, gives SDL dummy video and audio drivers, and stops the message boxes from opening.
@@ -62,7 +69,7 @@ Plan 2 ([[reading_original_plan]] lists the order). Everything else stands on it
 
 Asked one at a time; each answer moves into Decided.
 1. Answered: the keys.
-2. Whether there is a debug mode for source runs, to jump to any scene, and its command-line options; with no Settings screen, it would come only from an option such as `--debug`. Asked 2026-10-22; the dev put it off for later ("let's save that for a later question").
+2. Answered: debug mode, command-line only, after the dev first put it off.
 3. Answered: the window's text.
 4. Answered: no volumes at all.
 5. The stand-in screen: proposed in Decided as following from having no menus of the port's own; to be confirmed at the section review.
