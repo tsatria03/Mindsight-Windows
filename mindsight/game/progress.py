@@ -9,6 +9,7 @@ save, so a file edited by hand cannot leave the game stuck on the Rewind or a me
 from __future__ import annotations
 
 import logging
+import os
 
 from . import scenes as S
 from .. import paths
@@ -40,3 +41,13 @@ def has_save() -> bool:
 def save(scene: int) -> None:
     """Save ``scene`` as the place to continue from. Raises OSError when it cannot."""
     jsonfile.write(path(), {'scene': scene})
+
+
+def clear() -> None:
+    """Remove the save and its backup. The game never does, as the original never did;
+    tests/interact/menu_check.py does, to try Continue with no save."""
+    for end in ('', '.bak'):
+        try:
+            os.remove(path() + end)
+        except FileNotFoundError:
+            pass
