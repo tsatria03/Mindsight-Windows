@@ -13,7 +13,7 @@ The recordings were made with a dummy head microphone, so their sound moves arou
 What it has
 
 The whole game can be played, from its main menu, through the story and its puzzles, to its ending and its credits, with the original's recordings.
-This version does not save your progress, so Continue on the main menu always finds no saved game.
+Your place is saved as you play, and Continue on the main menu carries on from it.
 
 The keys
 
@@ -28,6 +28,14 @@ The menus
 The game opens on its main menu, a recording that tells you which swipe does what: up for a new game, down to continue, left for the audio manual, and right for the credits.
 Every menu is a recording like this.
 Listen to it to the end: a swipe does nothing until it has finished.
+On the credits, swiping left opens the creator's dissertation on the game, a PDF, in your PDF viewer; when you come back to the game, it plays the main menu.
+
+Saving
+
+The game saves your place by itself at the story's checkpoints, as the original did; nothing is saved when you quit.
+Continue on the main menu plays your last checkpoint from its start. With no save, it tells you so: swipe up for a new game, or down for the main menu.
+Starting a new game does not wipe your save; it is replaced at the new game's first checkpoint.
+The save is in the saves folder of the game's save folder, Mindsight, in your AppData Roaming folder.
 
 The buzz
 

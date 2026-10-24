@@ -1,4 +1,7 @@
 unrelease:
+Swiping left on the credits opens the creator's dissertation on the game in your PDF viewer.
+Continue on the main menu carries on from your last checkpoint.
+The game saves your place at the story's checkpoints.
 A scene buzzes as it begins only for the two puzzles that loop, the guard and the piranhas.
 The second and third rounds of the street puzzle buzz when they start to listen.
 The credits always follow the ending.
