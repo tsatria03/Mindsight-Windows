@@ -21,7 +21,7 @@ The original was played by swiping, and every word it says is a recording, with 
 
 - **The swipes:** the arrow keys, or W, A, S and D.
 - **The double tap,** which pauses and resumes: Escape, Enter or P.
-- **Before the story starts,** in the menus and on today's stand-in screen, Escape quits the game instead, while Enter and P still pause.
+- **Before the story starts,** in the menus, scenes 1 to 7, Escape quits the game instead, while Enter and P still pause.
 - A key held with Shift, Control, Alt or the Windows key does nothing, so your screen reader's own commands never reach the game.
 - **No speech, no settings, no volume controls.** The original had none of them; set the level with Windows' own volume. An error that stops the game shows a Windows message box, which your screen reader reads.
 - **Pause** plays the original's pause message and holds everything; the swipes do nothing while paused. Switching to another window pauses by itself; coming back steps back 3 seconds and plays the welcome back, waiting for the double tap.
