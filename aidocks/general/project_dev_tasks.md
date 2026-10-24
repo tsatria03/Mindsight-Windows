@@ -10,10 +10,11 @@ The developer tasks, which `docks/todo list.txt` leaves out because it ships to 
 
 ## Unfinished
 
-- `docks/readme.txt`, `changelog.txt` and `todo list.txt` are empty, since nothing can be played yet. They are filled in once a player has something to play, from plan 3 or 4 on; after plan 2 the game opens only on its stand-in screen ([[feedback_docs_after_each_plan]]).
+None.
 
 ## Finished
 
+- `docks/readme.txt`, `changelog.txt` and `todo list.txt` are written, after plan 4 made the game playable (2026-10-23).
 - `README.md` is a proper developer's guide, written after plan 1 at the dev's request (2026-10-23).
 - The dev's move of the scene listing into `analysis/script/` is committed as a rename, and `tools/scenes.py` writes it there (2026-10-23).
 - The dev's sound reorganization, from the original's one flat folder into `story/sceen/`, `story/speech/` and `system/misc/` under `game/data/audio/`, with the m4a files converted to MP3, went in with the initial commit (2026-10-22).
