@@ -30,5 +30,6 @@ metadata:
   - plan 3 finished: about 50 percent (2026-10-23). It came in at its weight: pygame's mixer did what the plan asked, starting partway and looping cleanly by ear, and the buzz took a few rounds of tuning (the pulse dropped, the level and frequency chosen by ear).
   - plan 4 finished: about 75 percent (2026-10-23). It took less effort than its weight, since section 1's rules made sections 2 and 3 small, but it is kept at 25: it is where the game became playable, and building it corrected the behaviour note twice and brought two of the dev's fixes to the buzz.
   - plan 5 finished: about 85 percent (2026-10-23). It came in at its weight: the story engine already played the menus, and the safe JSON files, agreed in plan 2 but never built, were added here.
+  - plan 6 finished: 100 percent (2026-10-23). It came in at its weight: the reference scripts carried over closely, less FMOD, Prism and the NVDA client, and the one change asked for was story_pack.json's place, in game\data\text.
 - If a plan turns out bigger or smaller than its weight, change the weights here, and say so in the summary.
 - Plans added after the port is complete are reported as additions, not as a percentage.

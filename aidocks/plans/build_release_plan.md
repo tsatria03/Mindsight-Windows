@@ -6,7 +6,7 @@ metadata:
   type: project
 ---
 
-**Status: built** (2026-10-23), all three sections at once on the dev's word ("Yes, then do plan 6. All of the sections."), waiting for the dev to build it and play a little from `story.dat`. It has no section review ([[feedback_all_plans_first]]).
+**Status: FINISHED** (2026-10-23). All three sections were built at once on the dev's word ("Yes, then do plan 6. All of the sections."); the dev passed every test of `compiler.py` and played the built game from `story.dat` ("That past as well."). It has no section review ([[feedback_all_plans_first]]).
 
 **Built:**
 - `mindsight/platform/pack.py`, the pack, magic `MINDSPK1`, with its own key; `paths.story_pack()`, `dist\data\story.dat` from source and `data\story.dat` beside the exe in a build; `recordings.open_pack()` checking the size in the build's `game\data\text\story_pack.json`, beside the dissertation (the dev, 2026-10-23: "Please put story_pack.json inside the text folder, not outside it."), a missing, damaged or foreign pack a message box through `paths.MissingData`; `Recording.source()` giving a packed recording as bytes in memory, which `audio.py` hands to `mixer.music.load` with the hint `mp3`, keeping them while it plays; the log line `story recordings:`; `tools/build_pack.py`.

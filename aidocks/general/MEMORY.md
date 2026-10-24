@@ -12,9 +12,10 @@ The `[[name]]` links in `CLAUDE.md` and across these notes resolve to `aidocks/g
 - [Developer tasks](project_dev_tasks.md): repository, tools, tests, build and docs tasks, kept out of the player todo list.
 
 ## Plans
-- [Build and release](../plans/build_release_plan.md): plan 6, the last, written, every question answered; no section review. compiler.py with both kinds of build and releaser.py, the story folder packed in data\story.dat with misc loose, --test, the zip and gh.
+None open: all six plans are finished.
 
 ## Completed projects
+- [Build and release](../plans/build_release_plan.md): plan 6, the last, FINISHED 2026-10-23. pack.py and data\story.dat, played from memory, its fingerprint in game\data\text\story_pack.json; compiler.py with both kinds of build, --test and --dry-run; releaser.py; tools/build_pack.py; 155 silent tests.
 - [Menus and saves](../plans/menus_saves_plan.md): plan 5, FINISHED 2026-10-23. The safe JSON files and progress.py, one scene in saves/progress.json, only a checkpoint counting; saving at the original's checkpoints, never in a --scene run; Continue; the dissertation through os.startfile, coming back playing the main menu; menu_check.py; 126 silent tests.
 - [Story engine](../plans/story_engine_plan.md): plan 4, FINISHED 2026-10-23. scenes.py's whole table and story.py's rules, checked against the binary; the story screen, the menus included; pause and losing focus; story_check.py in debug mode; five changes from the original (the buzz, swipes ignored while paused, the credits after the ending, street rounds 2 and 3 buzzing, a start buzz only for the loops); 102 silent tests.
 - [Audio](../plans/audio_plan.md): plan 3, FINISHED 2026-10-23. recordings.py and mp3.py; audio.py's scene player, Solved at 0.2 and the pause clips; the buzz made in memory, 160 Hz, sine, 20 percent, no pulse; losing focus pausing and stepping back 3 s with WelcomeBack; no sound device's message box; audio_check.py and buzz_check.py; 71 silent tests.
