@@ -12,10 +12,10 @@ The `[[name]]` links in `CLAUDE.md` and across these notes resolve to `aidocks/g
 - [Developer tasks](project_dev_tasks.md): repository, tools, tests, build and docs tasks, kept out of the player todo list.
 
 ## Plans
-- [Menus and saves](../plans/menus_saves_plan.md): plan 5, written, every question answered. The original's recorded menus answered by the swipe keys, the PDF in the default viewer, the one saved scene in saves/progress.json, --scene runs never saving, headphones in the readme only, and no achievements.
 - [Build and release](../plans/build_release_plan.md): plan 6, the last, written, every question answered; no section review. compiler.py with both kinds of build and releaser.py, the story folder packed in data\story.dat with misc loose, --test, the zip and gh.
 
 ## Completed projects
+- [Menus and saves](../plans/menus_saves_plan.md): plan 5, FINISHED 2026-10-23. The safe JSON files and progress.py, one scene in saves/progress.json, only a checkpoint counting; saving at the original's checkpoints, never in a --scene run; Continue; the dissertation through os.startfile, coming back playing the main menu; menu_check.py; 126 silent tests.
 - [Story engine](../plans/story_engine_plan.md): plan 4, FINISHED 2026-10-23. scenes.py's whole table and story.py's rules, checked against the binary; the story screen, the menus included; pause and losing focus; story_check.py in debug mode; five changes from the original (the buzz, swipes ignored while paused, the credits after the ending, street rounds 2 and 3 buzzing, a start buzz only for the loops); 102 silent tests.
 - [Audio](../plans/audio_plan.md): plan 3, FINISHED 2026-10-23. recordings.py and mp3.py; audio.py's scene player, Solved at 0.2 and the pause clips; the buzz made in memory, 160 Hz, sine, 20 percent, no pulse; losing focus pausing and stepping back 3 s with WelcomeBack; no sound device's message box; audio_check.py and buzz_check.py; 71 silent tests.
 - [Foundation](../plans/foundation_plan.md): plan 2, FINISHED 2026-10-23. Mindsight.py with --debug, --scene, -v and --exit-after; paths, logs, crash.txt and the error message boxes; the timer loop, the screens, the fixed keys and the stand-in screen; foundation_check.py; 36 silent tests.

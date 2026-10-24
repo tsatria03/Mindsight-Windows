@@ -6,7 +6,7 @@ metadata:
   type: project
 ---
 
-**Status: reviewed** (2026-10-23), both sections agreed; built a section at a time, since section 2 has by-ear tests ([[feedback_next_section_on_pass]]).
+**Status: FINISHED** (2026-10-23). Reviewed and both sections agreed, then built a section at a time; the dev passed every by-ear test of section 2 ("all tests past").
 
 Plan 5 ([[reading_original_plan]] lists the order). The menus and the saves were first proposed as two plans and were combined at the dev's word (2026-10-22: "yes, combine them."), since the original's menus are scenes the story engine already plays, and its save is one number. It stands on [[story_engine_plan]].
 
@@ -31,7 +31,7 @@ Read from the binary ([[project_original_behaviour]]):
    - Optional: passing a checkpoint, quitting and running again, Continue carries on from there.
    - Optional: Escape quits in the menus, and pauses once the story has begun.
 
-   **Built** (2026-10-23), waiting for the dev's by-ear tests: `paths.dissertation()`; the story screen opening it through `os.startfile`, `in_viewer` making coming back play the main menu; `Story.pdf_not_opened()` opening the input lock again when no viewer opens, and `back_from_pdf()`; `progress.clear()`, for the tool only; `menu_check.py`; the story's tests grown, all passing.
+   **Built** (2026-10-23), and every by-ear test passed: `paths.dissertation()`; the story screen opening it through `os.startfile`, `in_viewer` making coming back play the main menu; `Story.pdf_not_opened()` opening the input lock again when no viewer opens, and `back_from_pdf()`; `progress.clear()`, for the tool only; `menu_check.py`; the story's tests grown, all passing.
 
 ## Decided
 
