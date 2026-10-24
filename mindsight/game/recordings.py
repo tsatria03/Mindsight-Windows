@@ -57,7 +57,7 @@ def disk_name(binary_name: str) -> str:
 
 def open_pack(game_folder: str):
     """story.dat, opened and checked against the size a build wrote for it in
-    game\\data\\story_pack.json; :class:`paths.MissingData`, with the player's message,
+    game\\data\\text\\story_pack.json; :class:`paths.MissingData`, with the player's message,
     when it is missing, damaged or from another build."""
     where = paths.story_pack()
     if not os.path.isfile(where):

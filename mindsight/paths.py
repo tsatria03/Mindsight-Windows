@@ -80,9 +80,10 @@ STORY_FOLDER = 'story'
 STORY_PACK = 'story.dat'
 #: The folder beside the executable that holds story.dat, in either kind of build.
 PACK_FOLDER = 'data'
-#: The pack's size and SHA-256, which compiler.py writes into a build's game\data\, so the
-#: game knows its own pack.
-PACK_FINGERPRINT = os.path.join('data', 'story_pack.json')
+#: The pack's size and SHA-256, which compiler.py writes into a build's game\data\text\,
+#: beside the dissertation, so the game knows its own pack (the dev, 2026-10-23: "Please
+#: put story_pack.json inside the text folder, not outside it.").
+PACK_FINGERPRINT = os.path.join('data', 'text', 'story_pack.json')
 
 
 def story_pack() -> str:

@@ -108,6 +108,7 @@ def game_without_its_story(info=None, size=None):
     misc = os.path.join(paths.audio(), 'system', 'misc')
     shutil.copytree(misc, os.path.join(game, 'data', 'audio', 'system', 'misc'))
     if info is not None:
+        os.makedirs(os.path.dirname(os.path.join(game, paths.PACK_FINGERPRINT)), exist_ok=True)
         with open(os.path.join(game, paths.PACK_FINGERPRINT), 'w', encoding='utf-8') as fh:
             json.dump({'size': info['size'] if size is None else size, 'sha256': info['sha256']}, fh)
     return game

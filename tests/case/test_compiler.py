@@ -57,6 +57,8 @@ def test_the_compiler_makes_a_pack_that_reads_back_and_its_fingerprint():
     game = os.path.join(_quiet.FOLDER, 'compiler build', 'game')
     compiler.write_fingerprint(game, info)
     from mindsight import paths
+    assert paths.PACK_FINGERPRINT == os.path.join('data', 'text', 'story_pack.json')
+    assert not os.path.exists(os.path.join(game, 'data', compiler.FINGERPRINT))  # never outside the text folder
     with open(os.path.join(game, paths.PACK_FINGERPRINT), encoding='utf-8') as fh:
         assert json.load(fh) == {'size': info['size'], 'sha256': info['sha256']}
 

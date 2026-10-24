@@ -31,8 +31,8 @@ What a build carries:
   check it;
 * the rest of the game's data, beside the exe in game\\, or inside it with --embed: only
   what the game reads, game\\data\\audio\\system\\misc, all five files, and
-  game\\data\\text\\MiNDSIGHT.pdf, which the credits open, with story_pack.json in
-  game\\data\\, story.dat's size and SHA-256, so the game knows its own pack. Nothing else
+  game\\data\\text\\MiNDSIGHT.pdf, which the credits open, with story_pack.json beside it
+  in game\\data\\text\\, story.dat's size and SHA-256, so the game knows its own pack. Nothing else
   of the original's app bundle: not its binary, its images or its icons;
 * beside the exe, always: docks\\ (the readme, the changelog and the todo list, the
   changelog without an empty unrelease:), VERSION, and the port's licence as license.txt.
@@ -74,9 +74,9 @@ PACK = 'story.dat'
 #: The folder beside the exe that story.dat goes into, in every kind of build
 #: (mindsight/paths.py).
 PACK_FOLDER = 'data'
-#: The pack's fingerprint, inside the build's game\data\ (mindsight/paths.py).
+#: The pack's fingerprint, inside the build's game\data\text\ (mindsight/paths.py).
 FINGERPRINT = 'story_pack.json'
-FINGERPRINT_FOLDER = 'data'
+FINGERPRINT_FOLDER = os.path.join('data', 'text')
 
 #: The documents a player reads, copied beside the exe: what it is called here, and there.
 #: LICENSE has no extension, so it ships as a .txt that Windows opens by itself.
@@ -292,8 +292,8 @@ def make_pack(src: str, dest: str) -> dict:
 
 
 def write_fingerprint(game_dest: str, info: dict) -> None:
-    """The pack's size and SHA-256, in the build's game\\data\\, so the game knows its own
-    pack."""
+    """The pack's size and SHA-256, in the build's game\\data\\text\\, so the game knows its
+    own pack."""
     folder = os.path.join(game_dest, FINGERPRINT_FOLDER)
     os.makedirs(folder, exist_ok=True)
     with open(os.path.join(folder, FINGERPRINT), 'w', encoding='utf-8', newline='\n') as fh:
