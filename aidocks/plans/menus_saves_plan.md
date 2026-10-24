@@ -23,7 +23,7 @@ Read from the binary ([[project_original_behaviour]]):
 
 ## Sections
 
-1. **The save.** `mindsight/game/progress.py`: `saves/progress.json` in the save folder, holding the scene number, written through the safe JSON files ([[foundation_plan]]) at the original's checkpoints, and read by Continue. A damaged or missing file counts as no save. Silent tests.
+1. **The save.** Agreed at the review (2026-10-23). `mindsight/platform/jsonfile.py`, the safe JSON files, and `mindsight/game/progress.py`: `saves/progress.json` in the save folder, holding the scene number, written through the safe JSON files ([[foundation_plan]]) at the original's checkpoints, and read by Continue. A damaged or missing file counts as no save. Silent tests.
 2. **The menus around the story.** The story engine already plays the menu scenes and their swipes ([[story_engine_plan]]); this section adds what needs the save or the PDF: Continue with and without a save, the credits' left swipe opening the dissertation, and coming back from it to the main menu, checked end to end. `tests/interact/menu_check.py`, with its own save, runs the game from its start, with keys to make or clear a save.
 
 ## Decided
@@ -31,6 +31,8 @@ Read from the binary ([[project_original_behaviour]]):
 - **The menus are the original's recordings**, answered by the swipe keys; the port adds no list menus of its own ([[foundation_plan]]).
 - **The save is the original's:** one scene number, at the original's checkpoints, nothing on quitting, and New game clearing nothing.
 - **The save file is `saves/progress.json`** under `%APPDATA%\Mindsight`, as `{"scene": N}`. A number outside 0 to 55 counts as no save.
+- **Only a checkpoint counts as a save** (the dev, 2026-10-23: "I agree with section 1.", to the proposal at the review): a scene the original could have saved, one marked "saves" in `THEN` or reached by an answer marked "saves". Any other number, such as 0, the Rewind, or a menu, counts as no save, so a file edited by hand cannot leave the game stuck. A real save never holds one, so play is unchanged.
+- **The safe JSON files are built here,** in `mindsight/platform/jsonfile.py`, since plan 2 agreed them but had nothing to save ([[foundation_plan]]).
 - **The dissertation PDF keeps the credits' left swipe** (the dev, 2026-10-22: "I agree.", to the proposal):
   - Left on the credits, scene 5, opens `MiNDSIGHT.pdf` in Windows' default PDF viewer (`os.startfile`), as the original's "Open in" did (`sendPDFtoiBooks`, 0x100008018).
   - The build ships the PDF beside the game ([[build_release_plan]], when written); a run from source opens `game/data/text/MiNDSIGHT.pdf`.
