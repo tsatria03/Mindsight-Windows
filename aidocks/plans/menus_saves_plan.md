@@ -6,7 +6,7 @@ metadata:
   type: project
 ---
 
-**Status: written,** every question answered on 2026-10-22. Its section review waits until every plan is written ([[feedback_all_plans_first]]).
+**Status: reviewed** (2026-10-23), both sections agreed; built a section at a time, since section 2 has by-ear tests ([[feedback_next_section_on_pass]]).
 
 Plan 5 ([[reading_original_plan]] lists the order). The menus and the saves were first proposed as two plans and were combined at the dev's word (2026-10-22: "yes, combine them."), since the original's menus are scenes the story engine already plays, and its save is one number. It stands on [[story_engine_plan]].
 
@@ -24,7 +24,12 @@ Read from the binary ([[project_original_behaviour]]):
 ## Sections
 
 1. **The save.** Agreed at the review (2026-10-23). `mindsight/platform/jsonfile.py`, the safe JSON files, and `mindsight/game/progress.py`: `saves/progress.json` in the save folder, holding the scene number, written through the safe JSON files ([[foundation_plan]]) at the original's checkpoints, and read by Continue. A damaged or missing file counts as no save. Silent tests.
-2. **The menus around the story.** The story engine already plays the menu scenes and their swipes ([[story_engine_plan]]); this section adds what needs the save or the PDF: Continue with and without a save, the credits' left swipe opening the dissertation, and coming back from it to the main menu, checked end to end. `tests/interact/menu_check.py`, with its own save, runs the game from its start, with keys to make or clear a save.
+2. **The menus around the story.** The story engine already plays the menu scenes and their swipes ([[story_engine_plan]]); this section adds what needs the save or the PDF: Continue with and without a save, the credits' left swipe opening the dissertation, and coming back from it to the main menu, checked end to end. `tests/interact/menu_check.py`, with its own save under `%APPDATA%\Mindsight\interact\menu_check`, runs the game from its main menu with the game's keys, quitting with Escape or Alt+F4, Enter or P pausing, plus: T, a scene number and Enter, to write a save there (checkpoints only, saying so otherwise); C to clear the save; I to say what the save holds. Agreed at the review (the dev, 2026-10-23: "Yes, section 2 also looks good"). By ear:
+   - Mandatory: with no save, Continue plays NoSavedGame; up starts a new game, down goes back to the main menu.
+   - Mandatory: with a save made by T, Continue plays LoadedSuccessfully, then that scene from its start.
+   - Mandatory: left on the credits opens the dissertation, and coming back to the window plays the main menu.
+   - Optional: passing a checkpoint, quitting and running again, Continue carries on from there.
+   - Optional: Escape quits in the menus, and pauses once the story has begun.
 
 ## Decided
 
