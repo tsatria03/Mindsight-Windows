@@ -61,6 +61,16 @@ def test_continue_with_and_without_a_save():
     assert story.loaded(24) == [Play(24, 0.0)]
 
 
+def test_a_save_gone_by_the_end_of_loaded_plays_no_saved_game():
+    story = at(S.MAIN_MENU, has_save=True)
+    story.swipe('down', 0)
+    assert story.ended() == [LOAD]
+    assert story.loaded(None) == [Play(S.NO_SAVE, 0.0)]
+    assert not story.input_open                     # heard to the end, like every menu
+    assert story.ended() == [BUZZ]
+    assert story.swipe('down', 0) == [Play(S.MAIN_MENU, 0.0)]
+
+
 def test_the_office_keys():
     story = at(11)
     assert story.swipe('right', 21.9) == [] and story.swipe('right', 22.0) == []

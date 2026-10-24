@@ -43,7 +43,7 @@ LOAD = 'load'           # play the saved scene, from its start
 
 class Story:
     def __init__(self, has_save=lambda: False):
-        #: Whether there is a save to continue from (plan 5 gives it one).
+        #: Whether there is a save to continue from (progress.has_save in the game).
         self.has_save = has_save
         self.scene = None
         self.failure = None
@@ -157,5 +157,9 @@ class Story:
 
     def loaded(self, scene):
         """The effects of Continue's saved scene, after LoadedSuccessfully: it plays from
-        its start."""
+        its start. With ``None``, the save gone while LoadedSuccessfully played, No saved
+        game plays instead, heard to the end like every menu."""
+        if scene is None:
+            self.input_open = False
+            return self.start(S.NO_SAVE)
         return self.start(scene)

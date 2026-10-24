@@ -5,7 +5,7 @@ real looping player, and a silent run of the game."""
 import _quiet  # noqa: F401  (first, before any of the game)
 
 import logging
-import types
+import os
 
 from mindsight.app import App
 from mindsight.game import scenes as S
@@ -79,10 +79,28 @@ class FakeAudio:
         pass
 
 
-def screen(start_scene=None):
+class FakeProgress:
+    """The save, in memory, so each test starts with its own."""
+    def __init__(self, scene=None):
+        self.scene = scene
+        self.saved = []
+
+    def load(self):
+        return self.scene
+
+    def has_save(self):
+        return self.scene is not None
+
+    def save(self, scene):
+        self.scene = scene
+        self.saved.append(scene)
+
+
+def screen(start_scene=None, progress=None):
     app = App(loop=RunLoop())
     audio = FakeAudio()
-    s = StoryScreen(app, audio, start_scene=start_scene)
+    s = StoryScreen(app, audio, start_scene=start_scene,
+                    progress=progress if progress is not None else FakeProgress())
     app.stack.push(s)
     return app, audio, s
 
@@ -131,22 +149,84 @@ def test_loops_play_looping():
     assert audio.log[-2:] == [('play', 'pirahnaloop', 0.0, True), ('buzz',)]
 
 
-def test_a_scene_run_never_saves_and_a_full_run_would(caplog=None):
-    records = []
-    handler = logging.Handler()
-    handler.emit = records.append
-    logging.getLogger('story').addHandler(handler)
-    logging.getLogger('story').setLevel(logging.INFO)
-    try:
-        app, audio, s = screen(start_scene=8)
-        audio.scene.end()
-        app2, audio2, s2 = screen()
-        s2.save(9)
-    finally:
-        logging.getLogger('story').removeHandler(handler)
-    text = [r.getMessage() for r in records]
-    assert any('not saving scene 9' in t for t in text)
-    assert any('would save scene 9' in t for t in text)
+def test_a_scene_run_never_saves():
+    progress = FakeProgress()
+    app, audio, s = screen(start_scene=8, progress=progress)
+    audio.scene.end()
+    assert s.story.scene == 9 and progress.saved == []
+
+
+def new_game(app, audio):
+    audio.scene.end()
+    app.key_down('up', [])
+    audio.scene.end()
+    app.key_down('up', [])
+    audio.scene.end()
+
+
+def test_a_full_run_saves_at_the_checkpoints():
+    progress = FakeProgress()
+    app, audio, s = screen(progress=progress)
+    new_game(app, audio)
+    assert progress.saved == []                     # the introduction is no checkpoint
+    audio.scene.end()
+    assert progress.saved == [9]
+    audio.scene.end()                               # on to the office puzzle, 11
+    audio.scene.at = 23.0
+    app.key_down('right', [])
+    assert progress.saved == [9, 12]
+
+
+def test_continue_with_a_save_plays_the_saved_scene():
+    app, audio, s = screen(progress=FakeProgress(24))
+    audio.scene.end()
+    app.key_down('down', [])
+    assert audio.log[-1] == ('play', 'LoadedSuccessfully', 0.0, False)
+    audio.scene.end()
+    assert audio.log[-1] == ('play', '22_first_tower_scene', 0.0, False)
+    assert not s.escape_quits
+
+
+def test_continue_with_no_save_plays_no_saved_game():
+    app, audio, s = screen()
+    audio.scene.end()
+    app.key_down('down', [])
+    assert audio.log[-1] == ('play', 'NoSavedGame', 0.0, False)
+
+
+def test_continue_with_the_save_gone_meanwhile():
+    progress = FakeProgress(24)
+    app, audio, s = screen(progress=progress)
+    audio.scene.end()
+    app.key_down('down', [])
+    progress.scene = None
+    audio.scene.end()
+    assert audio.log[-1] == ('play', 'NoSavedGame', 0.0, False)
+
+
+def test_a_save_that_cannot_be_written_is_only_logged():
+    class Broken(FakeProgress):
+        def save(self, scene):
+            raise PermissionError('read only')
+    app, audio, s = screen(start_scene=None, progress=Broken())
+    s.save(9)
+    assert app.running
+
+
+def test_the_real_save_end_to_end():
+    from mindsight.game import progress
+    for end in ('', '.bak'):
+        if os.path.exists(progress.path() + end):
+            os.remove(progress.path() + end)
+    app, audio, s = screen(progress=progress)
+    new_game(app, audio)
+    audio.scene.end()
+    assert progress.load() == 9
+    app, audio, s = screen(progress=progress)
+    audio.scene.end()
+    app.key_down('down', [])
+    audio.scene.end()
+    assert audio.log[-1] == ('play', '09_office_puzzle_lead_in', 0.0, False)
 
 
 def test_escape_quits_in_the_menus_only():

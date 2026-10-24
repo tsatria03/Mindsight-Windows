@@ -16,13 +16,16 @@ stays paused until the double tap, as after the original's interruption
 (interruptedPlayer:, 0x100007b64). Pausing while a scene waits, its recording over, only
 plays the clip; resuming stops it, and the scene goes on waiting.
 
-Until plan 5, saving only logs where it would save, Continue always finds no save, and
-the credits' left swipe does nothing. A run started with ``--scene`` never saves.
+The place is saved in progress.py at the original's checkpoints, and Continue plays the
+saved scene from its start (aidocks/plans/menus_saves_plan.md); a save that cannot be
+written is logged, and the story goes on. A run started with ``--scene`` never saves.
+Until section 2, the credits' left swipe only logs.
 """
 from __future__ import annotations
 
 import logging
 
+from . import progress as saved_progress
 from . import scenes as S
 from .recordings import Recordings, disk_name
 from .story import BUZZ, LOAD, PDF, SOLVED, Play, Save, Story
@@ -40,11 +43,14 @@ def plain_name(scene):
 class StoryScreen(Screen):
     name = 'story'
 
-    def __init__(self, app, audio=None, recordings=None, story=None, start_scene=None):
+    def __init__(self, app, audio=None, recordings=None, story=None, start_scene=None,
+                 progress=saved_progress):
         super().__init__(app)
         self.audio = audio or Audio.shared()
         self.recordings = recordings or Recordings.shared()
-        self.story = story or Story()
+        #: The save, progress.py; the tests and the by-ear tools may hand another.
+        self.progress = progress
+        self.story = story or Story(has_save=progress.has_save)
         #: The scene --scene named; a run that starts there never saves.
         self.start_scene = start_scene
         self.saving = start_scene is None
@@ -83,7 +89,7 @@ class StoryScreen(Screen):
             elif effect == PDF:
                 log.info('the credits would open the dissertation; plan 5 adds it')
             elif effect == LOAD:
-                log.info('Continue would load the save; plan 5 adds it')
+                self.load()
 
     def play(self, scene, start=0.0):
         log.info('scene %d, %s, from %.1f s', scene, plain_name(scene), start)
@@ -94,7 +100,20 @@ class StoryScreen(Screen):
         if not self.saving:
             log.info('not saving scene %d: this run started with --scene', scene)
             return
-        log.info('the game would save scene %d here; plan 5 adds the save', scene)
+        try:
+            self.progress.save(scene)
+            log.info('saved scene %d', scene)
+        except OSError:
+            log.exception('scene %d could not be saved', scene)
+
+    def load(self):
+        """Continue, after LoadedSuccessfully: the saved scene from its start."""
+        scene = self.progress.load()
+        if scene is None:
+            log.warning('the save was gone by the end of LoadedSuccessfully')
+        else:
+            log.info('continuing from the saved scene %d', scene)
+        self.perform(self.story.loaded(scene))
 
     def ended(self):
         self.perform(self.story.ended())
