@@ -10,6 +10,13 @@ metadata:
 
 ## Progress
 
+- **Section 4, built 2026-10-23, waiting for the dev's by-ear tests** (the dev: "all 4 tests past", for section 3):
+  - `StoryScreen` pauses on the double tap, Escape, Enter or P: the scene and every timer held, `pause_menu` on the clip channel; the double tap again stops the clip and plays on. While paused, swipes and the cue's buzz do nothing. In the menus Escape quits, before the gesture, while Enter and P pause.
+  - Losing focus holds the scene and the timers, with no clip; coming back steps the scene back 3 s and plays `WelcomeBack`, still paused until the double tap ([[audio_plan]]).
+  - **Pausing while a scene waits,** its recording over, plays only the clip, and resuming only stops it: the scene goes on waiting. A small change from the original, whose player, at its end, would play the recording again from its start on resuming; said to the dev as it was built.
+  - `--scene N` and the ending going to the credits were already built in sections 1 and 2.
+  - `tests/case/test_story_screen.py` grew five tests: pause and resume in the story, swipes and the cue ignored while paused; Enter and P pausing in the menus and Escape quitting; pausing a waiting scene; losing focus and coming back; and the ending to the credits with a failure set. 102 silent tests in all, each passing.
+  - Checked silently on the real players: paused at 30 s, the position held through 50 s with the clip playing and the timers held, resumed from 30 s; losing focus at 40 s and coming back stepped back to 37 s, paused, and resumed from there; `Mindsight.py --debug --scene 54` and the tools started and closed cleanly.
 - **Section 3, FINISHED 2026-10-23,** all four by-ear tests passed (the dev: "all 4 tests past"). Built the same day:
   - Failing, the Rewind, the timed rounds running out and the piranha windows were already in section 1's rules and played by section 2's screen, so this section proves them end to end and grows the tool.
   - `tests/case/test_story_screen.py` grew three tests: a wrong street round to its fail, the Rewind and scene 13 from 20.4 s; a roof round running out to its fail, the Rewind and scene 46 from 112 s; and the piranha windows on a real looping player on the dummy driver, a swipe inside the first window after a whole loop passing, one outside failing with failure 35. The test now puts the real clock back. 97 silent tests in all, each passing.

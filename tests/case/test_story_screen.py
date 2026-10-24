@@ -27,6 +27,20 @@ class FakeScene:
     def stop(self):
         self.recording = None
 
+    def pause(self):
+        if self.playing:
+            self.paused = True
+            self.log.append(('pause',))
+
+    def resume(self):
+        if self.paused:
+            self.paused = False
+            self.log.append(('resume', self.at))
+
+    def step_back(self, seconds=3.0):
+        if self.paused:
+            self.at = max(0.0, self.at - seconds)
+
     @property
     def playing(self):
         return self.recording is not None
@@ -50,6 +64,16 @@ class FakeAudio:
 
     def play_buzz(self):
         self.log.append(('buzz',))
+
+    def play_clip(self, recording):
+        self.log.append(('clip', recording.name))
+
+    def stop_clip(self):
+        self.log.append(('stop clip',))
+
+    def focus_gained(self, welcome_back):
+        self.scene.step_back()
+        self.play_clip(welcome_back)
 
     def update(self):
         pass
@@ -195,6 +219,66 @@ def test_the_piranha_windows_on_a_real_looping_player():
     finally:
         audio.close()
         runloop.clock = real_clock
+
+
+def test_pause_and_resume_in_the_story():
+    app, audio, s = screen(start_scene=19)
+    audio.scene.at = 10.0
+    app.key_down('escape', [])
+    assert s.paused and app.loop.held and audio.log[-2:] == [('pause',), ('clip', 'pause_menu')]
+    assert 'Paused' in s.lines()
+    audio.scene.at = 21.5
+    app.key_down('right', [])                       # a swipe while paused does nothing
+    s.update()                                      # nor does the cue
+    assert audio.log[-1] == ('clip', 'pause_menu') and s.story.scene == 19
+    app.key_down('p', [])
+    assert not s.paused and not app.loop.held and audio.log[-2:] == [('stop clip',), ('resume', 21.5)]
+    app.key_down('right', [])
+    assert s.story.scene == 20
+
+
+def test_enter_and_p_pause_in_the_menus_and_escape_quits():
+    app, audio, s = screen()
+    app.key_down('return', [])
+    assert s.paused and audio.log[-1] == ('clip', 'pause_menu')
+    app.key_down('return', [])
+    assert not s.paused and app.running
+    app.key_down('escape', [])
+    assert not app.running
+
+
+def test_pausing_a_waiting_scene_only_plays_the_clip():
+    app, audio, s = screen()
+    audio.scene.end()
+    audio.scene.recording = None                    # its recording is over: it waits
+    app.key_down('p', [])
+    assert audio.log[-1] == ('clip', 'pause_menu')
+    app.key_down('p', [])
+    assert audio.log[-1] == ('stop clip',)
+    audio.scene.recording = object()
+
+
+def test_losing_focus_and_coming_back():
+    app, audio, s = screen(start_scene=46)
+    audio.scene.at = 100.0
+    s.focus_lost()
+    assert s.paused and app.loop.held and audio.log[-1] == ('pause',)
+    s.focus_gained()
+    assert s.paused and audio.scene.at == 97.0 and audio.log[-1] == ('clip', 'WelcomeBack')
+    app.key_down('return', [])
+    assert not s.paused and audio.log[-1] == ('resume', 97.0)
+    s.focus_gained()                                # not paused: nothing more
+    assert audio.log[-1] == ('resume', 97.0)
+
+
+def test_the_ending_goes_to_the_credits():
+    app, audio, s = screen(start_scene=54)
+    s.story.failure = 49                            # a failure this run, as the original kept
+    audio.scene.end()
+    assert audio.log[-1] == ('play', '43_end_game_congrats', 0.0, False)
+    audio.scene.end()
+    assert audio.log[-2:] == [('play', '04_credits_menu_choice', 0.0, False), ('buzz',)]
+    assert s.escape_quits
 
 
 def test_the_game_runs_silently_on_the_story_screen():

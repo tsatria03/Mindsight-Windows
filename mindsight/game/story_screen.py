@@ -7,9 +7,17 @@ the buzz at a cue; a swipe goes to them with the position; and a recording endin
 itself goes to them too. Whatever they say is done: a scene plays, looping if it loops;
 Solved plays over it; the buzz plays; the place is saved.
 
-Until plan 5 (aidocks/plans/menus_saves_plan.md), saving only logs where it would save,
-Continue always finds no save, and the credits' left swipe does nothing. Pause and losing
-focus come with this plan's section 4. A run started with ``--scene`` never saves.
+The double tap, Escape, Enter or P, pauses: the scene and every timer stop, and
+``pause_menu`` plays; the double tap again stops the clip and plays on. While paused, a
+swipe does nothing (the port's change). In the menus, Escape quits instead
+(aidocks/plans/menus_saves_plan.md). Losing the window's focus pauses the same way, with
+no clip; coming back steps the scene back 3 seconds and plays ``WelcomeBack``, and it
+stays paused until the double tap, as after the original's interruption
+(interruptedPlayer:, 0x100007b64). Pausing while a scene waits, its recording over, only
+plays the clip; resuming stops it, and the scene goes on waiting.
+
+Until plan 5, saving only logs where it would save, Continue always finds no save, and
+the credits' left swipe does nothing. A run started with ``--scene`` never saves.
 """
 from __future__ import annotations
 
@@ -40,6 +48,7 @@ class StoryScreen(Screen):
         #: The scene --scene named; a run that starts there never saves.
         self.start_scene = start_scene
         self.saving = start_scene is None
+        self.paused = False
 
     @property
     def escape_quits(self):
@@ -93,9 +102,41 @@ class StoryScreen(Screen):
     # ---- keys and time ----------------------------------------------------------------
     def gesture(self, gesture):
         if gesture == 'pause':
-            log.info('the pause comes with section 4')
+            self.resume() if self.paused else self.pause()
             return
+        if self.paused:
+            return                      # the port's change: a swipe while paused does nothing
         self.perform(self.story.swipe(gesture, self.position()))
+
+    # ---- pause and losing focus ------------------------------------------------------
+    def hold(self):
+        """Stop the scene and every timer."""
+        self.paused = True
+        self.app.loop.hold()
+        if self.audio.ok:
+            self.audio.scene.pause()
+
+    def pause(self):
+        log.info('paused')
+        self.hold()
+        self.audio.play_clip(self.recordings.get(S.PAUSE_MENU))
+
+    def resume(self):
+        log.info('resumed')
+        self.paused = False
+        self.audio.stop_clip()
+        self.audio.scene.resume()
+        self.app.loop.resume()
+
+    def focus_lost(self):
+        log.info('the window lost focus: paused')
+        self.hold()
+
+    def focus_gained(self):
+        if not self.paused:
+            return
+        log.info('the window has focus again: stepped back, waiting for the double tap')
+        self.audio.focus_gained(self.recordings.get(S.WELCOME_BACK))
 
     def update(self):
         self.audio.update()
@@ -113,6 +154,6 @@ class StoryScreen(Screen):
             return [self.app.window_title()]
         turn = 'Your turn' if self.story.counts(self.position()) else 'Listening'
         out = [self.app.window_title(), '', 'Scene %d: %s' % (scene, plain_name(scene)), turn]
-        if self.audio.ok and self.audio.scene.paused:
+        if self.paused:
             out.append('Paused')
         return out
