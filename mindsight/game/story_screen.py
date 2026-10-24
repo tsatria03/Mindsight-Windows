@@ -19,14 +19,21 @@ plays the clip; resuming stops it, and the scene goes on waiting.
 The place is saved in progress.py at the original's checkpoints, and Continue plays the
 saved scene from its start (aidocks/plans/menus_saves_plan.md); a save that cannot be
 written is logged, and the story goes on. A run started with ``--scene`` never saves.
-Until section 2, the credits' left swipe only logs.
+
+Left on the credits opens the dissertation in Windows' default PDF viewer, as the
+original's "Open in" did (sendPDFtoiBooks, 0x100008018). The game pauses as the viewer
+takes the focus, and coming back plays the main menu, in place of the step back and
+``WelcomeBack``. With no viewer, nothing opens, the log says why, and the credits go on
+waiting for a swipe.
 """
 from __future__ import annotations
 
 import logging
+import os
 
 from . import progress as saved_progress
 from . import scenes as S
+from .. import paths
 from .recordings import Recordings, disk_name
 from .story import BUZZ, LOAD, PDF, SOLVED, Play, Save, Story
 from ..platform.audio import Audio
@@ -44,8 +51,12 @@ class StoryScreen(Screen):
     name = 'story'
 
     def __init__(self, app, audio=None, recordings=None, story=None, start_scene=None,
-                 progress=saved_progress):
+                 progress=saved_progress, open_file=None):
         super().__init__(app)
+        #: How a file opens in its default app: os.startfile, or a stand-in in the tests.
+        self.open_file = open_file or os.startfile
+        #: Whether the dissertation was opened, and coming back plays the main menu.
+        self.in_viewer = False
         self.audio = audio or Audio.shared()
         self.recordings = recordings or Recordings.shared()
         #: The save, progress.py; the tests and the by-ear tools may hand another.
@@ -87,11 +98,25 @@ class StoryScreen(Screen):
             elif effect == BUZZ:
                 self.audio.play_buzz()
             elif effect == PDF:
-                log.info('the credits would open the dissertation; plan 5 adds it')
+                self.open_dissertation()
             elif effect == LOAD:
                 self.load()
 
+    def open_dissertation(self):
+        try:
+            path = paths.dissertation()
+            if not os.path.isfile(path):
+                raise FileNotFoundError('%s is not there' % path)
+            self.open_file(path)
+        except OSError as error:
+            log.warning('the dissertation could not be opened (%s); the credits go on waiting', error)
+            self.perform(self.story.pdf_not_opened())
+            return
+        log.info('opened the dissertation, %s; coming back plays the main menu', path)
+        self.in_viewer = True
+
     def play(self, scene, start=0.0):
+        self.in_viewer = False
         log.info('scene %d, %s, from %.1f s', scene, plain_name(scene), start)
         self.audio.scene.play(self.recordings.get(S.name(scene)), start, loop=scene in S.LOOPING,
                               on_end=self.ended)
@@ -153,6 +178,12 @@ class StoryScreen(Screen):
 
     def focus_gained(self):
         if not self.paused:
+            return
+        if self.in_viewer:
+            log.info('back from the dissertation: the main menu')
+            self.paused = False
+            self.app.loop.resume()
+            self.perform(self.story.back_from_pdf())
             return
         log.info('the window has focus again: stepped back, waiting for the double tap')
         self.audio.focus_gained(self.recordings.get(S.WELCOME_BACK))

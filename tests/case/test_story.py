@@ -61,6 +61,18 @@ def test_continue_with_and_without_a_save():
     assert story.loaded(24) == [Play(24, 0.0)]
 
 
+def test_the_dissertation():
+    story = at(S.CREDITS)
+    assert story.swipe('left', 0) == [PDF]
+    assert not story.input_open and story.scene == S.CREDITS
+    assert story.pdf_not_opened() == []
+    assert story.swipe('right', 0) == [Play(S.MAIN_MENU, 0.0)]
+    story = at(S.CREDITS)
+    story.swipe('left', 0)
+    assert story.back_from_pdf() == [Play(S.MAIN_MENU, 0.0)]
+    assert not story.input_open
+
+
 def test_a_save_gone_by_the_end_of_loaded_plays_no_saved_game():
     story = at(S.MAIN_MENU, has_save=True)
     story.swipe('down', 0)

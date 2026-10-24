@@ -74,6 +74,12 @@ def audio() -> str:
     return os.path.join(game(), AUDIO_FOLDER)
 
 
+def dissertation() -> str:
+    """``game/data/text/MiNDSIGHT.pdf``: the creator's dissertation, which the credits'
+    left swipe opens (aidocks/plans/menus_saves_plan.md)."""
+    return os.path.join(game(), 'data', 'text', 'MiNDSIGHT.pdf')
+
+
 def version() -> str:
     """The port's version from ``VERSION``, beside the executable or at the repository's
     root; 'unknown' when it is missing."""

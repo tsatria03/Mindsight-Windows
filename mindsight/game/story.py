@@ -155,6 +155,19 @@ class Story:
         effects = [Save(then.next)] if then.saves else []
         return effects + self.start(then.next)
 
+    # ---- the dissertation ---------------------------------------------------------
+    def pdf_not_opened(self):
+        """No viewer opened the dissertation: the credits go on waiting for a swipe, the
+        input lock open again (the port's own case; the original's iPhone always had one)."""
+        self.input_open = True
+        return []
+
+    def back_from_pdf(self):
+        """Back from the dissertation's viewer: the main menu, as the original's
+        returnedFromBackground (0x100008278) played it, heard to the end."""
+        self.input_open = False
+        return self.start(S.MAIN_MENU)
+
     def loaded(self, scene):
         """The effects of Continue's saved scene, after LoadedSuccessfully: it plays from
         its start. With ``None``, the save gone while LoadedSuccessfully played, No saved

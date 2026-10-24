@@ -213,6 +213,56 @@ def test_a_save_that_cannot_be_written_is_only_logged():
     assert app.running
 
 
+def credits(opener):
+    app = App(loop=RunLoop())
+    audio = FakeAudio()
+    s = StoryScreen(app, audio, start_scene=S.CREDITS, progress=FakeProgress(), open_file=opener)
+    app.stack.push(s)
+    audio.scene.end()
+    audio.scene.recording = None                    # the credits are over: they wait
+    return app, audio, s
+
+
+def test_left_on_the_credits_opens_the_dissertation_and_coming_back_plays_the_main_menu():
+    opened = []
+    app, audio, s = credits(opened.append)
+    app.key_down('left', [])
+    assert len(opened) == 1 and opened[0].endswith(os.path.join('data', 'text', 'MiNDSIGHT.pdf'))
+    assert os.path.isfile(opened[0])
+    s.focus_lost()                                  # the viewer takes the focus
+    assert s.paused and app.loop.held
+    s.focus_gained()
+    assert not s.paused and not app.loop.held
+    assert audio.log[-1] == ('play', '01_main_menu_list', 0.0, False)
+    assert ('clip', 'WelcomeBack') not in audio.log
+    app.key_down('up', [])
+    assert s.story.scene == S.MAIN_MENU             # heard to the end, like every menu
+    audio.scene.end()
+    app.key_down('up', [])
+    assert s.story.scene == S.NEW_GAME
+
+
+def test_coming_back_after_the_main_menu_is_the_usual_welcome_back():
+    app, audio, s = credits(lambda path: None)
+    app.key_down('left', [])
+    s.focus_lost()
+    s.focus_gained()
+    audio.scene.end()
+    s.focus_lost()
+    s.focus_gained()
+    assert audio.log[-1] == ('clip', 'WelcomeBack')
+
+
+def test_with_no_pdf_viewer_the_credits_go_on_waiting():
+    def no_viewer(path):
+        raise OSError('no application is associated with this file')
+    app, audio, s = credits(no_viewer)
+    app.key_down('left', [])
+    assert not s.in_viewer and s.story.scene == S.CREDITS
+    app.key_down('right', [])
+    assert audio.log[-1] == ('play', '01_main_menu_list', 0.0, False)
+
+
 def test_the_real_save_end_to_end():
     from mindsight.game import progress
     for end in ('', '.bak'):
