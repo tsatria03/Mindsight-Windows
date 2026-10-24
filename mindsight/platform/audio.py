@@ -17,6 +17,10 @@ The mixer opens at 44,100 Hz, 16-bit stereo, so the binaural recordings play unt
 the 22,050 Hz sounds in system/misc are resampled by the mixer. There are no volumes of
 the game's own: the player sets the level with Windows' (aidocks/plans/foundation_plan.md).
 
+A recording gives the players either its file's path or, in a build, its bytes from
+story.dat, decrypted in memory and never written to disk (platform/pack.py); both play
+the same.
+
 The scene's position is timed on the game's own clock (platform/runloop.py's ``clock``),
 from the point it started at, held still while paused, and wrapped by the recording's
 length when it loops, so a cue time and a pause can never drift apart. A scene counts as
@@ -65,13 +69,21 @@ class ScenePlayer:
         self.ended = False
         self.on_end = None
         self.resume_from = None     # where resume() plays from, after a step back
+        self._source = None         # what the mixer streams from, kept while it plays
 
     def play(self, recording, start=0.0, loop=False, on_end=None):
         """Play ``recording`` from ``start`` seconds, looping forever if ``loop``. A
         ``on_end`` callback is called once, when it ends of itself."""
         music = self.pygame.mixer.music
         music.stop()
-        music.load(recording.source())
+        source = recording.source()
+        if isinstance(source, str):
+            music.load(source)
+        else:
+            # A recording from story.dat, decrypted in memory (platform/pack.py). The mixer
+            # reads it as it plays, so the player keeps it until the next scene.
+            music.load(source, 'mp3')
+        self._source = source
         start = max(0.0, float(start))
         music.play(loops=-1 if loop else 0, start=start)
         self.recording, self.loop, self.start = recording, loop, start

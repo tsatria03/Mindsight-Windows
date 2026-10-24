@@ -74,6 +74,25 @@ def audio() -> str:
     return os.path.join(game(), AUDIO_FOLDER)
 
 
+#: The story's recordings inside the recordings folder: what story.dat packs
+#: (platform/pack.py, aidocks/plans/build_release_plan.md).
+STORY_FOLDER = 'story'
+STORY_PACK = 'story.dat'
+#: The folder beside the executable that holds story.dat, in either kind of build.
+PACK_FOLDER = 'data'
+#: The pack's size and SHA-256, which compiler.py writes into a build's game\data\, so the
+#: game knows its own pack.
+PACK_FINGERPRINT = os.path.join('data', 'story_pack.json')
+
+
+def story_pack() -> str:
+    """Where story.dat is: data\\story.dat beside the executable in a build, or
+    dist\\data\\story.dat from source, used there only when the loose story folder is not."""
+    if FROZEN:
+        return os.path.join(EXE_DIR, PACK_FOLDER, STORY_PACK)
+    return os.path.join(ROOT, 'dist', PACK_FOLDER, STORY_PACK)
+
+
 def dissertation() -> str:
     """``game/data/text/MiNDSIGHT.pdf``: the creator's dissertation, which the credits'
     left swipe opens (aidocks/plans/menus_saves_plan.md)."""
