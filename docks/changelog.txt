@@ -1,4 +1,6 @@
 unrelease:
+
+26.10.23-1:
 The game comes as Mindsight.exe, with the story's recordings packed into one file beside it.
 Swiping left on the credits opens the creator's dissertation on the game in your PDF viewer.
 Continue on the main menu carries on from your last checkpoint.
