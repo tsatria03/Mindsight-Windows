@@ -31,6 +31,8 @@ Read from the binary ([[project_original_behaviour]]):
    - Optional: passing a checkpoint, quitting and running again, Continue carries on from there.
    - Optional: Escape quits in the menus, and pauses once the story has begun.
 
+   **Built** (2026-10-23), waiting for the dev's by-ear tests: `paths.dissertation()`; the story screen opening it through `os.startfile`, `in_viewer` making coming back play the main menu; `Story.pdf_not_opened()` opening the input lock again when no viewer opens, and `back_from_pdf()`; `progress.clear()`, for the tool only; `menu_check.py`; the story's tests grown, all passing.
+
 ## Decided
 
 - **The menus are the original's recordings**, answered by the swipe keys; the port adds no list menus of its own ([[foundation_plan]]).
