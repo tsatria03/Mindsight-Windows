@@ -10,7 +10,7 @@ metadata:
 
 ## Progress
 
-- **Section 3, built 2026-10-23, waiting for the dev's by-ear tests** (the dev: "tests past", for section 2):
+- **Section 3, FINISHED 2026-10-23,** all four by-ear tests passed (the dev: "all 4 tests past"). Built the same day:
   - Failing, the Rewind, the timed rounds running out and the piranha windows were already in section 1's rules and played by section 2's screen, so this section proves them end to end and grows the tool.
   - `tests/case/test_story_screen.py` grew three tests: a wrong street round to its fail, the Rewind and scene 13 from 20.4 s; a roof round running out to its fail, the Rewind and scene 46 from 112 s; and the piranha windows on a real looping player on the dummy driver, a swipe inside the first window after a whole loop passing, one outside failing with failure 35. The test now puts the real clock back. 97 silent tests in all, each passing.
   - `story_check.py`'s I now says, after a failure, where the Rewind goes back to, such as "failure 35, the Rewind goes back to scene 34 from 70 seconds", and in the piranha loop whether the position is inside a window, naming it, or outside every window.
