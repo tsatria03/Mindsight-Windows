@@ -166,6 +166,14 @@ PIRANHA_WINDOWS = ((15, 19), (25, 27), (31, 34), (41, 45), (50, 52), (57, 59), (
                    (77, 79), (83, 86), (93, 97), (103, 105), (109, 111), (119, 122))
 
 
+#: The scenes the original could save, the checkpoints: each one a scene's end or an
+#: answer saves as it starts. Only these count as a save (aidocks/plans/menus_saves_plan.md).
+CHECKPOINTS = frozenset(
+    [then.next for then in THEN.values() if then.saves]
+    + [a.to for table in ANSWERS.values() for a in table.values() if a.saves]
+    + [PIRANHA_PASS.to])
+
+
 def name(scene: int) -> str:
     """The binary's name for a scene's recording."""
     return NAMES[scene]
