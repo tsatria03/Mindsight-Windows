@@ -8,13 +8,13 @@ The original was played by swiping, and every word it says is a recording, with 
 
 ## Status
 
-**Plans 1 to 3 of 6 are finished.** The game starts and opens its sound, but nothing can be played yet: it opens on a stand-in screen until the story engine is built. The recordings can be heard in `audio_check.py`, below. The work is split into six plans, in `aidocks/plans/`, each written in full, with every question answered, before any was built:
+**Plans 1 to 4 of 6 are finished. The whole game can be played,** from its main menu, through every puzzle, to its ending and credits. It does not save yet, so Continue always finds no saved game, and the credits' left swipe does not open the dissertation yet; plan 5 adds both. The work is split into six plans, in `aidocks/plans/`, each written in full, with every question answered, before any was built:
 
 1. **Reading the original: finished.** Tools that read the original's binary, a check of every puzzle value against it and of every recording on disk, and a plain-text listing of all 56 scenes in `analysis/script/scenes.txt`.
 2. **The foundation: finished.** `Mindsight.py`, its logs, its crash file and its error message boxes, the timer loop, the screens, the fixed keys, the window's text, debug mode on the command line, a by-ear tool, and its silent tests.
 3. **The audio: finished.** The recordings through pygame's mixer, the Solved sound, the pause clips, a buzz the game makes itself in place of the original's vibration (160 Hz, sine, at 20 percent, chosen by ear), and pausing when the window loses focus.
-4. **The story engine: next.** The 56 scenes and the original's rules: the input lock, the puzzles, failing and the Rewind's retry points.
-5. **The menus and saves.** The original's recorded menus, the dissertation PDF from the credits, and the one saved scene.
+4. **The story engine: finished.** The 56 scenes and the original's rules, the menus included: the input lock, the cues and the buzz, every puzzle, failing and the Rewind's retry points, pause and losing focus, with five changes from the original, below.
+5. **The menus and saves: next.** The original's recorded menus, the dissertation PDF from the credits, and the one saved scene.
 6. **Building and releasing.** `compiler.py` and `releaser.py`, with the story's recordings packed into an encrypted `data\story.dat`.
 
 ## How it plays
@@ -24,9 +24,10 @@ The original was played by swiping, and every word it says is a recording, with 
 - **Before the story starts,** in the menus and on today's stand-in screen, Escape quits the game instead, while Enter and P still pause.
 - A key held with Shift, Control, Alt or the Windows key does nothing, so your screen reader's own commands never reach the game.
 - **No speech, no settings, no volume controls.** The original had none of them; set the level with Windows' own volume. An error that stops the game shows a Windows message box, which your screen reader reads.
-- **Three changes from the original,** to come with the plans that build them: a buzz where it vibrated, swipes ignored while paused, and the credits always following the ending.
+- **Pause** plays the original's pause message and holds everything; the swipes do nothing while paused. Switching to another window pauses by itself; coming back steps back 3 seconds and plays the welcome back, waiting for the double tap.
+- **Five changes from the original:** a buzz where it vibrated; swipes ignored while paused; the credits always following the ending; street rounds 2 and 3 buzzing at their cue; and a buzz as a scene begins only for the two loops, the guard and the piranhas.
 
-The keys work now, on the stand-in screen; the story, and with it the recordings in play, come with plans 4 and 5. If Windows can open no sound device, the game says so in a message box and closes, since every part of it is a recording.
+If Windows can open no sound device, the game says so in a message box and closes, since every part of it is a recording.
 
 ## Requirements
 
@@ -45,11 +46,11 @@ From the repo root:
     python Mindsight.py --exit-after 5
 
 - `--debug` turns on debug mode for that run, from source only; the window title says "Mindsight (debug)".
-- `--scene N`, in debug mode only, starts at scene N, 0 to 55, by the original's numbering; that run never saves. The story engine, plan 4, will use it.
+- `--scene N`, in debug mode only, starts at scene N, 0 to 55, by the original's numbering, as if the scene before had just ended; that run never saves. `analysis/script/scenes.txt` lists every scene.
 - `-v` writes a more detailed log.
 - `--exit-after SECONDS` quits by itself, for the build's own test.
 
-Until plan 4, the game opens on a stand-in screen, which shows the last key's meaning in the window and writes it to the log. It says nothing, since the game never speaks; to hear the keys, use `foundation_check.py`, below.
+The game opens on the original's main menu, or with `--debug --scene N` on scene N. The window shows the scene, "Listening" or "Your turn", and "Paused", for anyone helping who can see the screen. Until plan 5, saving only writes to the log where it would save.
 
 Every run writes `logs\log.txt` in the save folder, `%APPDATA%\Mindsight`, keeping the run before as `log.old.txt`. An error that stops the game writes `logs\crash.txt` there and shows a message box saying so.
 
@@ -58,7 +59,7 @@ Every run writes `logs\log.txt` in the save folder, `%APPDATA%\Mindsight`, keepi
     python tests/suite.py
     python tests/suite.py keys runloop
 
-The silent tests are in `tests/case/`, 71 of them in nine files: `test_paths`, `test_entry`, `test_runloop`, `test_keys`, `test_screens`, `test_mp3`, `test_recordings`, `test_audio` and `test_buzz`. Each file imports `_quiet.py` first, which gives it a throwaway save, keeps every message box shut, and uses SDL's dummy video and sound, so nothing is heard, nothing opens and your own save is never touched. `tests/suite.py` runs them eight at once, runs a failed file again alone, and writes the results to `tests/results/`, which git ignores.
+The silent tests are in `tests/case/`, 102 of them in eleven files: `test_paths`, `test_entry`, `test_runloop`, `test_keys`, `test_screens`, `test_mp3`, `test_recordings`, `test_audio`, `test_buzz`, `test_story` and `test_story_screen`. Each file imports `_quiet.py` first, which gives it a throwaway save, keeps every message box shut, and uses SDL's dummy video and sound, so nothing is heard, nothing opens and your own save is never touched. `tests/suite.py` runs them eight at once, runs a failed file again alone, and writes the results to `tests/results/`, which git ignores.
 
 ## Trying it by ear
 
@@ -67,11 +68,14 @@ The tools in `tests/interact/` are for trying things by ear. Each speaks through
     python tests/interact/foundation_check.py
     python tests/interact/audio_check.py
     python tests/interact/buzz_check.py
+    python tests/interact/story_check.py
+    python tests/interact/story_check.py --scene 47
 
 Every tool quits with Escape or Alt+F4, and wherever a tool uses Up or Down, W or S does the same.
 
 - `foundation_check.py`: the game's own keys and timers, each key spoken with its meaning and a key with a modifier spoken as ignored; the pause is Enter or P here, since Escape quits. 1 and 2 show the game's two message boxes for real, T starts a countdown, Space holds or resumes it, switching windows is spoken, and H says the keys again.
 - `audio_check.py`: any of the 56 scenes through the game's own players. Up or W and Down or S choose a scene, Enter plays it, Left and Right move 5 seconds, T types a point to play from, Space pauses, I says the position, O plays Solved, 2 the buzz, E and Q or Page Up and Page Down try the buzz's level, and 3 plays WelcomeBack. Switching windows pauses the scene; coming back steps it back 3 seconds with WelcomeBack.
+- `story_check.py`: the game's own story screen, in debug mode, never saving, with the game's keys and Enter or P to pause. `--scene N` starts it at scene N; T then a number and Enter jumps to a scene; I says the scene, where it is, the failure and where the Rewind will go, whether a swipe counts, and in the piranha loop whether it is inside a window; L skips to 5 seconds before the scene's end.
 - `buzz_check.py`: tunes the buzz. Up or W and Down or S move its frequency 5 Hz, Left and Right change its shape, Space plays it, and I says its values. It never changes the game.
 
 ## The tools
@@ -96,7 +100,7 @@ Scripts for reading the original, described in full in `tools/README.md`. None p
   - `game/data/audio/`: the 60 recordings, MP3, converted from the original's m4a: `story/sceen/` (45), `story/speech/` (10) and `system/misc/` (5).
   - `game/data/text/MiNDSIGHT.pdf`: the creator's 2009 dissertation on the game.
 - `Mindsight.py`: the entry script.
-- `mindsight/`: the port's Python package: `paths.py`, `app.py` (the main loop), `platform/` (the message box, the timer loop, the keys, the sound, the buzz and the MP3 reader), `ui/` (the screen stack) and `game/` (the recordings, the scene table so far, and the stand-in screen).
+- `mindsight/`: the port's Python package: `paths.py`, `app.py` (the main loop), `platform/` (the message box, the timer loop, the keys, the sound, the buzz and the MP3 reader), `ui/` (the screen stack) and `game/` (the recordings, the scene table, the rules in `story.py` and the story screen).
 - `tools/`: the scripts for reading the original.
 - `analysis/script/scenes.txt`: every scene as plain text; find "Scene <number>:" to jump to one.
 - `tests/case/`: the silent tests, with `tests/suite.py` to run them, and `tests/interact/`: the tools to try things by ear.
