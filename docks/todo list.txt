@@ -1,0 +1,10 @@
+##Unfinished.
+
+Add saving, so that Continue on the main menu carries on from where you left off.
+Make the credits' left swipe open the creator's dissertation on the game.
+
+##Finished.
+
+The whole game can be played, from its main menu, through every puzzle, to its ending and credits.
+A short buzz plays where the original vibrated.
+Pausing works with Escape, Enter or P, and switching to another window pauses the game by itself.

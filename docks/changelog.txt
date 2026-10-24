@@ -1,0 +1,12 @@
+unrelease:
+A scene buzzes as it begins only for the two puzzles that loop, the guard and the piranhas.
+The second and third rounds of the street puzzle buzz when they start to listen.
+The credits always follow the ending.
+Switching to another window pauses the game, and coming back steps back 3 seconds and welcomes you back.
+Escape, Enter or P pauses and resumes the game, and the swipes do nothing while it is paused.
+Wrong answers, and timed puzzles running out, play the rewind and take you back to try again.
+Every puzzle can be played, with the original's answers and timings.
+A short buzz plays where the original vibrated, to say that a swipe counts now.
+The game opens on its main menu and can be played through to its credits.
+The arrow keys, or W, A, S and D, are the four swipes.
+Errors are shown in a message box that your screen reader reads.
