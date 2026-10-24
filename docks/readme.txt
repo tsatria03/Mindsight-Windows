@@ -10,6 +10,11 @@ Headphones
 Headphones are needed.
 The recordings were made with a dummy head microphone, so their sound moves around you in three dimensions, and that only works in headphones.
 
+Starting the game
+
+Extract the whole Mindsight-Windows folder from the zip, and start Mindsight.exe in it.
+Keep the folder together: the story's recordings are in story.dat, in the data folder beside Mindsight.exe, and the rest of the game is beside it too.
+
 What it has
 
 The whole game can be played, from its main menu, through the story and its puzzles, to its ending and its credits, with the original's recordings.
