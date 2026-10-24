@@ -6,11 +6,11 @@ metadata:
   type: project
 ---
 
-**Status: being built,** one section at a time, since it has by-ear tests ([[feedback_next_section_on_pass]]); reviewed in one message on 2026-10-23, its two questions answered.
+**Status: FINISHED 2026-10-23,** its last section's by-ear tests passed. Built one section at a time; reviewed in one message the same day, its two questions answered.
 
 ## Progress
 
-- **Section 4, built 2026-10-23, waiting for the dev's by-ear tests** (the dev: "all 4 tests past", for section 3):
+- **Section 4, FINISHED 2026-10-23,** its by-ear tests passed, the credits' buzz as they began turned down on the way (the dev: "Aside from that, the rest of the test past."). Built the same day (the dev: "all 4 tests past", for section 3):
   - `StoryScreen` pauses on the double tap, Escape, Enter or P: the scene and every timer held, `pause_menu` on the clip channel; the double tap again stops the clip and plays on. While paused, swipes and the cue's buzz do nothing. In the menus Escape quits, before the gesture, while Enter and P pause.
   - Losing focus holds the scene and the timers, with no clip; coming back steps the scene back 3 s and plays `WelcomeBack`, still paused until the double tap ([[audio_plan]]).
   - **Pausing while a scene waits,** its recording over, plays only the clip, and resuming only stops it: the scene goes on waiting. A small change from the original, whose player, at its end, would play the recording again from its start on resuming; said to the dev as it was built.
@@ -74,6 +74,7 @@ Plan 4 ([[reading_original_plan]] lists the order). It stands on [[foundation_pl
   - L: skip to 5 seconds before the playing scene's end, to hear endings and what follows quickly
   - Escape or Alt+F4: quit ([[feedback_test_tools_in_interact]])
 - **Every scene can buzz at its cue: the buzz resets whenever a scene starts** (the dev, 2026-10-23: "yes please", to the proposal after section 1). A departure from the original, whose `justVibrated` was cleared only as a recording ended of itself (0x100008578), so street rounds 2 and 3, reached by answering the round before, never vibrated at their 11-second cue ([[project_original_behaviour]]). In the port they buzz there; nothing else changes, since no other scene reached by an answer has a cue.
+- **A buzz at a scene's start only for the two looping puzzles** (the dev, 2026-10-23, after hearing the credits buzz as they began: "Why does it buzz at the beginning of sceen 5, the credits screen?", then "Yes. I agree with that."). A departure from the original, which, testing the scene current once the next had started (0x1000085e0), also vibrated as the credits, the main menu, the tones and the safe began. In the port, after a recording ends, the buzz plays for a waiting scene whose own recording just ended, and as the guard's loop, 26, and the piranha loop, 35, begin, since they never end and it is their only cue.
 - **The buzz** plays at each timed scene's cue and when a waiting scene's recording ends, where the original vibrated, once per recording ([[audio_plan]]).
 - **The keys** are the four swipes and the double tap, as [[foundation_plan]] fixes them.
 - **The story's timers run on the timer loop**, held while paused.

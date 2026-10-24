@@ -277,7 +277,7 @@ def test_the_ending_goes_to_the_credits():
     audio.scene.end()
     assert audio.log[-1] == ('play', '43_end_game_congrats', 0.0, False)
     audio.scene.end()
-    assert audio.log[-2:] == [('play', '04_credits_menu_choice', 0.0, False), ('buzz',)]
+    assert audio.log[-1] == ('play', '04_credits_menu_choice', 0.0, False)
     assert s.escape_quits
 
 

@@ -114,9 +114,10 @@ OPEN_AT_START = frozenset({35})
 GATES = {11: 22.0, 14: 13.0, 15: 10.0, 16: 10.0, 19: 21.0, 47: 7.0, 49: 7.0, 51: 7.0}
 #: The vibration, the port's buzz, at this many seconds into the scene (vibrateIfNecessary).
 CUES = {11: 22.0, 14: 13.0, 15: 11.0, 16: 11.0, 19: 21.0, 47: 7.0, 49: 8.4, 51: 7.0}
-#: The vibration, the port's buzz, after a recording ends of itself, when the scene then
-#: current is one of these (audioPlayerDidFinishPlaying:, 0x100008518): as one of them
-#: ends while it waits, or as one begins after the recording before it ended.
+#: The vibration, after a recording ends of itself, when the scene then current is one of
+#: these (audioPlayerDidFinishPlaying:, 0x100008518): in the original, as one of them ends
+#: while it waits, or as one begins after the recording before it ended. The port buzzes
+#: as one ends, and as the two looping ones, 26 and 35, begin (story.py).
 CUE_AT_END = frozenset({1, 2, 5, 6, 26, 35, 39, 43})
 
 # ---- the answers (pushDirection: and its handlers) ------------------------------

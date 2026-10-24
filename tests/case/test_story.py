@@ -39,7 +39,7 @@ def test_the_game_opens_locked_on_the_main_menu():
 def test_the_menus():
     story = at(S.MAIN_MENU)
     assert story.swipe('left', 0) == [Play(4, 0.0)]
-    assert story.ended() == [Play(1, 0.0), BUZZ]    # the main menu, buzzing as it begins
+    assert story.ended() == [Play(1, 0.0)]           # the port: no buzz as the main menu begins
     assert story.swipe('right', 0) == [Play(5, 0.0)]
     assert story.ended() == [BUZZ]
     assert story.swipe('left', 0) == [PDF]
@@ -135,12 +135,12 @@ def test_the_piranha_windows():
 
 def test_the_tones_and_the_safe_must_be_heard_to_the_end():
     story = at(38)
-    assert story.ended() == [Save(39), Play(39, 0.0), BUZZ]
+    assert story.ended() == [Save(39), Play(39, 0.0)]
     assert not story.input_open and story.swipe('left', 100) == []
     assert story.ended() == [BUZZ]
     assert story.swipe('right', 0) == [Play(41, 0.0)]
     assert story.ended() == [Play(0, 0.0)]
-    assert story.ended() == [Play(39, 42.0), BUZZ]
+    assert story.ended() == [Play(39, 42.0)]
     assert story.ended() == [BUZZ]
     assert story.swipe('left', 0) == [SOLVED, Save(40), Play(40, 0.0)]
     story = Story()
@@ -153,7 +153,7 @@ def test_the_tones_and_the_safe_must_be_heard_to_the_end():
     story.ended()
     assert story.swipe('up', 0) == [Play(45, 0.0)]
     story.ended()
-    assert story.ended() == [Play(43, 68.5), BUZZ]
+    assert story.ended() == [Play(43, 68.5)]
 
 
 def test_the_roof():
@@ -184,7 +184,8 @@ def test_the_credits_always_follow_the_ending():
     assert story.failure == 14
     story.start(54)
     assert story.ended() == [Play(55, 0.0)] and story.failure is None
-    assert story.ended() == [Play(5, 0.0), BUZZ]
+    assert story.ended() == [Play(5, 0.0)]          # no buzz as the credits begin
+    assert story.ended() == [BUZZ]                  # but as their recording ends, waiting
 
 
 def test_your_turn():

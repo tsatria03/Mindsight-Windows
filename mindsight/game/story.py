@@ -9,7 +9,12 @@ with the port's changes:
 * the screen sends no swipes while paused, so a swipe while paused does nothing;
 * the buzz resets whenever a scene starts, so street rounds 2 and 3 buzz at their cue.
   In the original, ``justVibrated`` was cleared only as a recording ended of itself, so
-  those two rounds, reached by answering, never vibrated.
+  those two rounds, reached by answering, never vibrated;
+* after a recording ends, the buzz plays for a waiting scene whose own recording just
+  ended, and for the two looping puzzles, 26 and 35, as they begin, since they never end;
+  never as another waiting scene begins. The original, testing the scene current once
+  the next had started, also vibrated as the credits, the main menu, the tones and the
+  safe began.
 
 The input lock, ``userInputAvailable``, starts closed, so the main menu must be heard to
 the end. It opens as a recording ends of itself, and stays open into the next scene;
@@ -119,15 +124,17 @@ class Story:
         """The effects of the scene's recording ending of itself.
 
         As audioPlayerDidFinishPlaying:successfully: (0x100008518) does: the lock opens and
-        the buzz resets, what follows starts, and then the buzz plays if the scene now
-        current is one of CUE_AT_END. So it buzzes as a waiting scene's recording ends, and
-        also as one of those scenes begins after the recording before it ended, such as
-        the guard's loop after scene 25.
+        the buzz resets, and what follows starts. Then the buzz plays if the scene now
+        current is one of CUE_AT_END, and either it is the scene that just ended, waiting
+        for a swipe, or it is one of the two looping puzzles beginning, whose only cue this
+        is (the port's change: the original also vibrated as the other waiting scenes began).
         """
+        ended = self.scene
         self.input_open = True
         self.buzzed = False
         effects = self._what_follows()
-        if self.scene in S.CUE_AT_END:
+        now = self.scene
+        if now in S.CUE_AT_END and (now == ended or now in S.LOOPING):
             self.buzzed = True
             effects.append(BUZZ)
         return effects

@@ -361,6 +361,7 @@ def write_listing(names, flow, found, lengths, loops, vibrate_end, locked_off):
         "The port ignores swipes while paused; the original still acted on them.",
         "The port always plays the credits after the ending; the original went back to a retry point if the player had failed any puzzle that run.",
         "The port buzzes at street rounds 2 and 3's cue; the original never vibrated there, since it reset its vibration only as a recording ended.",
+        "The port buzzes as a scene begins only for the two loops, scenes 26 and 35; the original also vibrated as the main menu, the credits, the tones and the safe began.",
         "",
     ]
     for k in order:
